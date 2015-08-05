@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html manifest="manifest.appcache">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bookmarks Manager</title>
+  <link rel="stylesheet" href="/styles/bootstrap.min.css">
+</head>
+<body>
+<div id="bm-app">
+</div>
+<script src="/libs/system.js"></script>
+
+<script>
+  var config = {
+    baseUrl: '.',
+    paths: {
+      react: '/libs/react.min.js',
+      'react-bootstrap': '/libs/react-bootstrap.min.js'
+    }
+  };
+  System.config(config);
+  System.import('app.js');
+</script>
+</body>
+</html>
