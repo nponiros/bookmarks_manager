@@ -1,15 +1,18 @@
 import React from 'react';
 import {Col, Row} from 'react-bootstrap';
 
-import {Panel} from 'react-bootstrap';
+import {Glyphicon, Panel} from 'react-bootstrap';
 
-// TODO edit button
-// TODO delete button
+import BookmarkForm from './bookmark_form.js';
+import {remove, update} from '../actions/bookmark_actions.js';
+
+// TODO data should be state
 class Bookmark extends React.Component {
   constructor() {
     super();
     this.state = {
-      open: false
+      open: false,
+      editMode: false
     };
   }
 
@@ -19,20 +22,50 @@ class Bookmark extends React.Component {
     });
   }
 
+  handleDelete(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    remove(this.props.data._id);
+  }
+
+  handleEdit() {
+    this.setState({
+      editMode: true
+    });
+  }
+
+  handleSubmit(bookmark) {
+    this.setState({
+      open: false,
+      editMode: false
+    });
+    bookmark._id = this.props.data._id;
+    update(bookmark);
+  }
+
   renderTitle() {
     return <Row>
       <Col xs={12} className="h3" componentClass="h2">
-        <Col xs={10} componentClass="span">
+        <Col xs={8} sm={10} componentClass="span">
           {this.props.data.title}
+        </Col>
+        <Col xs={4} sm={2}>
+          <Col xs={6} className="align-right">
+            <Glyphicon onClick={() => this.handleEdit()} glyph="edit"/>
+          </Col>
+          <Col xs={6} className="align-right">
+            <Glyphicon onClick={(event) => this.handleDelete(event)} glyph="trash"/>
+          </Col>
         </Col>
       </Col>
     </Row>;
   }
 
-  render() {
-    return <Panel header={this.renderTitle()} bsStyle="primary" collapsible expanded={this.state.open}
-                  onSelect={() => this.handleSelect()}>
-      <Row>
+  renderBody() {
+    if (this.state.editMode) {
+      return <BookmarkForm handleSubmit={(data) => this.handleSubmit(data)} defaultData={this.props.data}/>;
+    } else {
+      return <Row>
         <Col sm={6} smPush={6}>
           <p><strong>Description</strong> {this.props.data.description}</p>
         </Col>
@@ -43,7 +76,14 @@ class Bookmark extends React.Component {
 
           <p><strong>Date</strong> {this.props.data.dateWritten}</p>
         </Col>
-      </Row>
+      </Row>;
+    }
+  }
+
+  render() {
+    return <Panel header={this.renderTitle()} bsStyle="primary" collapsible expanded={this.state.open}
+                  onSelect={() => this.handleSelect()}>
+      {this.renderBody()}
     </Panel>;
   }
 }
