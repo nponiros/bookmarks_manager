@@ -29,7 +29,7 @@ module.exports = function(grunt) {
             expand: true,
             flatten: true,
             cwd: './node_modules/',
-            src: ['react/dist/react.min.js', 'systemjs/dist/system.js', 'jquery/dist/jquery.min.js', 'bootstrap/dist/js/bootstrap.min.js', 'react-bootstrap/dist/react-bootstrap.min.js'],
+            src: ['react/dist/react.min.js', 'systemjs/dist/system.js', 'jquery/dist/jquery.min.js', 'bootstrap/dist/js/bootstrap.min.js', 'react-bootstrap/dist/react-bootstrap.min.js', 'core-js/client/core.min.js'],
             dest: 'dist/libs/'
           },
           {
