@@ -44,8 +44,15 @@ module.exports = function(grunt) {
             flatten: true,
             cwd: 'node_modules/',
             src: ['bootstrap/dist/fonts/glyphicons-halflings-regular.woff2'],
-            dest: 'dist/fonts'
-          }]
+            dest: 'dist/fonts/'
+          },{
+            expand: true,
+            flatten: true,
+            cwd: 'vendor/',
+            src: ['flux.js'],
+            dest: 'dist/libs/'
+          }
+        ]
       }
     },
     eslint: {

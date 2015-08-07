@@ -1,20 +1,37 @@
 import React from 'react';
-import {Col, Row} from 'react-bootstrap';
-
 import {PanelGroup} from 'react-bootstrap';
 
 import Bookmark from './bookmark.js';
+import BookmarksStore from '../stores/bookmarks_store.js';
+
+import {CHANGE} from '../constants/bookmarks_constants.js';
 
 class BookmarksList extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      data: []
+    };
+    BookmarksStore.getAllBookmarks();
+  }
+
+  componentDidMount() {
+    BookmarksStore.addListener(CHANGE, (data) => this.onChange(data));
+  }
+
+  componentWillUnmount() {
+    BookmarksStore.removeListener(CHANGE, this.onChange);
+  }
+
+  onChange(data) {
+    this.setState({data});
+  }
+
   render() {
-    const bookmarks = this.props.data.map((bookmark, index) => {
-      return <Bookmark data={bookmark} key={bookmark._id} eventKey={index + 1}/>;
+    const bookmarks = this.state.data.map((bookmark) => {
+      return <Bookmark data={bookmark} key={bookmark._id}/>;
     });
-    return <Row>
-      <Col md={8} mdOffset={2} sm={10} smOffset={1}>
-        <PanelGroup accordion>{bookmarks}</PanelGroup>
-      </Col>
-    </Row>;
+    return <PanelGroup>{bookmarks}</PanelGroup>;
   }
 }
 

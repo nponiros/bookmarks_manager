@@ -1,11 +1,10 @@
 import React from 'react';
 import {Col, Row} from 'react-bootstrap';
+import {Panel, Glyphicon} from 'react-bootstrap';
 
-import {Panel} from 'react-bootstrap';
+import Bookmark from './bookmark.js';
 
-// TODO edit button
-// TODO delete button
-class Bookmark extends React.Component {
+class BookmarkPanel extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -25,6 +24,9 @@ class Bookmark extends React.Component {
         <Col xs={10} componentClass="span">
           {this.props.data.title}
         </Col>
+        <Col xs={2} componentClass="span" className="text-right">
+          <Glyphicon glyph="plus"/>
+        </Col>
       </Col>
     </Row>;
   }
@@ -32,20 +34,9 @@ class Bookmark extends React.Component {
   render() {
     return <Panel header={this.renderTitle()} bsStyle="primary" collapsible expanded={this.state.open}
                   onSelect={() => this.handleSelect()}>
-      <Row>
-        <Col sm={6} smPush={6}>
-          <p><strong>Description</strong> {this.props.data.description}</p>
-        </Col>
-        <Col sm={6} smPull={6}>
-          <p><strong>Url</strong> {this.props.data.url}</p>
-
-          <p><strong>Author</strong> {this.props.data.author}</p>
-
-          <p><strong>Date</strong> {this.props.data.dateWritten}</p>
-        </Col>
-      </Row>
+      <Bookmark data={this.props.data}/>
     </Panel>;
   }
 }
 
-export default Bookmark;
+export default BookmarkPanel;

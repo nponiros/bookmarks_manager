@@ -12,8 +12,5 @@ Offline (via appcache and indexeddb) bookmarks manager for the browser
 
 ## TODO
 
-* Better architecture, probably using flux
-  * Better split up components
-* reset form on save
 * validation
 * Define props types
