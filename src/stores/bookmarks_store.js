@@ -1,11 +1,13 @@
 import AppDispatcher from '../dispatcher/app_dispatcher.js';
-import {CREATE, CHANGE, UPDATE, REMOVE} from '../constants/bookmarks_constants.js';
+import {CREATE, CHANGE, UPDATE, REMOVE, DB_STORE_NAME} from '../constants/bookmarks_constants.js';
 import EventEmitter from '../event_emitter.js';
 
-import {getAll} from '../db/db_wrapper.js';
+import getInstance from '../db/db_wrapper.js';
+
+const dbWrapperInstance = getInstance(DB_STORE_NAME);
 
 function getAllBookmarks() {
-  getAll({}).then((bookmarks) => {
+  dbWrapperInstance.getAll({}).then((bookmarks) => {
     this._bookmarks = bookmarks;
     this.emit(CHANGE, this._bookmarks);
   }).catch((e) => {

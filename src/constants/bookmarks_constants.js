@@ -5,3 +5,5 @@ export const UPDATE = 'bookmark_updated';
 
 // Used in the store to signal a change in the data
 export const CHANGE = 'bookmarks_changed';
+
+export const DB_STORE_NAME = 'Bookmarks';

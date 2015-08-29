@@ -1,10 +1,12 @@
 import AppDispatcher from '../dispatcher/app_dispatcher.js';
-import {CREATE, REMOVE, UPDATE} from '../constants/bookmarks_constants.js';
+import {CREATE, REMOVE, UPDATE, DB_STORE_NAME} from '../constants/bookmarks_constants.js';
 
-import {save, remove as rm} from '../db/db_wrapper.js';
+import getInstance from '../db/db_wrapper.js';
+
+const dbWrapperInstance = getInstance(DB_STORE_NAME);
 
 export function create(bookmark) {
-  save(bookmark).then((id) => {
+  dbWrapperInstance.save(bookmark).then((id) => {
     bookmark._id = id;
     AppDispatcher.dispatch({
       actionType: CREATE,
@@ -16,7 +18,7 @@ export function create(bookmark) {
 }
 
 export function remove(bookmarkId) {
-  rm(bookmarkId).then(() => {
+  dbWrapperInstance.remove(bookmarkId).then(() => {
     AppDispatcher.dispatch({
       actionType: REMOVE,
       data: bookmarkId
@@ -27,7 +29,7 @@ export function remove(bookmarkId) {
 }
 
 export function update(bookmark) {
-  save(bookmark).then(() => {
+  dbWrapperInstance.save(bookmark).then(() => {
     AppDispatcher.dispatch({
       actionType: UPDATE,
       data: bookmark
