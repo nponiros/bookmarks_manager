@@ -10,7 +10,7 @@ class BmApp extends React.Component {
     return <Grid fluid>
       <Row>
         <Col md={8} mdOffset={2} sm={10} smOffset={1}>
-          <AddNewBookmark onBookmarkSubmit={(bookmark) => this.handleBookmarkSubmit(bookmark)}/>
+          <AddNewBookmark/>
           <BookmarksList/>
         </Col>
       </Row>
