@@ -10,7 +10,8 @@ const emptyData = {
   author: '',
   dateWritten: '',
   url: '',
-  description: ''
+  description: '',
+  tags: []
 };
 
 class AddNewBookmark extends React.Component {
@@ -50,10 +51,15 @@ class AddNewBookmark extends React.Component {
   }
 
   render() {
-    return <Panel header={this.renderTitle()} bsStyle="primary" collapsible expanded={this.state.open}
+    if (this.state.open) {
+      return <Panel header={this.renderTitle()} bsStyle="primary" collapsible expanded={this.state.open}
                   onSelect={() => this.handleSelect()}>
       <BookmarkForm defaultData={this.state.data} handleSubmit={(data) => this.handleSubmit(data)}/>
-    </Panel>;
+      </Panel>;
+    } else {
+      return <Panel header={this.renderTitle()} bsStyle="primary" collapsible expanded={this.state.open}
+                    onSelect={() => this.handleSelect()}></Panel>;
+    }
   }
 }
 

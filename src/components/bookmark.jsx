@@ -4,6 +4,7 @@ import {Col, Row} from 'react-bootstrap';
 import {Glyphicon, Panel} from 'react-bootstrap';
 
 import BookmarkForm from './bookmark_form.js';
+import TagsList from './tags_list.js';
 import {remove, update} from '../actions/bookmark_actions.js';
 
 // TODO data should be state
@@ -28,7 +29,11 @@ class Bookmark extends React.Component {
     remove(this.props.data._id);
   }
 
-  handleEdit() {
+  handleEdit(event) {
+    if (this.state.open) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
     this.setState({
       editMode: true
     });
@@ -51,7 +56,7 @@ class Bookmark extends React.Component {
         </Col>
         <Col xs={4} sm={2}>
           <Col xs={6} className="align-right">
-            <Glyphicon onClick={() => this.handleEdit()} glyph="edit"/>
+            <Glyphicon onClick={(event) => this.handleEdit(event)} glyph="edit"/>
           </Col>
           <Col xs={6} className="align-right">
             <Glyphicon onClick={(event) => this.handleDelete(event)} glyph="trash"/>
@@ -67,24 +72,32 @@ class Bookmark extends React.Component {
     } else {
       return <Row>
         <Col sm={6} smPush={6}>
-          <p><strong>Description</strong> {this.props.data.description}</p>
+          <p><strong>Description:</strong> {this.props.data.description}</p>
         </Col>
         <Col sm={6} smPull={6}>
-          <p><strong>Url</strong> {this.props.data.url}</p>
+          <p><strong>URL:</strong> <a href={this.props.data.url}>{this.props.data.url}</a></p>
 
-          <p><strong>Author</strong> {this.props.data.author}</p>
+          <p><strong>Author:</strong> {this.props.data.author}</p>
 
-          <p><strong>Date</strong> {this.props.data.dateWritten}</p>
+          <p><strong>Date:</strong> {this.props.data.dateWritten}</p>
+        </Col>
+        <Col sm={12}>
+          <TagsList editMode={this.state.editMode} selectedTags={this.props.data.tags}></TagsList>
         </Col>
       </Row>;
     }
   }
 
   render() {
-    return <Panel header={this.renderTitle()} bsStyle="primary" collapsible expanded={this.state.open}
+    if (this.state.open) {
+      return <Panel header={this.renderTitle()} bsStyle="primary" collapsible expanded={this.state.open}
                   onSelect={() => this.handleSelect()}>
-      {this.renderBody()}
-    </Panel>;
+        {this.renderBody()}
+      </Panel>;
+    } else {
+      return <Panel header={this.renderTitle()} bsStyle="primary" collapsible expanded={this.state.open}
+                    onSelect={() => this.handleSelect()}></Panel>;
+    }
   }
 }
 
