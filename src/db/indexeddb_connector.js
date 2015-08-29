@@ -1,15 +1,22 @@
 import cuid from './cuid.js';
 
+import {DB_STORE_NAME as BOOKMARKS_STORE} from '../constants/bookmarks_constants.js';
+import {DB_STORE_NAME as TAGS_STORE} from '../constants/tags_constants.js';
+
 const IDBTransactionModes = {
   'READ_ONLY': 'readonly',
   'READ_WRITE': 'readwrite',
   'VERSION_CHANGE': 'versionchange'
 };
 
-const version = 1;
+const version = 2;
 const dbName = 'BookmarksManager';
-const dbstoreNames = ['Bookmarks'];
+const dbStoreNames = [BOOKMARKS_STORE, TAGS_STORE];
 
+let save;
+let getAll;
+
+// TODO: needs a rewrite!
 function open() {
   const promise = new Promise((resolve, reject) => {
     const request = indexedDB.open(dbName, version);
@@ -24,9 +31,26 @@ function open() {
       };
 
       // Create stores
-      // TODO check if store names exist
-      dbstoreNames.forEach((dbstoreName) => {
-        db.createObjectStore(dbstoreName, options);
+      const existingStores = Array.prototype.slice.call(db.objectStoreNames);
+      dbStoreNames.forEach((dbstoreName) => {
+        const storeExists = existingStores.indexOf(dbstoreName) !== -1;
+        if (!storeExists) {
+          db.createObjectStore(dbstoreName, options);
+        }
+      });
+
+      // Version 2 has added tags, all bookmarks must be updated with tags
+      getAll(BOOKMARKS_STORE, () => true).then(function(bookmarks) {
+        const bookmarkPromises = bookmarks.map((bookmark) => {
+          bookmark.tags = [];
+          return save(BOOKMARKS_STORE, bookmark);
+        });
+        Promise.all(bookmarkPromises).then(function() {
+          resolve(db);
+        }).catch(function(err) {
+          console.log('Upgrade error', err);
+          reject(err);
+        });
       });
     };
 
