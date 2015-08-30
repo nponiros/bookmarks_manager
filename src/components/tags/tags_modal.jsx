@@ -29,7 +29,7 @@ class TagsModal extends React.Component {
   render() {
     return <div>
       <ViewTagsList tagIds={this.props.selectedTagIds}/>
-      <Button onClick={() => this.openModal()}>Add</Button>
+      <Button onClick={() => this.openModal()}>Edit tags</Button>
       <Modal show={this.state.showModal} onHide={() => this.closeModal()}>
         <Modal.Header closeButton>
           <Modal.Title>Tags</Modal.Title>
