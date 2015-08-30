@@ -8,6 +8,7 @@
 <body>
 <div id="bm-app">
 </div>
+<!-- build:remove:dev -->
 <script src="/libs/core.min.js"></script>
 <script src="/libs/system.js"></script>
 
@@ -23,5 +24,24 @@
   System.config(config);
   System.import('app.js');
 </script>
+<!-- /build -->
+<!-- build:remove:prod -->
+<script src="/libs/core.js"></script>
+<script src="/libs/system.js"></script>
+
+<script>
+  var config = {
+    baseUrl: '.',
+    paths: {
+      react: '/libs/react.js',
+      'react-bootstrap': '/libs/react-bootstrap.js',
+      flux: '/libs/flux.js'
+    }
+  };
+  System.config(config);
+  System.import('app.js');
+</script>
+<!-- /build -->
+
 </body>
 </html>
