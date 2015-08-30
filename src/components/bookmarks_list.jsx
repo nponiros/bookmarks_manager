@@ -34,5 +34,6 @@ class BookmarksList extends React.Component {
     return <PanelGroup>{bookmarks}</PanelGroup>;
   }
 }
+BookmarksList.propTypes = {};
 
 export default BookmarksList;

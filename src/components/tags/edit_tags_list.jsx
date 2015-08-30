@@ -5,7 +5,6 @@ import EditTag from './edit_tag.js';
 
 import {CHANGE} from '../../constants/tags_constants.js';
 
-// TODO: Tag selection/deselection not working as should
 class EditTagsList extends React.Component {
   constructor() {
     super();
@@ -48,9 +47,9 @@ class EditTagsList extends React.Component {
     return <ul className="list-inline">{this.renderTags()}</ul>;
   }
 }
-
 EditTagsList.propTypes = {
   onTagSelectionChanged: React.PropTypes.func.isRequired,
   selectedTagIds: React.PropTypes.array.isRequired
 };
+
 export default EditTagsList;

@@ -62,5 +62,6 @@ class AddNewBookmark extends React.Component {
     }
   }
 }
+AddNewBookmark.propTypes = {};
 
 export default AddNewBookmark;

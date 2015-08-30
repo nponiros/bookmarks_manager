@@ -17,5 +17,6 @@ class BmApp extends React.Component {
     </Grid>;
   }
 }
+BmApp.propTypes = {};
 
 export default BmApp;

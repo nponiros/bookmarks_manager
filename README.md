@@ -13,4 +13,3 @@ Offline (via appcache and indexeddb) bookmarks manager for the browser
 ## TODO
 
 * validation
-* Define props types

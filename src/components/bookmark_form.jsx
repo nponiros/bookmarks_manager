@@ -49,5 +49,17 @@ class BookmarkForm extends React.Component {
     </form>;
   }
 }
+// TODO: proptypes will change after validation is added
+BookmarkForm.propTypes = {
+  defaultData: React.PropTypes.shape({
+    _id: React.PropTypes.string,
+    description: React.PropTypes.string,
+    title: React.PropTypes.string,
+    url: React.PropTypes.string,
+    author: React.PropTypes.string,
+    dateWritten: React.PropTypes.string,
+    tagIds: React.PropTypes.arrayOf(React.PropTypes.string)
+  }).isRequired
+};
 
 export default BookmarkForm;

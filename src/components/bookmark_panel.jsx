@@ -38,5 +38,17 @@ class BookmarkPanel extends React.Component {
     </Panel>;
   }
 }
+// TODO: proptypes will change after validation is added
+BookmarkPanel.propTypes = {
+  data: React.PropTypes.shape({
+    _id: React.PropTypes.string.isRequired,
+    description: React.PropTypes.string,
+    title: React.PropTypes.string.isRequired,
+    url: React.PropTypes.string,
+    author: React.PropTypes.string,
+    dateWritten: React.PropTypes.string,
+    tagIds: React.PropTypes.arrayOf(React.PropTypes.string)
+  }).isRequired
+};
 
 export default BookmarkPanel;

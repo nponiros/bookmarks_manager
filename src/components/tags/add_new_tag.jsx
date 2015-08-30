@@ -21,5 +21,6 @@ class AddNewTag extends React.Component {
     </form>;
   }
 }
+AddNewTag.propTypes = {};
 
 export default AddNewTag;
