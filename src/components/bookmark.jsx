@@ -100,7 +100,6 @@ class Bookmark extends React.Component {
     }
   }
 }
-// TODO: proptypes will change after validation is added
 Bookmark.propTypes = {
   data: React.PropTypes.shape({
     _id: React.PropTypes.string.isRequired,

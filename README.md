@@ -11,5 +11,3 @@ Offline (via appcache and indexeddb) bookmarks manager for the browser
   * Make sure the correct type is returned for the manifest.appcache file
 
 ## TODO
-
-* validation
