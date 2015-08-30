@@ -11,7 +11,7 @@ const emptyData = {
   dateWritten: '',
   url: '',
   description: '',
-  tags: []
+  tagIds: []
 };
 
 class AddNewBookmark extends React.Component {

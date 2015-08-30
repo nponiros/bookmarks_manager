@@ -4,7 +4,7 @@ import {Col, Row} from 'react-bootstrap';
 import {Glyphicon, Panel} from 'react-bootstrap';
 
 import BookmarkForm from './bookmark_form.js';
-import TagsList from './tags_list.js';
+import ViewTagsList from './tags/view_tags_list.js';
 import {remove, update} from '../actions/bookmark_actions.js';
 
 // TODO data should be state
@@ -82,7 +82,7 @@ class Bookmark extends React.Component {
           <p><strong>Date:</strong> {this.props.data.dateWritten}</p>
         </Col>
         <Col sm={12}>
-          <TagsList editMode={this.state.editMode} selectedTags={this.props.data.tags}></TagsList>
+          <ViewTagsList tagIds={this.props.data.tagIds}></ViewTagsList>
         </Col>
       </Row>;
     }
