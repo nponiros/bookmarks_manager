@@ -21,38 +21,45 @@ module.exports = function(grunt) {
         }]
       }
     },
-    clean: ['dist'],
+    clean: ['dist', '.tmp'],
     copy: {
-      main: {
-        files: [
-          {
-            expand: true,
-            flatten: true,
-            cwd: './node_modules/',
-            src: ['react/dist/react.min.js', 'systemjs/dist/system.js', 'jquery/dist/jquery.min.js', 'bootstrap/dist/js/bootstrap.min.js', 'react-bootstrap/dist/react-bootstrap.min.js', 'core-js/client/core.min.js'],
-            dest: 'dist/libs/'
-          },
-          {
-            expand: true,
-            flatten: true,
-            cwd: 'node_modules/',
-            src: ['bootstrap/dist/css/bootstrap.min.css'],
-            dest: 'dist/styles/'
-          },
+      common: {
+        files: [{
+          expand: true,
+          flatten: true,
+          cwd: 'node_modules/',
+          src: ['bootstrap/dist/css/bootstrap.min.css'],
+          dest: 'dist/styles/'
+        },
           {
             expand: true,
             flatten: true,
             cwd: 'node_modules/',
             src: ['bootstrap/dist/fonts/glyphicons-halflings-regular.woff2'],
             dest: 'dist/fonts/'
-          },{
+          }, {
             expand: true,
             flatten: true,
             cwd: 'vendor/',
             src: ['flux.js'],
             dest: 'dist/libs/'
-          }
-        ]
+          }]
+      }, prod: {
+        files: [{
+          expand: true,
+          flatten: true,
+          cwd: './node_modules/',
+          src: ['react/dist/react.min.js', 'systemjs/dist/system.js', 'jquery/dist/jquery.min.js', 'bootstrap/dist/js/bootstrap.min.js', 'react-bootstrap/dist/react-bootstrap.min.js', 'core-js/client/core.min.js'],
+          dest: 'dist/libs/'
+        }]
+      }, dev: {
+        files: [{
+          expand: true,
+          flatten: true,
+          cwd: './node_modules/',
+          src: ['react/dist/react.js', 'systemjs/dist/system.js', 'jquery/dist/jquery.js', 'bootstrap/dist/js/bootstrap.js', 'react-bootstrap/dist/react-bootstrap.js', 'core-js/client/core.js'],
+          dest: 'dist/libs/'
+        }]
       }
     },
     eslint: {
@@ -66,16 +73,15 @@ module.exports = function(grunt) {
         options: {
           removeComments: true,
           collapseWhitespace: true
-        }
-        ,
+        },
         files: [{
           expand: true,
-          src: ['index.html'],
+          flatten: true,
+          src: ['.tmp/index.html'],
           dest: 'dist/'
         }]
       }
-    }
-    ,
+    },
     manifest: {
       generate: {
         options: {
@@ -93,11 +99,31 @@ module.exports = function(grunt) {
         ],
         dest: 'dist/manifest.appcache'
       }
+    },
+    processhtml: {
+      dev: {
+        options: {
+          process: true
+        },
+        files: {
+          'dist/index.html': ['index.html']
+        }
+      },
+      prod: {
+        options: {
+          process: true
+        },
+        files: {
+          '.tmp/index.html': ['index.html']
+        }
+      }
     }
   });
 
 // Default task(s).
   grunt.registerTask('check', ['eslint']);
-  grunt.registerTask('build', ['clean', 'babel', 'copy', 'htmlmin', 'manifest']);
-  grunt.registerTask('default', ['check', 'build']);
+  grunt.registerTask('build-common', ['clean', 'babel', 'copy:common']);
+  grunt.registerTask('build-dev', ['build-common', 'copy:dev', 'processhtml:dev', 'manifest']);
+  grunt.registerTask('build-prod', ['build-common', 'copy:prod', 'processhtml:prod', 'htmlmin', 'manifest']);
+  grunt.registerTask('default', ['check', 'build-dev']);
 };
