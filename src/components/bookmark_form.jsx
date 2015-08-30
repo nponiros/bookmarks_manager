@@ -32,7 +32,7 @@ class BookmarkForm extends React.Component {
       });
     } else {
       this.setState({
-        selectedTagIds: this.state.selectedTagIds.slice(this.state.selectedTagIds.indexOf(id), 1)
+        selectedTagIds: this.state.selectedTagIds.filter((currentId) => currentId !== id)
       });
     }
   }
