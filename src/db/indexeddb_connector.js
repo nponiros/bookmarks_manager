@@ -9,12 +9,9 @@ const IDBTransactionModes = {
   'VERSION_CHANGE': 'versionchange'
 };
 
-const version = 2;
+const version = 1;
 const dbName = 'BookmarksManager';
 const dbStoreNames = [BOOKMARKS_STORE, TAGS_STORE];
-
-let save;
-let getAll;
 
 // TODO: needs a rewrite!
 function open() {
@@ -37,20 +34,6 @@ function open() {
         if (!storeExists) {
           db.createObjectStore(dbstoreName, options);
         }
-      });
-
-      // Version 2 has added tags, all bookmarks must be updated with tags
-      getAll(BOOKMARKS_STORE, () => true).then(function(bookmarks) {
-        const bookmarkPromises = bookmarks.map((bookmark) => {
-          bookmark.tags = [];
-          return save(BOOKMARKS_STORE, bookmark);
-        });
-        Promise.all(bookmarkPromises).then(function() {
-          resolve(db);
-        }).catch(function(err) {
-          console.log('Upgrade error', err);
-          reject(err);
-        });
       });
     };
 
