@@ -49,7 +49,7 @@ module.exports = function(grunt) {
           expand: true,
           flatten: true,
           cwd: './node_modules/',
-          src: ['react/dist/react.min.js', 'systemjs/dist/system.js', 'jquery/dist/jquery.min.js', 'bootstrap/dist/js/bootstrap.min.js', 'react-bootstrap/dist/react-bootstrap.min.js', 'core-js/client/core.min.js'],
+          src: ['react/dist/react.min.js', 'systemjs/dist/system.js', 'bootstrap/dist/js/bootstrap.min.js', 'react-bootstrap/dist/react-bootstrap.min.js', 'core-js/client/core.min.js'],
           dest: 'dist/libs/'
         }]
       }, dev: {
@@ -57,7 +57,7 @@ module.exports = function(grunt) {
           expand: true,
           flatten: true,
           cwd: './node_modules/',
-          src: ['react/dist/react.js', 'systemjs/dist/system.js', 'jquery/dist/jquery.js', 'bootstrap/dist/js/bootstrap.js', 'react-bootstrap/dist/react-bootstrap.js', 'core-js/client/core.js'],
+          src: ['react/dist/react.js', 'systemjs/dist/system.js', 'bootstrap/dist/js/bootstrap.js', 'react-bootstrap/dist/react-bootstrap.js', 'core-js/client/core.js'],
           dest: 'dist/libs/'
         }]
       }
