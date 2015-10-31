@@ -15,8 +15,9 @@
   "dependencies": {
     "bootstrap": "3.3.5",
     "core-js": "1.0.1",
-    "react": "0.13.3",
-    "react-bootstrap": "0.24.3",
+    "react": "0.14.1",
+    "react-bootstrap": "0.27.3",
+    "react-dom": "0.14.1",
     "systemjs": "0.18.4"
   },
   "devDependencies": {
