@@ -37,12 +37,12 @@ class ViewTagsList extends React.Component {
   }
 
   render() {
-    return <p>
+    return <div>
       <strong>Tags:</strong>
       <ul className="list-inline">
         {this.renderTags()}
       </ul>
-    </p>;
+    </div>;
   }
 }
 ViewTagsList.propTypes = {
