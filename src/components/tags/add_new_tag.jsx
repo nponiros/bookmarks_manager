@@ -18,8 +18,7 @@ class AddNewTag extends React.Component {
     const nameValid = nameInput.checkValidity();
     if (nameValid) {
       const tag = {
-        name: this.refs.name.getValue(),
-        bookmarkIds: []
+        name: this.refs.name.getValue()
       };
       create(tag);
     } else {
