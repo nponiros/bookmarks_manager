@@ -49,7 +49,7 @@ module.exports = function(grunt) {
           expand: true,
           flatten: true,
           cwd: './node_modules/',
-          src: ['react/dist/react.min.js', 'react-dom/dist/react-dom.min.js', 'systemjs/dist/system.js', 'bootstrap/dist/js/bootstrap.min.js', 'react-bootstrap/dist/react-bootstrap.min.js', 'core-js/client/core.min.js'],
+          src: ['sync-client/dist/syncClient.min.js', 'react/dist/react.min.js', 'react-dom/dist/react-dom.min.js', 'systemjs/dist/system.js', 'bootstrap/dist/js/bootstrap.min.js', 'react-bootstrap/dist/react-bootstrap.min.js', 'core-js/client/core.min.js'],
           dest: 'dist/libs/'
         }]
       }, dev: {
@@ -57,7 +57,7 @@ module.exports = function(grunt) {
           expand: true,
           flatten: true,
           cwd: './node_modules/',
-          src: ['react/dist/react.js', 'react-dom/dist/react-dom.js', 'systemjs/dist/system.js', 'bootstrap/dist/js/bootstrap.js', 'react-bootstrap/dist/react-bootstrap.js', 'core-js/client/core.js'],
+          src: ['sync-client/dist/syncClient.js', 'react/dist/react.js', 'react-dom/dist/react-dom.js', 'systemjs/dist/system.js', 'bootstrap/dist/js/bootstrap.js', 'react-bootstrap/dist/react-bootstrap.js', 'core-js/client/core.js'],
           dest: 'dist/libs/'
         }]
       }
