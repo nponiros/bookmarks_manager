@@ -6,7 +6,7 @@ import EventEmitter from '../event_emitter.js';
 const collection = syncClient.getCollection(DB_STORE_NAME);
 
 function getAllTags() {
-  dbWrapperInstance.getAll({}).then((tags) => {
+  collection.getAll().then((tags) => {
     this._tags = tags;
     this.emit(CHANGE, this._tags);
   }).catch((e) => {
