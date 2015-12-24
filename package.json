@@ -18,7 +18,7 @@
     "react": "0.14.1",
     "react-bootstrap": "0.27.3",
     "react-dom": "0.14.1",
-    "sync-client": "0.0.3",
+    "sync-client": "0.0.4",
     "systemjs": "0.18.4"
   },
   "devDependencies": {
