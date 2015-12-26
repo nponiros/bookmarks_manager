@@ -7,9 +7,10 @@ module.exports = function(grunt) {
     babel: {
       options: {
         sourceMap: true,
-        modules: 'system',
         compact: true,
-        comments: false
+        comments: false,
+        presets: ['es2015', 'react'],
+        plugins: ['transform-es2015-modules-systemjs']
       },
       dist: {
         files: [{
