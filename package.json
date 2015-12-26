@@ -13,13 +13,13 @@
   },
   "homepage": "https://github.com/nponiros/bookmarks_manager#readme",
   "dependencies": {
-    "bootstrap": "3.3.5",
-    "core-js": "1.0.1",
-    "react": "0.14.1",
-    "react-bootstrap": "0.27.3",
-    "react-dom": "0.14.1",
-    "sync-client": "0.0.4",
-    "systemjs": "0.18.4"
+    "bootstrap": "3.3.6",
+    "core-js": "2.0.0",
+    "react": "0.14.3",
+    "react-bootstrap": "0.28.1",
+    "react-dom": "0.14.3",
+    "sync-client": "0.1.0",
+    "systemjs": "0.19.9"
   },
   "devDependencies": {
     "babel-plugin-transform-es2015-modules-systemjs": "6.3.13",
