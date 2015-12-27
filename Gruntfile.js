@@ -17,7 +17,7 @@ module.exports = function(grunt) {
           expand: true,     // Enable dynamic expansion.
           cwd: 'src/',      // Src matches are relative to this path.
           src: ['**/*.js', '**/*.jsx'], // Actual pattern(s) to match.
-          dest: 'dist/',// Destination path prefix.
+          dest: 'dist/', // Destination path prefix.
           ext: '.js'
         }]
       }
@@ -31,20 +31,19 @@ module.exports = function(grunt) {
           cwd: 'node_modules/',
           src: ['bootstrap/dist/css/bootstrap.min.css'],
           dest: 'dist/styles/'
-        },
-          {
-            expand: true,
-            flatten: true,
-            cwd: 'node_modules/',
-            src: ['bootstrap/dist/fonts/glyphicons-halflings-regular.woff2'],
-            dest: 'dist/fonts/'
-          }, {
-            expand: true,
-            flatten: true,
-            cwd: 'vendor/',
-            src: ['flux.js'],
-            dest: 'dist/libs/'
-          }]
+        }, {
+          expand: true,
+          flatten: true,
+          cwd: 'node_modules/',
+          src: ['bootstrap/dist/fonts/glyphicons-halflings-regular.woff2'],
+          dest: 'dist/fonts/'
+        }, {
+          expand: true,
+          flatten: true,
+          cwd: 'vendor/',
+          src: ['flux.js'],
+          dest: 'dist/libs/'
+        }]
       }, prod: {
         files: [{
           expand: true,
@@ -67,7 +66,7 @@ module.exports = function(grunt) {
       options: {
         configFile: '.eslintrc.yml'
       },
-      client: ['src/**/*.js', 'src/**/*.jsx']
+      client: ['src/**/*.js', 'src/**/*.jsx', 'Gruntfile.js']
     },
     htmlmin: {
       multiple: {
@@ -91,7 +90,7 @@ module.exports = function(grunt) {
           verbose: false,
           timestamp: true,
           master: ['index.html'],
-          process: function(path) {
+          process(path) {
             return path.substring('dist/'.length);
           }
         },
