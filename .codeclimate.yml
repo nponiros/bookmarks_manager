@@ -14,4 +14,4 @@
     - "**.js"
     - "**.jsx"
   exclude_paths:
-  - "vendor/flux.js"
+  - "vendor/**/*"
