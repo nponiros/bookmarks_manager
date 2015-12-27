@@ -12,7 +12,6 @@ class EditTagsList extends React.Component {
       showModal: false,
       availableTags: []
     };
-    TagsStore.getAllTags();
   }
 
   componentDidMount() {

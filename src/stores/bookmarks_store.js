@@ -1,21 +1,8 @@
 import AppDispatcher from '../dispatcher/app_dispatcher.js';
-import syncClient from '../db/sync_client.js';
-import {CREATE, CHANGE, UPDATE, REMOVE, DB_STORE_NAME} from '../constants/bookmarks_constants.js';
+import {CREATE, CHANGE, UPDATE, REMOVE, INIT} from '../constants/bookmarks_constants.js';
 import EventEmitter from '../event_emitter.js';
 
-const collection = syncClient.getCollection(DB_STORE_NAME);
-
-function getAllBookmarks() {
-  collection.getAll({}).then((bookmarks) => {
-    this._bookmarks = bookmarks;
-    this.emit(CHANGE, this._bookmarks);
-  }).catch((e) => {
-    console.log('error', e);
-  });
-}
-
 const BookmarksStore = Object.create(EventEmitter);
-BookmarksStore.getAllBookmarks = getAllBookmarks;
 BookmarksStore._bookmarks = [];
 BookmarksStore._handleCreate = function handleCreate(payload) {
   const data = payload.data;
@@ -38,13 +25,18 @@ BookmarksStore._handleUpdate = function handleUpdate(payload) {
   this._bookmarks[index] = data;
   this.emit(CHANGE, this._bookmarks);
 };
+BookmarksStore._handleInit = function handleInit(payload) {
+  this._bookmarks = payload.data;
+  this.emit(CHANGE, this._bookmarks);
+};
 
 export default BookmarksStore;
 
 const actionHandlers = {
   [CREATE]: BookmarksStore._handleCreate.bind(BookmarksStore),
   [REMOVE]: BookmarksStore._handleRemove.bind(BookmarksStore),
-  [UPDATE]: BookmarksStore._handleUpdate.bind(BookmarksStore)
+  [UPDATE]: BookmarksStore._handleUpdate.bind(BookmarksStore),
+  [INIT]: BookmarksStore._handleInit.bind(BookmarksStore)
 };
 
 AppDispatcher.register((payload) => {

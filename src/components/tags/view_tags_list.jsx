@@ -11,7 +11,6 @@ class ViewTagsList extends React.Component {
     this.state = {
       availableTags: []
     };
-    TagsStore.getAllTags();
   }
 
   componentDidMount() {

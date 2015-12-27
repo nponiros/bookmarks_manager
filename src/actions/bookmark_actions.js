@@ -1,8 +1,9 @@
 import AppDispatcher from '../dispatcher/app_dispatcher.js';
 import syncClient from '../db/sync_client.js';
-import {CREATE, REMOVE, UPDATE, DB_STORE_NAME} from '../constants/bookmarks_constants.js';
+import {CREATE, REMOVE, UPDATE, DB_STORE_NAME, INIT} from '../constants/bookmarks_constants.js';
 
 const collection = syncClient.getCollection(DB_STORE_NAME);
+
 export function create(bookmark) {
   collection.save(bookmark).then((id) => {
     bookmark._id = id;
@@ -31,6 +32,17 @@ export function update(bookmark) {
     AppDispatcher.dispatch({
       actionType: UPDATE,
       data: bookmark
+    });
+  }).catch((e) => {
+    console.log('error', e);
+  });
+}
+
+export function init() {
+  collection.getAll().then((bookmarks) => {
+    AppDispatcher.dispatch({
+      actionType: INIT,
+      data: bookmarks
     });
   }).catch((e) => {
     console.log('error', e);

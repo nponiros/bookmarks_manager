@@ -12,7 +12,6 @@ class BookmarksList extends React.Component {
     this.state = {
       data: []
     };
-    BookmarksStore.getAllBookmarks();
   }
 
   componentDidMount() {
