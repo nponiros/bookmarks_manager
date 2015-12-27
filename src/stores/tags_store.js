@@ -11,13 +11,6 @@ class TagsStore extends BaseStore {
     this._tags = [];
   }
 
-  handleAction(actionType, data) {
-    const actionHandler = this.actionHandlers[actionType];
-    if (actionHandler) {
-      actionHandler.call(this, data);
-    }
-  }
-
   _handleCreate(data) {
     this._tags = this._tags.concat(data);
     this.emit(CHANGE, this._tags);

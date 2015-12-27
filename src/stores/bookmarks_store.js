@@ -13,13 +13,6 @@ class BookmarksStore extends BaseStore {
     this._bookmarks = [];
   }
 
-  handleAction(actionType, data) {
-    const actionHandler = this.actionHandlers[actionType];
-    if (actionHandler) {
-      actionHandler.call(this, data);
-    }
-  }
-
   _handleCreate(data) {
     this._bookmarks = this._bookmarks.concat(data);
     this.emit(CHANGE, this._bookmarks);

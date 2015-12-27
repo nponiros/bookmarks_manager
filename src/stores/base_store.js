@@ -8,4 +8,11 @@ export default class BaseStore extends EventEmitter {
       this.handleAction(payload.actionType, payload.data);
     });
   }
+
+  handleAction(actionType, data) {
+    const actionHandler = this.actionHandlers[actionType];
+    if (actionHandler) {
+      actionHandler.call(this, data);
+    }
+  }
 }
