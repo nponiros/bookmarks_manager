@@ -65,7 +65,7 @@ module.exports = function(grunt) {
     },
     eslint: {
       options: {
-        configFile: 'eslint.yaml'
+        configFile: '.eslintrc.yml'
       },
       client: ['src/**/*.js', 'src/**/*.jsx']
     },
