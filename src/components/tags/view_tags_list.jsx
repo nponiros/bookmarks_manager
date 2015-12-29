@@ -8,9 +8,7 @@ import {CHANGE} from '../../constants/tags_constants.js';
 class ViewTagsList extends React.Component {
   constructor() {
     super();
-    this.state = {
-      availableTags: []
-    };
+    this.state = TagsStore.getInitialState();
     this.changeListener = (data) => {
       this.onChange(data);
     };

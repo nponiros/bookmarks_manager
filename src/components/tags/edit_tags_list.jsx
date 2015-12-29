@@ -8,10 +8,7 @@ import {CHANGE} from '../../constants/tags_constants.js';
 class EditTagsList extends React.Component {
   constructor() {
     super();
-    this.state = {
-      showModal: false,
-      availableTags: []
-    };
+    this.state = TagsStore.getInitialState();
     this.changeListener = (data) => {
       this.onChange(data);
     };

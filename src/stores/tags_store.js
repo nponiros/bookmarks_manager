@@ -20,6 +20,12 @@ class TagsStore extends BaseStore {
     this._tags = data;
     this.emit(CHANGE, this._tags);
   }
+
+  getInitialState() {
+    return {
+      availableTags: this._tags
+    };
+  }
 }
 
 const tagsStore = new TagsStore();
