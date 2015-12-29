@@ -12,14 +12,17 @@ class EditTagsList extends React.Component {
       showModal: false,
       availableTags: []
     };
+    this.changeListener = (data) => {
+      this.onChange(data);
+    };
   }
 
   componentDidMount() {
-    TagsStore.addListener(CHANGE, (data) => this.onChange(data));
+    TagsStore.addListener(CHANGE, this.changeListener);
   }
 
   componentWillUnmount() {
-    TagsStore.removeListener(CHANGE, this.onChange);
+    TagsStore.removeListener(CHANGE, this.changeListener);
   }
 
   onChange(availableTags) {

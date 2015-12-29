@@ -12,14 +12,18 @@ class BookmarksList extends React.Component {
     this.state = {
       data: []
     };
+
+    this.changeListener = (data) => {
+      this.onChange(data);
+    };
   }
 
   componentDidMount() {
-    BookmarksStore.addListener(CHANGE, (data) => this.onChange(data));
+    BookmarksStore.addListener(CHANGE, this.changeListener);
   }
 
   componentWillUnmount() {
-    BookmarksStore.removeListener(CHANGE, this.onChange);
+    BookmarksStore.removeListener(CHANGE, this.changeListener);
   }
 
   onChange(data) {
