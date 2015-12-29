@@ -4,10 +4,9 @@ import {Col, Row} from 'react-bootstrap';
 import {Glyphicon, Panel} from 'react-bootstrap';
 
 import BookmarkForm from './bookmark_form.js';
-import ViewTagsList from './tags/view_tags_list.js';
-import {remove, update} from '../actions/bookmark_actions.js';
+import ViewTagsList from '../tags/view_tags_list.js';
+import {remove, update} from '../../actions/bookmark_actions.js';
 
-// TODO data should be state
 class Bookmark extends React.Component {
   constructor() {
     super();

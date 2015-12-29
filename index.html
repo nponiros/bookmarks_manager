@@ -4,6 +4,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Bookmarks Manager</title>
   <link rel="stylesheet" href="/styles/bootstrap.min.css">
+  <style>
+    .syncing .glyphicon-refresh {
+      animation: spin 2s infinite linear;
+    }
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(359deg);
+      }
+    }
+  </style>
 </head>
 <body>
 <div id="bm-app">

@@ -2,9 +2,9 @@ import React from 'react';
 import {PanelGroup} from 'react-bootstrap';
 
 import Bookmark from './bookmark.js';
-import BookmarksStore from '../stores/bookmarks_store.js';
+import BookmarksStore from '../../stores/bookmarks_store.js';
 
-import {CHANGE} from '../constants/bookmarks_constants.js';
+import {CHANGE} from '../../constants/bookmarks_constants.js';
 
 class BookmarksList extends React.Component {
   constructor() {

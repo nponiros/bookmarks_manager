@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, Input} from 'react-bootstrap';
 
-import TagsModal from './tags/tags_modal.js';
+import TagsModal from '../tags/tags_modal.js';
 
 class BookmarkForm extends React.Component {
   constructor(props) {

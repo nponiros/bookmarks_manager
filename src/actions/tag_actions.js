@@ -15,7 +15,7 @@ export function create(tag) {
   });
 }
 
-export function init() {
+export function getAll() {
   collection.getAll().then((tags) => {
     AppDispatcher.dispatch({
       actionType: INIT,
@@ -24,4 +24,8 @@ export function init() {
   }).catch((e) => {
     console.log('error', e);
   });
+}
+
+export function init() {
+  getAll();
 }

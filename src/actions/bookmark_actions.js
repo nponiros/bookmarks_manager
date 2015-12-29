@@ -38,7 +38,7 @@ export function update(bookmark) {
   });
 }
 
-export function init() {
+export function getAll() {
   collection.getAll().then((bookmarks) => {
     AppDispatcher.dispatch({
       actionType: INIT,
@@ -47,4 +47,8 @@ export function init() {
   }).catch((e) => {
     console.log('error', e);
   });
+}
+
+export function init() {
+  getAll();
 }
