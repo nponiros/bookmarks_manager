@@ -24,7 +24,7 @@ Offline (via appcache and indexeddb) bookmarks manager for the browser
 ## TODO
 
 * Search/Filter functionality
-* Error control
+* Offline/Online check (signal/plane glyphicons?)
 
 ## Possible TODOs
 
