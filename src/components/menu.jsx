@@ -9,6 +9,9 @@ import Search from './search.js';
 import {sync} from '../actions/sync_actions.js';
 import {showError} from '../actions/error_actions.js';
 
+import connectionStatusStore from '../stores/connection_status_store.js';
+import {CHANGE} from '../constants/connection_status_constants.js';
+
 class Menu extends React.Component {
   constructor() {
     super();
@@ -16,8 +19,25 @@ class Menu extends React.Component {
     this.addOpen = false;
     this.state = {
       open: this.searchOpen || this.addOpen,
-      syncing: false
+      syncing: false,
+      isOnline: connectionStatusStore.getInitialState().isOnline
     };
+
+    this.changeListener = (data) => {
+      this.onChange(data);
+    };
+  }
+
+  componentDidMount() {
+    connectionStatusStore.addListener(CHANGE, this.changeListener);
+  }
+
+  componentWillUnmount() {
+    connectionStatusStore.removeListener(CHANGE, this.changeListener);
+  }
+
+  onChange(data) {
+    this.setState(data);
   }
 
   handleSearchToggle() {
@@ -52,11 +72,23 @@ class Menu extends React.Component {
     });
   }
 
+  renderConnectionStatus() {
+    let glyph;
+    if (this.state.isOnline) {
+      glyph = 'signal';
+    } else {
+      glyph = 'plane';
+    }
+    return <Col xs={6} sm={2} className="align-right">
+      <Glyphicon glyph={glyph}/>
+    </Col>;
+  }
+
   renderTitle() {
     const classes = this.state.syncing ? 'align-right syncing' : 'align-right';
     return <Row>
       <Col xs={12} className="h3" componentClass="h2">
-        <Col xs={6} sm={6}>
+        <Col xs={8} sm={8}>
           <Col xs={6} sm={2} className="align-right">
             <Glyphicon onClick={() => this.handleSearchToggle()} glyph="search"/>
           </Col>
@@ -66,6 +98,7 @@ class Menu extends React.Component {
           <Col xs={6} sm={2} className={classes}>
             <Glyphicon onClick={() => this.handleSync()} glyph="refresh"/>
           </Col>
+          {this.renderConnectionStatus()}
         </Col>
       </Col>
     </Row>;
