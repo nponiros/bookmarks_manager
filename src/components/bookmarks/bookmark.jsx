@@ -6,6 +6,7 @@ import {Glyphicon, Panel} from 'react-bootstrap';
 import BookmarkForm from './bookmark_form.js';
 import ViewTagsList from '../tags/view_tags_list.js';
 import {remove, update} from '../../actions/bookmark_actions.js';
+import {showError} from '../../actions/error_actions.js';
 
 class Bookmark extends React.Component {
   constructor() {
@@ -25,7 +26,9 @@ class Bookmark extends React.Component {
   handleDelete(event) {
     event.preventDefault();
     event.stopPropagation();
-    remove(this.props.data._id);
+    remove(this.props.data._id).catch((err) => {
+      showError(err);
+    });
   }
 
   handleEdit(event) {
@@ -44,7 +47,9 @@ class Bookmark extends React.Component {
       editMode: false
     });
     bookmark._id = this.props.data._id;
-    update(bookmark);
+    update(bookmark).catch((err) => {
+      showError(err);
+    });
   }
 
   renderTitle() {
@@ -90,7 +95,7 @@ class Bookmark extends React.Component {
   render() {
     if (this.state.open) {
       return <Panel header={this.renderTitle()} bsStyle="primary" collapsible expanded={this.state.open}
-                  onSelect={() => this.handleSelect()}>
+                    onSelect={() => this.handleSelect()}>
         {this.renderBody()}
       </Panel>;
     } else {

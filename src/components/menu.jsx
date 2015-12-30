@@ -7,6 +7,7 @@ import AddNewBookmark from './bookmarks/add_new_bookmark.js';
 import Search from './search.js';
 
 import {sync} from '../actions/sync_actions.js';
+import {showError} from '../actions/error_actions.js';
 
 class Menu extends React.Component {
   constructor() {
@@ -44,10 +45,10 @@ class Menu extends React.Component {
         syncing: false
       });
     }).catch((err) => {
-      console.log('error', err);
       this.setState({
         syncing: false
       });
+      showError(err);
     });
   }
 

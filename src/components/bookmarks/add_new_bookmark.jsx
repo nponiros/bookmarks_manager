@@ -2,6 +2,7 @@ import React from 'react';
 
 import BookmarkForm from './bookmark_form.js';
 import {create} from '../../actions/bookmark_actions.js';
+import {showError} from '../../actions/error_actions.js';
 
 const emptyData = {
   title: '',
@@ -21,9 +22,12 @@ class AddNewBookmark extends React.Component {
   }
 
   handleSubmit(bookmark) {
-    create(bookmark);
-    this.setState({
-      data: emptyData
+    create(bookmark).then(() => {
+      this.setState({
+        data: emptyData
+      });
+    }).catch((err) => {
+      showError(err);
     });
   }
 

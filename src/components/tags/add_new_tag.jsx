@@ -3,6 +3,7 @@ import React from 'react';
 import {Button, Input} from 'react-bootstrap';
 
 import {create} from '../../actions/tag_actions.js';
+import {showError} from '../../actions/error_actions.js';
 
 class AddNewTag extends React.Component {
   constructor() {
@@ -20,7 +21,9 @@ class AddNewTag extends React.Component {
       const tag = {
         name: this.refs.name.getValue()
       };
-      create(tag);
+      create(tag).catch((err) => {
+        showError(err);
+      });
     } else {
       this.setState({
         nameValidStyle: nameValid ? undefined : 'error'

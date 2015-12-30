@@ -4,28 +4,24 @@ import {CREATE, DB_STORE_NAME, INIT} from '../constants/tags_constants.js';
 
 const collection = syncClient.getCollection(DB_STORE_NAME);
 export function create(tag) {
-  collection.save(tag).then((id) => {
+  return collection.save(tag).then((id) => {
     tag._id = id;
     AppDispatcher.dispatch({
       actionType: CREATE,
       data: tag
     });
-  }).catch((e) => {
-    console.log('error', e);
   });
 }
 
 export function getAll() {
-  collection.getAll().then((tags) => {
+  return collection.getAll().then((tags) => {
     AppDispatcher.dispatch({
       actionType: INIT,
       data: tags
     });
-  }).catch((e) => {
-    console.log('error', e);
   });
 }
 
 export function init() {
-  getAll();
+  return getAll();
 }
