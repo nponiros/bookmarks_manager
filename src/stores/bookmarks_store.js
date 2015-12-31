@@ -1,5 +1,5 @@
 import BaseStore from './base_store.js';
-import {CREATE, CHANGE, UPDATE, REMOVE, INIT} from '../constants/bookmarks_constants.js';
+import {CREATE, CHANGE, UPDATE, REMOVE, INIT, SEARCH} from '../constants/bookmarks_constants.js';
 
 class BookmarksStore extends BaseStore {
   constructor() {
@@ -8,7 +8,8 @@ class BookmarksStore extends BaseStore {
       [CREATE]: this._handleCreate,
       [REMOVE]: this._handleRemove,
       [UPDATE]: this._handleUpdate,
-      [INIT]: this._handleInit
+      [INIT]: this._handleInit,
+      [SEARCH]: this._handleSearch
     };
     this._bookmarks = [];
   }
@@ -35,6 +36,11 @@ class BookmarksStore extends BaseStore {
   }
 
   _handleInit(data) {
+    this._bookmarks = data;
+    this.emit(CHANGE, this._bookmarks);
+  }
+
+  _handleSearch(data) {
     this._bookmarks = data;
     this.emit(CHANGE, this._bookmarks);
   }

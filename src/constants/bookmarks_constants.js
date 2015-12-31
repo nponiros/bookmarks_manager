@@ -3,6 +3,7 @@ export const CREATE = 'bookmark_created';
 export const REMOVE = 'bookmark_removed';
 export const UPDATE = 'bookmark_updated';
 export const INIT = 'bookmark_init';
+export const SEARCH = 'bookmark_search';
 
 // Used in the store to signal a change in the data
 export const CHANGE = 'bookmarks_changed';

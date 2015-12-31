@@ -1,17 +1,23 @@
 import React from 'react';
 import {Input, Button} from 'react-bootstrap';
 
+import {search} from '../actions/search_actions.js';
+import {showError} from '../actions/error_actions.js';
+
 class Search extends React.Component {
   constructor() {
     super();
   }
 
-  handleSubmit() {
+  handleSubmit(event) {
+    event.preventDefault();
+
     const queryObject = {
       title: this.refs.title.getValue()
     };
-    // TODO: some search object
-    // TODO: search action
+    search(queryObject).catch((err) => {
+      showError(err);
+    });
   }
 
   render() {
