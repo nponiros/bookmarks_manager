@@ -11,6 +11,7 @@ Offline (via appcache and IndexedDB) bookmarks manager for the browser.
 * Has a list of bookmarks with each bookmark having a URL, Title, Author, Date, Description and Tags
 * Bookmarks can be added, updated and deleted
 * Tags can be added and can be assigned to bookmarks
+* Can search by bookmark title. The search is case insensitive but the string must match exactly
 
 ## Usage
 
