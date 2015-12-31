@@ -44,5 +44,6 @@
     "prestart": "grunt build-prod",
     "start": "http-server -p 8080 ./dist"
   },
-  "private": true
+  "private": true,
+  "keywords": ["bookmarks", "offline", "indexeddb"]
 }
