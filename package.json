@@ -6,7 +6,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/nponiros/bookmarks_manager.git"
+    "url": "https://github.com/nponiros/bookmarks_manager"
   },
   "bugs": {
     "url": "https://github.com/nponiros/bookmarks_manager/issues"
