@@ -2,7 +2,7 @@
   "name": "bookmarks_manager",
   "version": "0.0.1",
   "description": "Offline (via appcache and indexeddb) bookmarks manager for the browser",
-  "author": "Nikolas Poniros",
+  "author": "Nikolas Poniros <nikolas@poniros.de>",
   "license": "MIT",
   "repository": {
     "type": "git",
