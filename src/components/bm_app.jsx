@@ -9,7 +9,7 @@ import Error from './error.js';
 class BmApp extends React.Component {
   render() {
     return <Grid fluid>
-      <Row>
+      <Row style={{marginTop: 10 + 'px'}}>
         <Col md={8} mdOffset={2} sm={10} smOffset={1}>
           <Error/>
           <Menu/>
