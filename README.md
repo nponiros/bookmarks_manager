@@ -4,7 +4,7 @@
 
 ## Synopsis
 
-Offline (via appcache and indexeddb) bookmarks manager for the browser
+Offline (via appcache and IndexedDB) bookmarks manager for the browser.
 
 ## Features
 
@@ -14,17 +14,17 @@ Offline (via appcache and indexeddb) bookmarks manager for the browser
 
 ## Usage
 
+* Clone the repository
 * Install dependencies with npm install
-* Install grunt-cli (npm install -g grunt-cli)
-* Run "grunt build-prod" to build the webapp
 * Run npm start to run the http-server, navigate to localhost:8080 to start using the app
   * Optional: Use a different webserver. For this you need to set /dist as the root
   * Make sure the correct type is returned for the manifest.appcache file
+* Optional: run [SyncServer](https://github.com/nponiros/sync_server) or similar on port 3000 on the local machine to enable synchronization
 
 ## TODO
 
 * Search/Filter functionality
-* Offline/Online check (signal/plane glyphicons?)
+* Need to be able to define the domain for the sync and connection check server
 
 ## Possible TODOs
 
@@ -35,3 +35,15 @@ Offline (via appcache and indexeddb) bookmarks manager for the browser
   * Must remove bookmark from list when a bookmark is deleted
   * Must add bookmark to list when a bookmark is added (during add we have no id!)
   * Must update list when bookmark's tags are changed
+
+## Browser Compatibility
+
+The webapp was tested with newer versions of Chrome. Should also work in Firefox but was not explicitly tested there.
+
+## Contributing
+
+If you feel you can help in any way, be it with documentation, examples, extra testing, or new features please open an [issue](https://github.com/nponiros/bookmarks_manager/issues) or [pull request](https://github.com/nponiros/bookmarks_manager/pulls).
+If you have any questions feel free to open an [issue](https://github.com/nponiros/bookmarks_manager/issues) with your question.
+
+## License
+[MIT License](./LICENSE)
