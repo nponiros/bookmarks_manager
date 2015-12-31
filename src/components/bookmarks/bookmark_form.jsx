@@ -71,7 +71,8 @@ BookmarkForm.propTypes = {
     author: React.PropTypes.string,
     dateWritten: React.PropTypes.string,
     tagIds: React.PropTypes.arrayOf(React.PropTypes.string)
-  }).isRequired
+  }).isRequired,
+  handleSubmit: React.PropTypes.func.isRequired
 };
 
 export default BookmarkForm;

@@ -15,7 +15,9 @@ class Search extends React.Component {
     const queryObject = {
       title: this.refs.title.getValue()
     };
-    search(queryObject).catch((err) => {
+    search(queryObject).then(() => {
+      this.props.closePanel();
+    }).catch((err) => {
       showError(err);
     });
   }
@@ -27,6 +29,8 @@ class Search extends React.Component {
     </form>;
   }
 }
-Search.propTypes = {};
+Search.propTypes = {
+  closePanel: React.PropTypes.func.isRequired
+};
 
 export default Search;

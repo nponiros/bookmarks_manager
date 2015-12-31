@@ -1,6 +1,11 @@
 import AppDispatcher from '../dispatcher/app_dispatcher.js';
 import {ONLINE, OFFLINE, CONNECTION_CHECK_PATH} from '../constants/connection_status_constants.js';
-import {SERVER_URL} from '../constants/sync_constants.js';
+
+import constructServerUrl from '../helpers/construct_server_url.js';
+
+const serverUrl = {
+  serverUrl: ''
+};
 
 function dispatch(actionType) {
   AppDispatcher.dispatch({
@@ -9,7 +14,7 @@ function dispatch(actionType) {
 }
 
 function checkServerConnection() {
-  return window.fetch(`${SERVER_URL}${CONNECTION_CHECK_PATH}`, {
+  return window.fetch(`${serverUrl.serverUrl}${CONNECTION_CHECK_PATH}`, {
     method: 'HEAD'
   });
 }
@@ -60,6 +65,11 @@ function statusChecker() {
   }
 }
 
-export function init() {
+export function init(url, port) {
+  serverUrl.serverUrl = constructServerUrl(url, port);
   statusChecker();
+}
+
+export function changeUrl(url, port) {
+  serverUrl.serverUrl = constructServerUrl(url, port);
 }

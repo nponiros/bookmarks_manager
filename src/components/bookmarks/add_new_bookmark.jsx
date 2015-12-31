@@ -23,6 +23,7 @@ class AddNewBookmark extends React.Component {
 
   handleSubmit(bookmark) {
     create(bookmark).then(() => {
+      this.props.closePanel();
       this.setState({
         data: emptyData
       });
@@ -35,6 +36,8 @@ class AddNewBookmark extends React.Component {
     return <BookmarkForm defaultData={this.state.data} handleSubmit={(data) => this.handleSubmit(data)}/>;
   }
 }
-AddNewBookmark.propTypes = {};
+AddNewBookmark.propTypes = {
+  closePanel: React.PropTypes.func.isRequired
+};
 
 export default AddNewBookmark;

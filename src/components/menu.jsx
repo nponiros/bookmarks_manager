@@ -5,6 +5,7 @@ import {Glyphicon, Panel} from 'react-bootstrap';
 
 import AddNewBookmark from './bookmarks/add_new_bookmark.js';
 import Search from './search.js';
+import Settings from './settings.js';
 
 import {sync} from '../actions/sync_actions.js';
 import {showError} from '../actions/error_actions.js';
@@ -17,8 +18,9 @@ class Menu extends React.Component {
     super();
     this.searchOpen = false;
     this.addOpen = false;
+    this.settingsOpen = false;
     this.state = {
-      open: this.searchOpen || this.addOpen,
+      open: this.isOpen(),
       syncing: false,
       isOnline: connectionStatusStore.getInitialState().isOnline
     };
@@ -40,19 +42,34 @@ class Menu extends React.Component {
     this.setState(data);
   }
 
+  isOpen() {
+    return this.searchOpen || this.addOpen || this.settingsOpen;
+  }
+
   handleSearchToggle() {
     this.searchOpen = !this.searchOpen;
     this.addOpen = false;
+    this.settingsOpen = false;
     this.setState({
-      open: this.searchOpen || this.addOpen
+      open: this.isOpen()
     });
   }
 
   handleAddToggle() {
     this.addOpen = !this.addOpen;
     this.searchOpen = false;
+    this.settingsOpen = false;
     this.setState({
-      open: this.searchOpen || this.addOpen
+      open: this.isOpen()
+    });
+  }
+
+  handleSettingsToggle() {
+    this.settingsOpen = !this.settingsOpen;
+    this.searchOpen = false;
+    this.addOpen = false;
+    this.setState({
+      open: this.isOpen()
     });
   }
 
@@ -83,11 +100,14 @@ class Menu extends React.Component {
         <Col xs={3} sm={3}>
           <Glyphicon onClick={() => this.handleSearchToggle()} glyph="search"/>
         </Col>
-        <Col xs={3} sm={3} className={classes}>
+        <Col xs={2} sm={2} className={classes}>
           <Glyphicon onClick={() => this.handleSync()} glyph="refresh"/>
         </Col>
-        <Col xs={3} sm={3}>
+        <Col xs={2} sm={2}>
           <Glyphicon glyph={glyph}/>
+        </Col>
+        <Col xs={2} sm={2}>
+          <Glyphicon onClick={() => this.handleSettingsToggle()} glyph="cog"/>
         </Col>
       </Col>
     </Row>;
@@ -95,9 +115,11 @@ class Menu extends React.Component {
 
   renderBody() {
     if (this.addOpen) {
-      return <AddNewBookmark/>;
+      return <AddNewBookmark closePanel={() => this.handleAddToggle()}/>;
+    } else if (this.searchOpen) {
+      return <Search closePanel={() => this.handleSearchToggle()}/>;
     } else {
-      return <Search/>;
+      return <Settings closePanel={() => this.handleSettingsToggle()}/>;
     }
   }
 
@@ -107,7 +129,7 @@ class Menu extends React.Component {
         {this.renderBody()}
       </Panel>;
     } else {
-      return <Panel header={this.renderTitle()} bsStyle="primary" collapsible expanded={this.state.open}></Panel>;
+      return <Panel header={this.renderTitle()} bsStyle="primary" collapsible expanded={this.state.open}/>;
     }
   }
 }
