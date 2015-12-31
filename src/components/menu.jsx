@@ -72,33 +72,22 @@ class Menu extends React.Component {
     });
   }
 
-  renderConnectionStatus() {
-    let glyph;
-    if (this.state.isOnline) {
-      glyph = 'signal';
-    } else {
-      glyph = 'plane';
-    }
-    return <Col xs={6} sm={2} className="align-right">
-      <Glyphicon glyph={glyph}/>
-    </Col>;
-  }
-
   renderTitle() {
-    const classes = this.state.syncing ? 'align-right syncing' : 'align-right';
+    const classes = this.state.syncing ? 'syncing' : '';
+    const glyph = this.state.isOnline ? 'signal' : 'plane';
     return <Row>
-      <Col xs={12} className="h3" componentClass="h2">
-        <Col xs={8} sm={8}>
-          <Col xs={6} sm={2} className="align-right">
-            <Glyphicon onClick={() => this.handleSearchToggle()} glyph="search"/>
-          </Col>
-          <Col xs={6} sm={2} className="align-right">
-            <Glyphicon onClick={() => this.handleAddToggle()} glyph="plus"/>
-          </Col>
-          <Col xs={6} sm={2} className={classes}>
-            <Glyphicon onClick={() => this.handleSync()} glyph="refresh"/>
-          </Col>
-          {this.renderConnectionStatus()}
+      <Col xs={12} sm={12} className="h3" componentClass="h2">
+        <Col xs={3} sm={3}>
+          <Glyphicon onClick={() => this.handleAddToggle()} glyph="plus"/>
+        </Col>
+        <Col xs={3} sm={3}>
+          <Glyphicon onClick={() => this.handleSearchToggle()} glyph="search"/>
+        </Col>
+        <Col xs={3} sm={3} className={classes}>
+          <Glyphicon onClick={() => this.handleSync()} glyph="refresh"/>
+        </Col>
+        <Col xs={3} sm={3}>
+          <Glyphicon glyph={glyph}/>
         </Col>
       </Col>
     </Row>;
