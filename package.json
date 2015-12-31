@@ -41,6 +41,7 @@
     "load-grunt-tasks": "3.4.0"
   },
   "scripts": {
+    "prestart": "grunt build-prod",
     "start": "http-server -p 8080 ./dist"
   },
   "private": true
