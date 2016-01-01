@@ -2,10 +2,12 @@ import AppDispatcher from '../dispatcher/app_dispatcher.js';
 import {ONLINE, OFFLINE, CONNECTION_CHECK_PATH} from '../constants/connection_status_constants.js';
 
 import constructServerUrl from '../helpers/construct_server_url.js';
+import {showWarning} from './alert_actions.js';
 
 const serverUrl = {
   serverUrl: ''
 };
+let statusCheckerActive = false;
 
 function dispatch(actionType) {
   AppDispatcher.dispatch({
@@ -66,10 +68,21 @@ function statusChecker() {
 }
 
 export function init(url, port) {
-  serverUrl.serverUrl = constructServerUrl(url, port);
-  statusChecker();
+  if (url) {
+    statusCheckerActive = true;
+    serverUrl.serverUrl = constructServerUrl(url, port);
+    statusChecker();
+  } else {
+    showWarning({
+      name: 'Check warning',
+      message: 'Cannot check the connection status without a server url'
+    });
+  }
 }
 
 export function changeUrl(url, port) {
   serverUrl.serverUrl = constructServerUrl(url, port);
+  if (!statusCheckerActive) {
+    statusChecker();
+  }
 }

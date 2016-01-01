@@ -15,3 +15,5 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * The error alert shows the name instead of "some error occurred" and the error message if available
 * Show a gray syncing icon if we have no server connection
 * Show warning when trying to sync without a server connection
+* Activate the status checker only if we have a server url
+* Show warning if we have no server url for the status checker
