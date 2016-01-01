@@ -4,14 +4,14 @@ import {Col, Grid, Row} from 'react-bootstrap';
 
 import Menu from './menu.js';
 import BookmarksList from './bookmarks/bookmarks_list.js';
-import Error from './error.js';
+import Alert from './alert.js';
 
 class BmApp extends React.Component {
   render() {
     return <Grid fluid>
       <Row style={{marginTop: 10 + 'px'}}>
         <Col md={8} mdOffset={2} sm={10} smOffset={1}>
-          <Error/>
+          <Alert/>
           <Menu/>
           <BookmarksList/>
         </Col>

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Input, Button} from 'react-bootstrap';
 
-import {showError} from '../actions/error_actions.js';
+import {showError} from '../actions/alert_actions.js';
 import {save} from '../actions/settings_actions.js';
 
 import settingsStore from '../stores/settings_store.js';

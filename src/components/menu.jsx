@@ -8,7 +8,7 @@ import Search from './search.js';
 import Settings from './settings.js';
 
 import {sync} from '../actions/sync_actions.js';
-import {showError} from '../actions/error_actions.js';
+import {showError} from '../actions/alert_actions.js';
 
 import connectionStatusStore from '../stores/connection_status_store.js';
 import {CHANGE} from '../constants/connection_status_constants.js';

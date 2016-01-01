@@ -3,7 +3,7 @@ import React from 'react';
 import {Button, Input} from 'react-bootstrap';
 
 import {create} from '../../actions/tag_actions.js';
-import {showError} from '../../actions/error_actions.js';
+import {showError} from '../../actions/alert_actions.js';
 
 class AddNewTag extends React.Component {
   constructor() {

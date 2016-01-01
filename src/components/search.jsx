@@ -2,7 +2,7 @@ import React from 'react';
 import {Input, Button} from 'react-bootstrap';
 
 import {search} from '../actions/search_actions.js';
-import {showError} from '../actions/error_actions.js';
+import {showError} from '../actions/alert_actions.js';
 
 class Search extends React.Component {
   constructor() {

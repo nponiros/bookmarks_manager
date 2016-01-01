@@ -6,7 +6,7 @@ import {init as bookmarksInit} from './actions/bookmark_actions.js';
 import {init as connectionStatusInit} from './actions/connection_status_actions.js';
 import {init as settingsInit} from './actions/settings_actions.js';
 import {init as syncInit} from './actions/sync_actions.js';
-import {showError} from './actions/error_actions.js';
+import {showError} from './actions/alert_actions.js';
 
 import BmApp from './components/bm_app.js';
 

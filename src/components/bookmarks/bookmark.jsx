@@ -6,7 +6,7 @@ import {Glyphicon, Panel} from 'react-bootstrap';
 import BookmarkForm from './bookmark_form.js';
 import ViewTagsList from '../tags/view_tags_list.js';
 import {remove, update} from '../../actions/bookmark_actions.js';
-import {showError} from '../../actions/error_actions.js';
+import {showError} from '../../actions/alert_actions.js';
 
 class Bookmark extends React.Component {
   constructor() {

@@ -2,7 +2,7 @@ import React from 'react';
 
 import BookmarkForm from './bookmark_form.js';
 import {create} from '../../actions/bookmark_actions.js';
-import {showError} from '../../actions/error_actions.js';
+import {showError} from '../../actions/alert_actions.js';
 
 const emptyData = {
   title: '',
