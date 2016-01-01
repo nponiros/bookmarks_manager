@@ -92,6 +92,10 @@ class Menu extends React.Component {
   renderTitle() {
     const classes = this.state.syncing ? 'syncing' : '';
     const glyph = this.state.isOnline ? 'signal' : 'plane';
+    const syncStyle = {
+      color: this.state.isOnline ? '#ffffff' : '#a8a8a8',
+      cursor: this.state.isOnline ? 'pointer' : 'not-allowed'
+    };
     return <Row>
       <Col xs={12} sm={12} className="h3" componentClass="h2">
         <Col xs={3} sm={3}>
@@ -100,7 +104,7 @@ class Menu extends React.Component {
         <Col xs={3} sm={3}>
           <Glyphicon onClick={() => this.handleSearchToggle()} glyph="search"/>
         </Col>
-        <Col xs={2} sm={2} className={classes}>
+        <Col xs={2} sm={2} className={classes} style={syncStyle}>
           <Glyphicon onClick={() => this.handleSync()} glyph="refresh"/>
         </Col>
         <Col xs={2} sm={2}>
