@@ -8,7 +8,7 @@ import Search from './search.js';
 import Settings from './settings.js';
 
 import {sync} from '../actions/sync_actions.js';
-import {showError} from '../actions/alert_actions.js';
+import {showError, showWarning} from '../actions/alert_actions.js';
 
 import connectionStatusStore from '../stores/connection_status_store.js';
 import {CHANGE} from '../constants/connection_status_constants.js';
@@ -74,19 +74,26 @@ class Menu extends React.Component {
   }
 
   handleSync() {
-    this.setState({
-      syncing: true
-    });
-    sync().then(() => {
+    if (this.state.isOnline) {
       this.setState({
-        syncing: false
+        syncing: true
       });
-    }).catch((err) => {
-      this.setState({
-        syncing: false
+      sync().then(() => {
+        this.setState({
+          syncing: false
+        });
+      }).catch((err) => {
+        this.setState({
+          syncing: false
+        });
+        showError(err);
       });
-      showError(err);
-    });
+    } else {
+      showWarning({
+        name: 'Synchronization warning',
+        message: 'Unable to sync if there is no server connection'
+      });
+    }
   }
 
   renderTitle() {

@@ -14,3 +14,4 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * Automatically close the panel if the add/search operations succeed
 * The error alert shows the name instead of "some error occurred" and the error message if available
 * Show a gray syncing icon if we have no server connection
+* Show warning when trying to sync without a server connection
