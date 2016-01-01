@@ -34,8 +34,8 @@ class Error extends React.Component {
   render() {
     if (this.state.visible) {
       return <Alert bsStyle="danger" onDismiss={() => this.handleDismiss()}>
-        <h4>Some error occurred</h4>
-        <p>{this.state.errorMessage}</p>
+        <h4>{this.state.error.name}</h4>
+        <p>{this.state.error.message}</p>
       </Alert>;
     } else {
       return false;

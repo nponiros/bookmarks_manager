@@ -8,7 +8,7 @@ class ErrorStore extends BaseStore {
       [SHOW_ERROR]: this._handleShowError,
       [HIDE_ERROR]: this._handleHideError
     };
-    this._errorMessage = '';
+    this._error = {};
     this._visible = false;
   }
 
@@ -16,7 +16,10 @@ class ErrorStore extends BaseStore {
     this._visible = true;
     const errorData = {
       visible: this._visible,
-      errorMessage: error.name
+      error: {
+        name: error.name,
+        message: error.message
+      }
     };
     this.emit(CHANGE, errorData);
   }
@@ -25,7 +28,7 @@ class ErrorStore extends BaseStore {
     this._visible = false;
     const errorData = {
       visible: this._visible,
-      errorMessage: ''
+      error: {}
     };
     this.emit(CHANGE, errorData);
   }
@@ -33,7 +36,7 @@ class ErrorStore extends BaseStore {
   getInitialState() {
     return {
       visible: this._visible,
-      errorMessage: this._errorMessage
+      error: this._error
     };
   }
 }
