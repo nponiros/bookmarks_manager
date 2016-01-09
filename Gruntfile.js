@@ -37,6 +37,15 @@ module.exports = function(grunt) {
           cwd: 'node_modules/',
           src: ['bootstrap/dist/fonts/glyphicons-halflings-regular.woff2'],
           dest: 'dist/fonts/'
+        }, {
+          src: ['manifest.json'],
+          dest: 'dist/'
+        }, {
+          expand: true,
+          flatten: true,
+          cwd: 'images',
+          src: ['*.png'],
+          dest: 'dist/images/'
         }]
       }, prod: {
         files: [{
