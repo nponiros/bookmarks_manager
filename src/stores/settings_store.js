@@ -9,6 +9,7 @@ class SettingsStore extends BaseStore {
       [SAVE]: this._handleSave
     };
     this._urlValidStyle = 'error';
+    this._importInprogress = false;
   }
 
   _handleInit(settings) {
@@ -37,7 +38,8 @@ class SettingsStore extends BaseStore {
     return {
       urlValidStyle: this._urlValidStyle,
       serverUrl: this._serverUrl,
-      port: this._port
+      port: this._port,
+      importInProgress: this._importInprogress
     };
   }
 }

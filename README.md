@@ -23,6 +23,16 @@ Offline (via appcache and IndexedDB) bookmarks manager for the browser.
 * Optional: run [SyncServer](https://github.com/nponiros/sync_server) or similar to enable synchronization
   * Use the settings menu to add a server url and port (optional) to be used for synchronization and connection status check
 
+## Import Google Chrome/Chromium bookmarks
+
+In the settings tab you can select the Bookmarks file of Chrome/Chromium to import all bookmarks into the Bookmarks Manager. Under Linux you can find the file form Chromium in ~/.config/chromium/Default/Bookmarks and for Chrome in ~/.config/google-chrome/Default/Bookmarks. In both cases the default profile is assumed. If you have more profiles, you might need to replace "Default" with the correct profile name.
+
+### Warnings
+
+* It was only tested with a Bookmarks file with version 1. It might not work for different versions
+* The operation took several seconds with ~ 500 bookmarks
+* The import operation might crash the browser or make it unresponsive if you have more than 500 bookmarks or an old computer
+
 ## TODO
 
 * Search/Filter functionality
