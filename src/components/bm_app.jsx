@@ -8,10 +8,15 @@ import Alert from './alert.js';
 
 class BmApp extends React.Component {
   render() {
+    const alertStyles = {
+      position: 'fixed',
+      'z-index': 100
+    };
+
     return <Grid fluid>
       <Row style={{marginTop: 10 + 'px'}}>
+        <Col md={8} sm={10} mdOffset={2} smOffset={1} style={alertStyles}><Alert/></Col>
         <Col md={8} mdOffset={2} sm={10} smOffset={1}>
-          <Alert/>
           <Menu/>
           <BookmarksList/>
         </Col>
