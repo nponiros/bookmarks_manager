@@ -20,15 +20,16 @@ Offline (via appcache and IndexedDB) bookmarks manager for the browser.
 * Run npm start to run the http-server, navigate to localhost:8080 to start using the app
   * Optional: Use a different webserver. For this you need to set /dist as the root
   * Make sure the correct type is returned for the manifest.appcache file
-* Optional: run [SyncServer](https://github.com/nponiros/sync_server) or similar on port 3000 on the local machine to enable synchronization
+* Optional: run [SyncServer](https://github.com/nponiros/sync_server) or similar to enable synchronization
+  * Use the settings menu to add a server url and port (optional) to be used for synchronization and connection status check
 
 ## TODO
 
 * Search/Filter functionality
-* Need to be able to define the domain for the sync and connection check server
 
 ## Possible TODOs
 
+* Define interval for connection checks in settings
 * Automatically delete tags without bookmarks
 * Update tag name
 * Delete tags
