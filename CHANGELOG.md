@@ -7,6 +7,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 * Form to add server url and port for connection status check and synchronization
 * Show more than just one alert if more errors/warnings happen before the alert is dismissed
+* Favicon
+* Manifest for "add to homepage" on android
 
 ### Changed
 
