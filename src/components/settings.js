@@ -92,17 +92,11 @@ class Settings extends React.Component {
     this.bookmarksFile = event.target.files[0];
   }
 
-  renderImportForm() {
+  getImportFormButton() {
     if (this.state.importInProgress) {
-      return <form onSubmit={(event) => this.handleSubmit(event, 'importBookmarks')} noValidate>
-        <Input type="file" ref="file" onChange={(event) => this.handleFileSelection(event)}/>
-        <Button type="submit" bsStyle="primary" block className="animation-active"><Glyphicon glyph="refresh"/></Button>
-      </form>;
+      return <Button type="submit" bsStyle="primary" block className="animation-active"><Glyphicon glyph="refresh"/></Button>;
     } else {
-      return <form onSubmit={(event) => this.handleSubmit(event, 'importBookmarks')} noValidate>
-        <Input type="file" ref="file" onChange={(event) => this.handleFileSelection(event)}/>
-        <Button type="submit" bsStyle="primary" block>Import</Button>
-      </form>;
+      return <Button type="submit" bsStyle="primary" block>Import</Button>;
     }
   }
 
@@ -117,7 +111,10 @@ class Settings extends React.Component {
       </form>
       <hr/>
       <h4>Import Bookmarks</h4>
-      {this.renderImportForm()}
+      <form onSubmit={(event) => this.handleSubmit(event, 'importBookmarks')} noValidate>
+        <Input type="file" ref="file" onChange={(event) => this.handleFileSelection(event)}/>
+        {this.getImportFormButton()}
+      </form>
     </div>;
   }
 }
