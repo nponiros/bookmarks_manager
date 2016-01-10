@@ -97,7 +97,7 @@ class Menu extends React.Component {
   }
 
   renderTitle() {
-    const classes = this.state.syncing ? 'syncing' : '';
+    const classes = this.state.syncing ? 'animation-active' : '';
     const glyph = this.state.isOnline ? 'signal' : 'plane';
     const syncStyle = {
       color: this.state.isOnline ? '#ffffff' : '#a8a8a8',

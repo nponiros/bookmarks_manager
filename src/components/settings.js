@@ -96,7 +96,7 @@ class Settings extends React.Component {
     if (this.state.importInProgress) {
       return <form onSubmit={(event) => this.handleSubmit(event, 'importBookmarks')} noValidate>
         <Input type="file" ref="file" onChange={(event) => this.handleFileSelection(event)}/>
-        <Button type="submit" bsStyle="primary" block className="syncing"><Glyphicon glyph="refresh"/></Button>
+        <Button type="submit" bsStyle="primary" block className="animation-active"><Glyphicon glyph="refresh"/></Button>
       </form>;
     } else {
       return <form onSubmit={(event) => this.handleSubmit(event, 'importBookmarks')} noValidate>
