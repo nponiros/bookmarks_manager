@@ -17,7 +17,8 @@ class Bookmark extends React.Component {
     };
   }
 
-  handleSelect() {
+  handleSelect(event) {
+    event.preventDefault();
     this.setState({
       open: !this.state.open
     });
@@ -95,12 +96,12 @@ class Bookmark extends React.Component {
   render() {
     if (this.state.open) {
       return <Panel header={this.renderTitle()} bsStyle="primary" collapsible expanded={this.state.open}
-                    onSelect={() => this.handleSelect()}>
+                    onSelect={(event) => this.handleSelect(event)}>
         {this.renderBody()}
       </Panel>;
     } else {
       return <Panel header={this.renderTitle()} bsStyle="primary" collapsible expanded={this.state.open}
-                    onSelect={() => this.handleSelect()}></Panel>;
+                    onSelect={(event) => this.handleSelect(event)}></Panel>;
     }
   }
 }
