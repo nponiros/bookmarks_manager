@@ -75,19 +75,26 @@ class Menu extends React.Component {
 
   handleSync() {
     if (this.state.isOnline) {
-      this.setState({
-        syncing: true
-      });
-      sync().then(() => {
-        this.setState({
-          syncing: false
+      if (this.state.syncing) {
+        showWarning({
+          name: 'Synchronization warning',
+          message: 'Synchronization in progress'
         });
-      }).catch((err) => {
+      } else {
         this.setState({
-          syncing: false
+          syncing: true
         });
-        showError(err);
-      });
+        sync().then(() => {
+          this.setState({
+            syncing: false
+          });
+        }).catch((err) => {
+          this.setState({
+            syncing: false
+          });
+          showError(err);
+        });
+      }
     } else {
       showWarning({
         name: 'Synchronization warning',
