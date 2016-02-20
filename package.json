@@ -34,7 +34,6 @@
     "grunt-contrib-copy": "0.8.2",
     "grunt-contrib-htmlmin": "0.6.0",
     "grunt-eslint": "17.3.1",
-    "grunt-jsxcs": "0.0.1",
     "grunt-manifest": "git://github.com/gunta/grunt-manifest.git#master",
     "grunt-processhtml": "0.3.8",
     "http-server": "0.8.5",
