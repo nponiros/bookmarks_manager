@@ -35,7 +35,7 @@ class EditTagsList extends React.Component {
     const tags = this.state.availableTags.map((tag) => {
       const isTagSelected = Boolean(this.props.selectedTagIds.indexOf(tag._id) !== -1);
 
-      return <li key={tag._id}>
+      return <li key={tag._id} className="edit-tag">
         <EditTag id={tag._id} name={tag.name} initiallySelected={isTagSelected} onSelect={(id, isSelected) => this.onTagSelect(id, isSelected)}/>
       </li>;
     });
