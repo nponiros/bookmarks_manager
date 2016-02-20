@@ -4,18 +4,18 @@ import {Col, Grid, Row} from 'react-bootstrap';
 
 import Menu from './menu.js';
 import BookmarksList from './bookmarks/bookmarks_list.js';
-import Alert from './alert.js';
+import Alerts from './alerts.js';
 
 class BmApp extends React.Component {
   render() {
     const alertStyles = {
       position: 'fixed',
-      'z-index': 100
+      zIndex: 100
     };
 
     return <Grid fluid>
       <Row style={{marginTop: 10 + 'px'}}>
-        <Col md={8} sm={10} mdOffset={2} smOffset={1} style={alertStyles}><Alert/></Col>
+        <Col md={8} sm={10} mdOffset={2} smOffset={1} style={alertStyles}><Alerts/></Col>
         <Col md={8} mdOffset={2} sm={10} smOffset={1}>
           <Menu/>
           <BookmarksList/>

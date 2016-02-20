@@ -1,7 +1,7 @@
 import BaseStore from './base_store.js';
 import {ADD_ALERT, REMOVE_ALERT, CHANGE} from '../constants/alert_constants.js';
 
-class AlertStore extends BaseStore {
+class AlertsStore extends BaseStore {
   constructor() {
     super();
     this.actionHandlers = {
@@ -31,5 +31,5 @@ class AlertStore extends BaseStore {
   }
 }
 
-const alertStore = new AlertStore();
-export default alertStore;
+const alertsStore = new AlertsStore();
+export default alertsStore;

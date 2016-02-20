@@ -1,14 +1,14 @@
 import React from 'react';
-import {Alert as BootstrapAlert} from 'react-bootstrap';
+import {Alert} from 'react-bootstrap';
 import {CHANGE} from '../constants/alert_constants.js';
 
-import AlertStore from '../stores/alert_store.js';
+import AlertsStore from '../stores/alerts_store.js';
 import {removeAlert} from '../actions/alert_actions.js';
 
-class Alert extends React.Component {
+class Alerts extends React.Component {
   constructor() {
     super();
-    this.state = AlertStore.getInitialState();
+    this.state = AlertsStore.getInitialState();
 
     this.changeListener = (data) => {
       this.onChange(data);
@@ -16,11 +16,11 @@ class Alert extends React.Component {
   }
 
   componentDidMount() {
-    AlertStore.addListener(CHANGE, this.changeListener);
+    AlertsStore.addListener(CHANGE, this.changeListener);
   }
 
   componentWillUnmount() {
-    AlertStore.removeListener(CHANGE, this.changeListener);
+    AlertsStore.removeListener(CHANGE, this.changeListener);
   }
 
   onChange(alerts) {
@@ -34,9 +34,9 @@ class Alert extends React.Component {
   renderAlerts() {
     const alerts = this.state.alerts.map((alert) => {
       const alertText = alert.message ? `${alert.name}: ${alert.message}` : alert.name;
-      return <BootstrapAlert bsStyle={alert.type} key={alert._id} onDismiss={() => this.handleDismiss(alert._id)}>
+      return <Alert bsStyle={alert.type} key={alert._id} onDismiss={() => this.handleDismiss(alert._id)}>
         <p>{alertText}</p>
-      </BootstrapAlert>;
+      </Alert>;
     });
     return alerts;
   }
@@ -50,6 +50,6 @@ class Alert extends React.Component {
   }
 }
 
-Alert.propTypes = {};
+Alerts.propTypes = {};
 
-export default Alert;
+export default Alerts;
