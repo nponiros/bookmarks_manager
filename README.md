@@ -36,6 +36,15 @@ In the settings tab you can select the Bookmarks file of Chrome/Chromium to impo
 ## TODO
 
 * Search/Filter functionality
+* Show better message when localStorage is empty instead of a TypeError
+* Loading is slow with many bookmarks
+* Reset input field when tag is added
+* Auto select newly added tag
+* Maybe cut long bookmark titles using ellipsis
+* Need some release process
+* update deps
+* Test if synchronization in progress is running correctly (seems to be very fast, need to make sure that it is done after we have actually saved stuff)
+  * Cleanup indexeddb and use sync server to get all (also remove last update ts)
 
 ## Possible TODOs
 
@@ -50,7 +59,7 @@ In the settings tab you can select the Bookmarks file of Chrome/Chromium to impo
 
 ## Browser Compatibility
 
-The webapp was tested with newer versions of Chrome. Should also work in Firefox but was not explicitly tested there.
+The BookmarksManager was tested with newer versions of Chrome. Should also work in Firefox but was not explicitly tested there.
 
 ## Contributing
 

@@ -20,3 +20,4 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * Show warning when trying to sync without a server connection
 * Activate the status checker only if we have a server url
 * Show warning if we have no server url for the status checker
+* Use cursor pointer for tags when editing
