@@ -2,39 +2,27 @@ import React, { PropTypes } from 'react';
 import { ListItem } from 'material-ui/List';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import Star from 'material-ui/svg-icons/toggle/star';
-import IconButton from 'material-ui/IconButton';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
 
-const iconButtonElement = (
-  <IconButton>
-    <MoreVertIcon />
-  </IconButton>
-);
-
-const rightIconMenu = (
-  <IconMenu iconButtonElement={iconButtonElement}>
-    <MenuItem>Edit</MenuItem>
-    <MenuItem>Delete</MenuItem>
-    <MenuItem>Move</MenuItem>
-  </IconMenu>
-);
+import rightIconMenu from './RightIconMenu';
+import { BOOKMARK } from '../../constants';
 
 const Bookmark = ({
   title,
   url,
   wasRead,
+  handleAction,
 }) => <ListItem
   primaryText={title}
   leftIcon={wasRead ? <Star /> : <StarBorder />}
-  rightIconButton={rightIconMenu}
+  rightIconButton={rightIconMenu(handleAction, BOOKMARK)}
+  href={url}
 />;
 
 Bookmark.propTypes = {
   title: PropTypes.string.isRequired,
   wasRead: PropTypes.bool,
-  url: PropTypes.url,
+  url: PropTypes.string,
+  handleAction: PropTypes.func.isRequired,
 };
 
 export default Bookmark;

@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import App from '../../components/App';
 
-import { handleAction } from '../../actions';
+import handleAction from '../../actions';
 
 function mapStateToProps(state) {
   const { view, items, entities, itemToUpdateID, currentFolderID } = state;

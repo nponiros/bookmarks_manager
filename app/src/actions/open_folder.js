@@ -1,4 +1,4 @@
-import { handleAction } from './';
+import handleAction from './';
 import { LOAD_ITEMS, OPEN_FOLDER, FOLDER_BACK } from '../constants';
 
 export function openFolder(folderToOpenID, currentFolderID) {

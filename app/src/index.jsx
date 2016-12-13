@@ -7,7 +7,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppContainer from './containers/App';
 import store from './store';
 
-import { handleAction } from './actions';
+import handleAction from './actions';
 import { LOAD_ITEMS } from './constants';
 
 // Needed for onTouchTap

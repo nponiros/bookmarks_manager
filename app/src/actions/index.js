@@ -5,7 +5,7 @@ import {
   closeAddFolder,
 } from './add_item';
 import loadItems from './load_items';
-import { updateItem } from './update_item';
+import updateItem from './update_item';
 import { openFolder, folderBack } from './open_folder';
 
 import {
@@ -19,7 +19,7 @@ import {
   FOLDER_BACK,
 } from '../constants';
 
-export function handleAction(action, ...args) {
+export default function handleAction(action, ...args) {
   return (dispatch) => {
     switch (action) {
       case OPEN_ADD_BOOKMARK:
