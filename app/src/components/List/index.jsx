@@ -55,12 +55,12 @@ const MyList = ({ items, entities, handleAction, currentFolderID }) => <div>
       <SpeedDialItem
         label="new folder"
         fabContent={<FileFolder />}
-        onTouchTap={() => handleAction(OPEN_ADD_FOLDER)}
+        onTouchTap={() => handleAction(OPEN_ADD_FOLDER, currentFolderID)}
       />
       <SpeedDialItem
         label="new bookmark"
         fabContent={<StarBorder />}
-        onTouchTap={() => handleAction(OPEN_ADD_BOOKMARK)}
+        onTouchTap={() => handleAction(OPEN_ADD_BOOKMARK, currentFolderID)}
       />
     </SpeedDial>
   </div>

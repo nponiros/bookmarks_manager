@@ -6,14 +6,14 @@ import rightIconMenu from './RightIconMenu';
 import { OPEN_FOLDER, FOLDER } from '../../constants';
 
 const Folder = ({
-  title,
   id,
+  title,
   handleAction,
   currentFolderID,
 }) => <ListItem
   primaryText={title}
   leftIcon={<FileFolder />}
-  rightIconButton={rightIconMenu(handleAction, FOLDER)}
+  rightIconButton={rightIconMenu(handleAction, FOLDER, id)}
   onTouchTap={() => handleAction(OPEN_FOLDER, id, currentFolderID)}
 />;
 

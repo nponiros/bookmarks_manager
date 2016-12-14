@@ -1,10 +1,18 @@
 import React, { PropTypes } from 'react';
 
-import { ADD_BOOKMARK_VIEW, ADD_FOLDER_VIEW, LIST_VIEW, FOLDER, BOOKMARK } from '../../constants';
+import {
+  ADD_BOOKMARK_VIEW,
+  EDIT_BOOKMARK_VIEW,
+  ADD_FOLDER_VIEW,
+  EDIT_FOLDER_VIEW,
+  LIST_VIEW,
+  FOLDER,
+  BOOKMARK,
+} from '../../constants';
 
 import List from '../List';
-import AddBookmark from '../AddBookmark';
-import AddFolder from '../AddFolder';
+import ManipulateBookmark from '../ManipulateBookmark';
+import ManipulateFolder from '../ManipulateFolder';
 
 const App = ({ view, items, entities, handleAction, itemToUpdate, currentFolderID }) => {
   switch (view) {
@@ -14,8 +22,26 @@ const App = ({ view, items, entities, handleAction, itemToUpdate, currentFolderI
       handleAction={handleAction}
       currentFolderID={currentFolderID}
     />);
-    case ADD_BOOKMARK_VIEW: return <AddBookmark {...itemToUpdate} handleAction={handleAction} />;
-    case ADD_FOLDER_VIEW: return <AddFolder {...itemToUpdate} handleAction={handleAction} />;
+    case ADD_BOOKMARK_VIEW: return (<ManipulateBookmark
+      {...itemToUpdate}
+      handleAction={handleAction}
+      view={view}
+    />);
+    case EDIT_BOOKMARK_VIEW: return (<ManipulateBookmark
+      {...itemToUpdate}
+      handleAction={handleAction}
+      view={view}
+    />);
+    case ADD_FOLDER_VIEW: return (<ManipulateFolder
+      {...itemToUpdate}
+      handleAction={handleAction}
+      view={view}
+    />);
+    case EDIT_FOLDER_VIEW: return (<ManipulateFolder
+      {...itemToUpdate}
+      handleAction={handleAction}
+      view={view}
+    />);
     default: return null;
   }
 };

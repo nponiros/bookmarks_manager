@@ -1,17 +1,13 @@
 import React, { PropTypes } from 'react';
-import AppBar from 'material-ui/AppBar';
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import DatePicker from 'material-ui/DatePicker';
 import Toggle from 'material-ui/Toggle';
-import IconButton from 'material-ui/IconButton';
-import FlatButton from 'material-ui/FlatButton';
-import NavigationClose from 'material-ui/svg-icons/navigation/close';
 
-import { UPDATE_ITEM, ID_FOR_NO_PARENT, CLOSE_ADD_BOOKMARK } from '../../constants';
+import { UPDATE_ITEM, ID_FOR_NO_PARENT } from '../../constants';
 
-const Bookmark = ({
+const BookmarkForm = ({
   handleAction,
   title,
   id,
@@ -21,12 +17,6 @@ const Bookmark = ({
   author,
   writeDate,
 }) => <div>
-  <AppBar
-    title="Add Bookmark"
-    onLeftIconButtonTouchTap={() => handleAction(CLOSE_ADD_BOOKMARK)}
-    iconElementLeft={<IconButton><NavigationClose /></IconButton>}
-    iconElementRight={<FlatButton label="Save" />}
-  />
   <TextField
     floatingLabelText="Title"
     value={title}
@@ -69,7 +59,7 @@ const Bookmark = ({
   />
 </div>;
 
-Bookmark.propTypes = {
+BookmarkForm.propTypes = {
   id: PropTypes.string.isRequired,
   parentID: PropTypes.string.isRequired,
   title: PropTypes.string,
@@ -80,4 +70,4 @@ Bookmark.propTypes = {
   handleAction: PropTypes.func.isRequired,
 };
 
-export default Bookmark;
+export default BookmarkForm;

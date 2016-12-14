@@ -1,21 +1,11 @@
 import React, { PropTypes } from 'react';
-import AppBar from 'material-ui/AppBar';
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import IconButton from 'material-ui/IconButton';
-import FlatButton from 'material-ui/FlatButton';
-import NavigationClose from 'material-ui/svg-icons/navigation/close';
 
-import { UPDATE_ITEM, ID_FOR_NO_PARENT, CLOSE_ADD_FOLDER } from '../../constants';
+import { UPDATE_ITEM, ID_FOR_NO_PARENT } from '../../constants';
 
-const Folder = ({ handleAction, title, id, parentID }) => <div>
-  <AppBar
-    title="Add folder"
-    onLeftIconButtonTouchTap={() => handleAction(CLOSE_ADD_FOLDER)}
-    iconElementLeft={<IconButton><NavigationClose /></IconButton>}
-    iconElementRight={<FlatButton label="Save" />}
-  />
+const FolderForm = ({ handleAction, title, id, parentID }) => <div>
   <TextField
     floatingLabelText="Folder name"
     value={title}
@@ -31,11 +21,11 @@ const Folder = ({ handleAction, title, id, parentID }) => <div>
   </SelectField>
 </div>;
 
-Folder.propTypes = {
+FolderForm.propTypes = {
   id: PropTypes.string.isRequired,
   parentID: PropTypes.string.isRequired,
   title: PropTypes.string,
   handleAction: PropTypes.func.isRequired,
 };
 
-export default Folder;
+export default FolderForm;

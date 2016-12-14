@@ -7,6 +7,7 @@ import rightIconMenu from './RightIconMenu';
 import { BOOKMARK } from '../../constants';
 
 const Bookmark = ({
+  id,
   title,
   url,
   wasRead,
@@ -14,11 +15,12 @@ const Bookmark = ({
 }) => <ListItem
   primaryText={title}
   leftIcon={wasRead ? <Star /> : <StarBorder />}
-  rightIconButton={rightIconMenu(handleAction, BOOKMARK)}
+  rightIconButton={rightIconMenu(handleAction, BOOKMARK, id)}
   href={url}
 />;
 
 Bookmark.propTypes = {
+  id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   wasRead: PropTypes.bool,
   url: PropTypes.string,
