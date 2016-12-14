@@ -2,6 +2,7 @@ import update from 'immutability-helper';
 
 import {
   LOAD_ITEMS,
+  LOAD_FOLDERS,
   OPEN_ADD_BOOKMARK,
   CLOSE_ADD_BOOKMARK,
   ADD_BOOKMARK,
@@ -19,11 +20,13 @@ import {
   ADD_FOLDER_VIEW,
   EDIT_FOLDER_VIEW,
   LIST_VIEW,
+  FOLDER_TREE_VIEW,
   UPDATE_ITEM,
   OPEN_FOLDER,
   FOLDER_BACK,
   DELETE_BOOKMARK,
   DELETE_FOLDER,
+  ID_FOR_NO_PARENT,
 } from '../constants';
 
 function normalize(serverItems) {
@@ -31,6 +34,23 @@ function normalize(serverItems) {
     items: [...newItems.items, item.id],
     entities: Object.assign({}, newItems.entities, { [item.id]: item }),
   }), { items: [], entities: {} });
+}
+
+function createFoldersTree(folders) {
+  const foldersMap = folders.reduce(
+    (map, folder) => Object.assign(map, { [folder.id]: folder }), {},
+  );
+
+  return Object.keys(foldersMap).reduce((tree, key) => {
+    if (foldersMap[key].parentID === ID_FOR_NO_PARENT) {
+      tree.push(foldersMap[key]);
+    } else if (foldersMap[foldersMap[key].parentID].items) {
+      foldersMap[foldersMap[key].parentID].items.push(foldersMap[key]);
+    } else {
+      foldersMap[foldersMap[key].parentID].items = [foldersMap[key]];
+    }
+    return tree;
+  }, []);
 }
 
 export default function (state, { type, payload /* error = false*/ }) {
@@ -41,6 +61,12 @@ export default function (state, { type, payload /* error = false*/ }) {
         items: { $set: items },
         entities: { $merge: entities },
         currentFolderID: { $set: payload.id },
+      });
+    }
+    case LOAD_FOLDERS: {
+      return update(state, {
+        folders: { $set: createFoldersTree(payload) },
+        view: { $set: FOLDER_TREE_VIEW },
       });
     }
     case OPEN_ADD_BOOKMARK: return update(state, {

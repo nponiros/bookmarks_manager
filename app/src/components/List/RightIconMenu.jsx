@@ -13,6 +13,7 @@ import {
   DELETE_FOLDER,
   OPEN_EDIT_BOOKMARK,
   OPEN_EDIT_FOLDER,
+  LOAD_FOLDERS,
 } from '../../constants';
 
 const iconButtonElement = (
@@ -42,6 +43,7 @@ const rightMenuIcon = (
     Delete
   </MenuItem>
   <MenuItem
+    onTouchTap={() => handleAction(LOAD_FOLDERS)}
     rightIcon={<ContentCut />}
   >
     Move

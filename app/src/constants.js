@@ -7,6 +7,7 @@ export const TAG = 'Tag';
 
 // Actions
 export const LOAD_ITEMS = Symbol('LOAD_ITEMS');
+export const LOAD_FOLDERS = Symbol('LOAD_FOLDERS');
 export const OPEN_ADD_BOOKMARK = Symbol('OPEN_ADD_BOOKMARK');
 export const CLOSE_ADD_BOOKMARK = Symbol('CLOSE_ADD_BOOKMARK');
 export const OPEN_EDIT_BOOKMARK = Symbol('OPEN_EDIT_BOOKMARK');
@@ -31,3 +32,4 @@ export const ADD_BOOKMARK_VIEW = Symbol('ADD_BOOKMARK_VIEW');
 export const EDIT_BOOKMARK_VIEW = Symbol('EDIT_BOOKMARK_VIEW');
 export const ADD_FOLDER_VIEW = Symbol('ADD_FOLDER_VIEW');
 export const EDIT_FOLDER_VIEW = Symbol('EDIT_FOLDER_VIEW');
+export const FOLDER_TREE_VIEW = Symbol('FOLDER_TREE_VIEW');

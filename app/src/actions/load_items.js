@@ -1,4 +1,4 @@
-import { LOAD_ITEMS } from '../constants';
+import { LOAD_ITEMS, LOAD_FOLDERS } from '../constants';
 
 const topFolders = [
   {
@@ -45,7 +45,7 @@ const folders = {
       title: 'Folder 2',
       type: 'Folder',
       id: 'foo',
-      parentID: 'noparent',
+      parentID: 'b',
     },
   ],
 };
@@ -97,7 +97,7 @@ const bookmarks = {
   ],
 };
 
-export default function loadItems(parentID = 'noparent') {
+export function loadItems(parentID = 'noparent') {
   return (dispatch) => {
     dispatch({
       type: LOAD_ITEMS,
@@ -105,6 +105,15 @@ export default function loadItems(parentID = 'noparent') {
         items: [...(folders[parentID] || []), ...(bookmarks[parentID] || [])],
         id: parentID,
       },
+    });
+  };
+}
+
+export function loadFolders() {
+  return (dispatch) => {
+    dispatch({
+      type: LOAD_FOLDERS,
+      payload: Object.keys(folders).reduce((res, key) => [...res, ...folders[key]], []),
     });
   };
 }

@@ -12,7 +12,7 @@ import {
   closeEditFolder,
   updateFolder,
 } from './manipulate_item';
-import loadItems from './load_items';
+import { loadItems, loadFolders } from './load_items';
 import updateItem from './update_item';
 import { openFolder, folderBack } from './open_folder';
 import { deleteBookmark, deleteFolder } from './delete_item';
@@ -31,6 +31,7 @@ import {
   CLOSE_EDIT_FOLDER,
   UPDATE_FOLDER,
   LOAD_ITEMS,
+  LOAD_FOLDERS,
   UPDATE_ITEM,
   OPEN_FOLDER,
   FOLDER_BACK,
@@ -67,6 +68,8 @@ export default function handleAction(action, ...args) {
         return dispatch(updateFolder(...args));
       case LOAD_ITEMS:
         return dispatch(loadItems(...args));
+      case LOAD_FOLDERS:
+        return dispatch(loadFolders(...args));
       case UPDATE_ITEM:
         return dispatch(updateItem(...args));
       case OPEN_FOLDER:

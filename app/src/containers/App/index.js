@@ -5,13 +5,14 @@ import App from '../../components/App';
 import handleAction from '../../actions';
 
 function mapStateToProps(state) {
-  const { view, items, entities, itemToUpdateID, currentFolderID } = state;
+  const { view, items, entities, itemToUpdateID, currentFolderID, folders } = state;
   return {
     view,
     items,
     entities,
     itemToUpdate: entities[itemToUpdateID],
     currentFolderID,
+    folders,
   };
 }
 

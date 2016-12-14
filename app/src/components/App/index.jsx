@@ -6,6 +6,7 @@ import {
   ADD_FOLDER_VIEW,
   EDIT_FOLDER_VIEW,
   LIST_VIEW,
+  FOLDER_TREE_VIEW,
   FOLDER,
   BOOKMARK,
 } from '../../constants';
@@ -13,8 +14,9 @@ import {
 import List from '../List';
 import ManipulateBookmark from '../ManipulateBookmark';
 import ManipulateFolder from '../ManipulateFolder';
+import FoldersTree from '../FoldersTree';
 
-const App = ({ view, items, entities, handleAction, itemToUpdate, currentFolderID }) => {
+const App = ({ view, items, entities, handleAction, itemToUpdate, currentFolderID, folders }) => {
   switch (view) {
     case LIST_VIEW: return (<List
       items={items}
@@ -42,9 +44,29 @@ const App = ({ view, items, entities, handleAction, itemToUpdate, currentFolderI
       handleAction={handleAction}
       view={view}
     />);
+    case FOLDER_TREE_VIEW: return (<FoldersTree
+      folders={folders}
+      handleAction={handleAction}
+      currentFolderID={currentFolderID}
+    />);
     default: return null;
   }
 };
+
+function lazyFunction(f) {
+  return function applyType(...args) {
+    return f().apply(this, args);
+  };
+}
+
+const treeType = PropTypes.shape({
+  id: PropTypes.string.isRequired,
+  type: PropTypes.oneOf([FOLDER]).isRequired,
+  title: PropTypes.string,
+  parentID: PropTypes.string.isRequired,
+  addDate: PropTypes.string,
+  items: PropTypes.arrayOf(lazyFunction(() => treeType)),
+});
 
 App.propTypes = {
   view: PropTypes.symbol.isRequired,
@@ -92,6 +114,7 @@ App.propTypes = {
       wasRead: PropTypes.bool,
     }),
   ]),
+  folders: PropTypes.arrayOf(treeType),
   currentFolderID: PropTypes.string.isRequired,
 };
 
