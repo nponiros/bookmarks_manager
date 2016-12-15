@@ -6,7 +6,12 @@ import {
   ADD_FOLDER_VIEW,
   EDIT_FOLDER_VIEW,
   LIST_VIEW,
-  FOLDER_TREE_VIEW,
+  MOVE_FOLDER_BOOKMARK_VIEW,
+  CHOOSE_BOOKMARK_PARENT_VIEW,
+  CHOOSE_FOLDER_PARENT_VIEW,
+  CLOSE_CHOOSE_BOOKMARK_PARENT,
+  CLOSE_CHOOSE_FOLDER_PARENT,
+  CLOSE_MOVE_FOLDER_BOOKMARK,
   FOLDER,
   BOOKMARK,
 } from '../../constants';
@@ -28,26 +33,43 @@ const App = ({ view, items, entities, handleAction, itemToUpdate, currentFolderI
       {...itemToUpdate}
       handleAction={handleAction}
       view={view}
+      parentFolderTitle={entities[itemToUpdate.parentID] ? entities[itemToUpdate.parentID].title : 'None'}
     />);
     case EDIT_BOOKMARK_VIEW: return (<ManipulateBookmark
       {...itemToUpdate}
       handleAction={handleAction}
       view={view}
+      parentFolderTitle={entities[itemToUpdate.parentID] ? entities[itemToUpdate.parentID].title : 'None'}
     />);
     case ADD_FOLDER_VIEW: return (<ManipulateFolder
       {...itemToUpdate}
       handleAction={handleAction}
       view={view}
+      parentFolderTitle={entities[itemToUpdate.parentID] ? entities[itemToUpdate.parentID].title : 'None'}
     />);
     case EDIT_FOLDER_VIEW: return (<ManipulateFolder
       {...itemToUpdate}
       handleAction={handleAction}
       view={view}
+      parentFolderTitle={entities[itemToUpdate.parentID] ? entities[itemToUpdate.parentID].title : 'None'}
     />);
-    case FOLDER_TREE_VIEW: return (<FoldersTree
+    case CHOOSE_BOOKMARK_PARENT_VIEW: return (<FoldersTree
       folders={folders}
       handleAction={handleAction}
       currentFolderID={currentFolderID}
+      closeAction={CLOSE_CHOOSE_BOOKMARK_PARENT}
+    />);
+    case CHOOSE_FOLDER_PARENT_VIEW: return (<FoldersTree
+      folders={folders}
+      handleAction={handleAction}
+      currentFolderID={currentFolderID}
+      closeAction={CLOSE_CHOOSE_FOLDER_PARENT}
+    />);
+    case MOVE_FOLDER_BOOKMARK_VIEW: return (<FoldersTree
+      folders={folders}
+      handleAction={handleAction}
+      currentFolderID={currentFolderID}
+      closeAction={CLOSE_MOVE_FOLDER_BOOKMARK}
     />);
     default: return null;
   }

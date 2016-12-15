@@ -1,4 +1,8 @@
-import { LOAD_ITEMS, LOAD_FOLDERS } from '../constants';
+import {
+  LOAD_ITEMS,
+  LOAD_FOLDERS,
+} from '../constants';
+import handleAction from './';
 
 const topFolders = [
   {
@@ -64,7 +68,7 @@ const bookmarks = {
       addDate: 'baz',
       type: 'Bookmark',
       id: 'as',
-      parentID: 'noparent',
+      parentID: 'b',
     },
     {
       title: 'Baz',
@@ -77,7 +81,7 @@ const bookmarks = {
       addDate: 'baz',
       type: 'Bookmark',
       id: 'fhg',
-      parentID: 'noparent',
+      parentID: 'b',
     },
   ],
   foo: [
@@ -92,7 +96,7 @@ const bookmarks = {
       addDate: 'baz',
       type: 'Bookmark',
       id: 'bar',
-      parentID: 'noparent',
+      parentID: 'foo',
     },
   ],
 };
@@ -109,11 +113,12 @@ export function loadItems(parentID = 'noparent') {
   };
 }
 
-export function loadFolders() {
+export function loadFolders(actionToOpenView, itemToUpdateID = '') {
   return (dispatch) => {
     dispatch({
       type: LOAD_FOLDERS,
       payload: Object.keys(folders).reduce((res, key) => [...res, ...folders[key]], []),
     });
+    dispatch(handleAction(actionToOpenView, itemToUpdateID));
   };
 }

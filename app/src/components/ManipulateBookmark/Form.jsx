@@ -1,21 +1,20 @@
 import React, { PropTypes } from 'react';
 import TextField from 'material-ui/TextField';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
 import DatePicker from 'material-ui/DatePicker';
 import Toggle from 'material-ui/Toggle';
+import FlatButton from 'material-ui/FlatButton';
 
-import { UPDATE_ITEM, ID_FOR_NO_PARENT } from '../../constants';
+import { UPDATE_ITEM, LOAD_FOLDERS, OPEN_CHOOSE_BOOKMARK_PARENT } from '../../constants';
 
 const BookmarkForm = ({
   handleAction,
   title,
   id,
-  parentID,
   description,
   wasRead,
   author,
   writeDate,
+  parentFolderTitle,
 }) => <div>
   <TextField
     floatingLabelText="Title"
@@ -25,13 +24,14 @@ const BookmarkForm = ({
   <br />
   <TextField type="url" floatingLabelText="URL" />
   <br />
-  <SelectField
-    floatingLabelText="Parent folder"
-    value={parentID}
-    onChange={(e, key, value) => handleAction(UPDATE_ITEM, id, 'parentID', value)}
-  >
-    <MenuItem value={ID_FOR_NO_PARENT} primaryText="None" />
-  </SelectField>
+  <div>
+    <span>Parent folder</span>
+    <br />
+    <FlatButton
+      label={parentFolderTitle}
+      onTouchTap={() => handleAction(LOAD_FOLDERS, OPEN_CHOOSE_BOOKMARK_PARENT, id)}
+    />
+  </div>
   <Toggle
     label="Read"
     defaultToggled={wasRead}
@@ -61,7 +61,7 @@ const BookmarkForm = ({
 
 BookmarkForm.propTypes = {
   id: PropTypes.string.isRequired,
-  parentID: PropTypes.string.isRequired,
+  parentFolderTitle: PropTypes.string.isRequired,
   title: PropTypes.string,
   wasRead: PropTypes.bool,
   description: PropTypes.string,

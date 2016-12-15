@@ -11,6 +11,8 @@ const initialState = {
   currentFolderID: ID_FOR_NO_PARENT,
   previousFolderIDs: [], // Needed for back button when a folder is opened
   folders: [], // Needed to show a tree of all folders
+  previousView: LIST_VIEW,
+  itemToUpdateID: '',
 };
 
 /* eslint-disable no-underscore-dangle */

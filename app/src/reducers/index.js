@@ -20,13 +20,22 @@ import {
   ADD_FOLDER_VIEW,
   EDIT_FOLDER_VIEW,
   LIST_VIEW,
-  FOLDER_TREE_VIEW,
+  CHOOSE_BOOKMARK_PARENT_VIEW,
+  CHOOSE_FOLDER_PARENT_VIEW,
+  MOVE_FOLDER_BOOKMARK_VIEW,
   UPDATE_ITEM,
   OPEN_FOLDER,
   FOLDER_BACK,
   DELETE_BOOKMARK,
   DELETE_FOLDER,
   ID_FOR_NO_PARENT,
+  OPEN_CHOOSE_BOOKMARK_PARENT,
+  CLOSE_CHOOSE_BOOKMARK_PARENT,
+  OPEN_CHOOSE_FOLDER_PARENT,
+  CLOSE_CHOOSE_FOLDER_PARENT,
+  OPEN_MOVE_FOLDER_BOOKMARK,
+  CLOSE_MOVE_FOLDER_BOOKMARK,
+  CHOOSE_PARENT_FOLDER,
 } from '../constants';
 
 function normalize(serverItems) {
@@ -66,7 +75,6 @@ export default function (state, { type, payload /* error = false*/ }) {
     case LOAD_FOLDERS: {
       return update(state, {
         folders: { $set: createFoldersTree(payload) },
-        view: { $set: FOLDER_TREE_VIEW },
       });
     }
     case OPEN_ADD_BOOKMARK: return update(state, {
@@ -146,6 +154,38 @@ export default function (state, { type, payload /* error = false*/ }) {
     case DELETE_FOLDER: {
       if (state.items.includes(payload)) {
         return update(state, { items: { $set: state.items.filter(id => id !== payload) } });
+      }
+      return state;
+    }
+    case OPEN_CHOOSE_BOOKMARK_PARENT: return update(
+      state,
+      { view: { $set: CHOOSE_BOOKMARK_PARENT_VIEW }, previousView: { $set: state.view } },
+    );
+    case CLOSE_CHOOSE_BOOKMARK_PARENT: return update(state, { view: { $set: state.previousView } });
+    case OPEN_CHOOSE_FOLDER_PARENT: return update(
+      state,
+      { view: { $set: CHOOSE_FOLDER_PARENT_VIEW }, previousView: { $set: state.view } },
+    );
+    case CLOSE_CHOOSE_FOLDER_PARENT: return update(state, { view: { $set: state.previousView } });
+    case OPEN_MOVE_FOLDER_BOOKMARK: return update(
+      state,
+      {
+        view: { $set: MOVE_FOLDER_BOOKMARK_VIEW },
+        previousView: { $set: state.view },
+        itemToUpdateID: { $set: payload },
+      },
+    );
+    case CLOSE_MOVE_FOLDER_BOOKMARK: return update(state, {
+      view: { $set: LIST_VIEW },
+      itemToUpdateID: { $set: '' },
+    });
+    case CHOOSE_PARENT_FOLDER: {
+      if (payload !== state.currentFolderID) {
+        return update(state, {
+          entities: { [state.itemToUpdateID]: { parentID: { $set: payload } } },
+          items: { $set: state.items.filter(id => id !== state.itemToUpdateID) },
+          view: { $set: state.previousView },
+        });
       }
       return state;
     }
