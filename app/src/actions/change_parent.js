@@ -1,3 +1,4 @@
+import syncClient from '../db/sync_client';
 import {
   OPEN_CHOOSE_BOOKMARK_PARENT,
   CLOSE_CHOOSE_BOOKMARK_PARENT,
@@ -6,6 +7,7 @@ import {
   OPEN_MOVE_FOLDER_BOOKMARK,
   CLOSE_MOVE_FOLDER_BOOKMARK,
   CHOOSE_PARENT_FOLDER,
+  FOLDER,
 } from '../constants';
 
 export function openChooseBookmarkParent() {
@@ -58,10 +60,35 @@ export function closeMoveFolderBookmark() {
 }
 
 export function chooseParentFolder(parentFolderID) {
-  return (dispatch) => {
-    dispatch({
-      type: CHOOSE_PARENT_FOLDER,
-      payload: parentFolderID,
-    });
+  return (dispatch, getState) => {
+    const { itemToUpdateID, entities } = getState();
+    const item = entities[itemToUpdateID];
+    if (item.type === FOLDER) {
+      syncClient
+        .folders
+        .put(Object.assign({}, item, { parentID: parentFolderID }))
+        .then(() => {
+          dispatch({
+            type: CHOOSE_PARENT_FOLDER,
+            payload: parentFolderID,
+          });
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    } else {
+      syncClient
+        .bookmarks
+        .put(Object.assign({}, item, { parentID: parentFolderID }))
+        .then(() => {
+          dispatch({
+            type: CHOOSE_PARENT_FOLDER,
+            payload: parentFolderID,
+          });
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
   };
 }

@@ -1,3 +1,4 @@
+import syncClient from '../db/sync_client';
 import {
   OPEN_ADD_BOOKMARK,
   CLOSE_ADD_BOOKMARK,
@@ -15,15 +16,9 @@ import {
   BOOKMARK,
 } from '../constants';
 
-let counter = 0;
-function getID() {
-  return String(counter++);
-}
-
-// TODO get id from sync client
 function getNewBookmark(currentFolderID) {
   return {
-    id: getID(),
+    id: syncClient.getID(),
     parentID: currentFolderID,
     addDate: new Date().toISOString(),
     title: '',
@@ -38,7 +33,7 @@ function getNewBookmark(currentFolderID) {
 
 function getNewFolder(currentFolderID) {
   return {
-    id: getID(),
+    id: syncClient.getID(),
     title: '',
     type: FOLDER,
     parentID: currentFolderID,
@@ -64,11 +59,19 @@ export function closeAddBookmark() {
 }
 
 export function addBookmark(id) {
-  return (dispatch) => {
-    dispatch({
-      type: ADD_BOOKMARK,
-      payload: id,
-    });
+  return (dispatch, getState) => {
+    syncClient
+      .bookmarks
+      .add(getState().entities[id])
+      .then(() => {
+        dispatch({
+          type: ADD_BOOKMARK,
+          payload: id,
+        });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 }
 
@@ -90,11 +93,19 @@ export function closeEditBookmark() {
 }
 
 export function updateBookmark(id) {
-  return (dispatch) => {
-    dispatch({
-      type: UPDATE_BOOKMARK,
-      payload: id,
-    });
+  return (dispatch, getState) => {
+    syncClient
+      .bookmarks
+      .put(getState().entities[id])
+      .then(() => {
+        dispatch({
+          type: UPDATE_BOOKMARK,
+          payload: id,
+        });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 }
 
@@ -116,11 +127,19 @@ export function closeAddFolder() {
 }
 
 export function addFolder(id) {
-  return (dispatch) => {
-    dispatch({
-      type: ADD_FOLDER,
-      payload: id,
-    });
+  return (dispatch, getState) => {
+    syncClient
+      .folders
+      .add(getState().entities[id])
+      .then(() => {
+        dispatch({
+          type: ADD_FOLDER,
+          payload: id,
+        });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 }
 
@@ -142,10 +161,18 @@ export function closeEditFolder() {
 }
 
 export function updateFolder(id) {
-  return (dispatch) => {
-    dispatch({
-      type: UPDATE_FOLDER,
-      payload: id,
-    });
+  return (dispatch, getState) => {
+    syncClient
+      .folders
+      .put(getState().entities[id])
+      .then(() => {
+        dispatch({
+          type: UPDATE_FOLDER,
+          payload: id,
+        });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 }

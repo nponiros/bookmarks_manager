@@ -1,10 +1,11 @@
+import syncClient from '../db/sync_client';
 import {
   LOAD_ITEMS,
   LOAD_FOLDERS,
 } from '../constants';
 import handleAction from './';
 
-const topFolders = [
+/*const topFolders = [
   {
     title: 'Folder 1',
     type: 'Folder',
@@ -99,26 +100,51 @@ const bookmarks = {
       parentID: 'foo',
     },
   ],
-};
+};*/
 
+// TODO convert writeDate to date object
 export function loadItems(parentID = 'noparent') {
   return (dispatch) => {
-    dispatch({
-      type: LOAD_ITEMS,
-      payload: {
-        items: [...(folders[parentID] || []), ...(bookmarks[parentID] || [])],
-        id: parentID,
-      },
-    });
+    const foldersPromise = syncClient
+      .folders
+      .where({parentID})
+      .toArray();
+    const bookmarksPromise = syncClient
+      .bookmarks
+      .where({parentID})
+      .toArray();
+    Promise
+      .all([foldersPromise, bookmarksPromise])
+      .then(([folders, bookmarks]) => {
+        dispatch({
+          type: LOAD_ITEMS,
+          payload: {
+            items: [...folders, ...bookmarks],
+            id: parentID,
+          },
+        });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 }
 
 export function loadFolders(actionToOpenView, itemToUpdateID = '') {
   return (dispatch) => {
-    dispatch({
-      type: LOAD_FOLDERS,
-      payload: Object.keys(folders).reduce((res, key) => [...res, ...folders[key]], []),
-    });
-    dispatch(handleAction(actionToOpenView, itemToUpdateID));
+    syncClient
+      .folders
+      .toArray()
+      .then((folders) => {
+        console.log(folders);
+        dispatch({
+          type: LOAD_FOLDERS,
+          payload: folders,
+        });
+        dispatch(handleAction(actionToOpenView, itemToUpdateID));
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 }
