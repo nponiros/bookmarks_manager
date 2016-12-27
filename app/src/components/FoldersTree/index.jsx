@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import AppBar from 'material-ui/AppBar';
 import { List, ListItem } from 'material-ui/List';
 import FileFolder from 'material-ui/svg-icons/file/folder';
+import FileFolderOpen from 'material-ui/svg-icons/file/folder-open';
 import IconButton from 'material-ui/IconButton';
 import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 
@@ -19,7 +20,7 @@ function getItems(folders = [], handleAction, currentFolderID) {
   return folders.map(folder => <ListItem
     key={folder.id}
     primaryText={folder.title}
-    leftIcon={<FileFolder />}
+    leftIcon={folder.items.length > 0 ? <FileFolderOpen /> : <FileFolder />}
     initiallyOpen
     nestedItems={getItems(folder.items, handleAction, currentFolderID)}
     style={currentFolderID === folder.id ? style : {}}
