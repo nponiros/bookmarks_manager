@@ -6,6 +6,8 @@ import {
   ADD_FOLDER_VIEW,
   EDIT_FOLDER_VIEW,
   LIST_VIEW,
+  SETTINGS_VIEW,
+  SYNC_STATUS_VIEW,
   MOVE_FOLDER_BOOKMARK_VIEW,
   CHOOSE_BOOKMARK_PARENT_VIEW,
   CHOOSE_FOLDER_PARENT_VIEW,
@@ -20,14 +22,28 @@ import List from '../List';
 import ManipulateBookmark from '../ManipulateBookmark';
 import ManipulateFolder from '../ManipulateFolder';
 import FoldersTree from '../FoldersTree';
+import Settings from '../Settings';
+import SyncStatus from '../SyncStatus';
 
-const App = ({ view, items, entities, handleAction, itemToUpdate, currentFolderID, folders }) => {
+const App = ({
+  view,
+  items,
+  entities,
+  handleAction,
+  itemToUpdate,
+  currentFolderID,
+  folders,
+  menuOpen,
+  settings,
+  syncStatus,
+}) => {
   switch (view) {
     case LIST_VIEW: return (<List
       items={items}
       entities={entities}
       handleAction={handleAction}
       currentFolderID={currentFolderID}
+      menuOpen={menuOpen}
     />);
     case ADD_BOOKMARK_VIEW: return (<ManipulateBookmark
       {...itemToUpdate}
@@ -70,6 +86,14 @@ const App = ({ view, items, entities, handleAction, itemToUpdate, currentFolderI
       handleAction={handleAction}
       currentFolderID={currentFolderID}
       closeAction={CLOSE_MOVE_FOLDER_BOOKMARK}
+    />);
+    case SETTINGS_VIEW: return (<Settings
+      {...settings}
+      handleAction={handleAction}
+    />);
+    case SYNC_STATUS_VIEW: return (<SyncStatus
+      items={syncStatus}
+      handleAction={handleAction}
     />);
     default: return null;
   }
@@ -138,6 +162,10 @@ App.propTypes = {
   ]),
   folders: PropTypes.arrayOf(treeType),
   currentFolderID: PropTypes.string.isRequired,
+  menuOpen: PropTypes.bool,
+  settings: PropTypes.shape({
+    syncUrls: PropTypes.arrayOf(PropTypes.string),
+  }),
 };
 
 export default App;

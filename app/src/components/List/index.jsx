@@ -9,6 +9,7 @@ import { SpeedDial, SpeedDialItem } from 'react-mui-speeddial';
 import IconButton from 'material-ui/IconButton';
 import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 
+import LeftNav from '../LeftNav';
 import Folder from './Folder';
 import Bookmark from './Bookmark';
 import {
@@ -18,6 +19,7 @@ import {
   OPEN_ADD_FOLDER,
   ID_FOR_NO_PARENT,
   FOLDER_BACK,
+  OPEN_LEFT_NAV,
 } from '../../constants';
 
 function getListItems(items, entities, handleAction, currentFolderID) {
@@ -36,7 +38,7 @@ function getListItems(items, entities, handleAction, currentFolderID) {
 
 function getAppBar(currentFolderID, folder, handleAction) {
   if (currentFolderID === ID_FOR_NO_PARENT) {
-    return <AppBar title="Bookmarks Manager" />;
+    return <AppBar onLeftIconButtonTouchTap={() => handleAction(OPEN_LEFT_NAV)} title="Bookmarks Manager" />;
   }
   return (<AppBar
     title={folder.title}
@@ -45,13 +47,13 @@ function getAppBar(currentFolderID, folder, handleAction) {
   />);
 }
 
-const MyList = ({ items, entities, handleAction, currentFolderID }) => <div>
+const MyList = ({ items, entities, handleAction, currentFolderID, menuOpen }) => <div>
   { getAppBar(currentFolderID, entities[currentFolderID], handleAction) }
   <List>
     { getListItems(items, entities, handleAction, currentFolderID) }
   </List>
-  <div style={{ float: 'right' }}>
-    <SpeedDial fabContentOpen={<ContentAdd />} fabContentClose={<NavigationClose />}>
+  <div >
+    <SpeedDial fabContentOpen={<ContentAdd />} style={{float: 'right', top: '90vh'}} fabContentClose={<NavigationClose />}>
       <SpeedDialItem
         label="new folder"
         fabContent={<FileFolder />}
@@ -64,6 +66,7 @@ const MyList = ({ items, entities, handleAction, currentFolderID }) => <div>
       />
     </SpeedDial>
   </div>
+  <LeftNav open={menuOpen} handleAction={handleAction} />
 </div>;
 
 MyList.propTypes = {
@@ -91,6 +94,7 @@ MyList.propTypes = {
   ])).isRequired,
   handleAction: PropTypes.func.isRequired,
   currentFolderID: PropTypes.string.isRequired,
+  menuOpen: PropTypes.bool,
 };
 
 export default MyList;

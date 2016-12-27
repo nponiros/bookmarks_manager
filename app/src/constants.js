@@ -32,6 +32,14 @@ export const CLOSE_CHOOSE_FOLDER_PARENT = Symbol('CLOSE_FOLDER_PARENT');
 export const OPEN_CHOOSE_BOOKMARK_PARENT = Symbol('OPEN_CHOOSE_BOOKMARK_PARENT');
 export const CLOSE_CHOOSE_BOOKMARK_PARENT = Symbol('CLOSE_CHOOSE_BOOKMARK_PARENT');
 export const CHOOSE_PARENT_FOLDER = Symbol('CHOOSE_PARENT_FOLDER');
+export const OPEN_LEFT_NAV = Symbol('OPEN_LEFT_NAV');
+export const CLOSE_LEFT_NAV = Symbol('CLOSE_LEFT_NAV');
+export const OPEN_SETTINGS = Symbol('OPEN_SETTINGS');
+export const CLOSE_SETTINGS = Symbol('CLOSE_SETTINGS');
+export const ADD_SYNC_URL = Symbol('ADD_SYNC_URL');
+export const REMOVE_SYNC_URL = Symbol('REMOVE_SYNC_URL');
+export const OPEN_SYNC_STATUS = Symbol('OPEN_SYNC_STATUS');
+export const CLOSE_SYNC_STATUS = Symbol('CLOSE_SYNC_STATUS');
 
 // Views
 export const LIST_VIEW = Symbol('LIST_VIEW');
@@ -42,3 +50,5 @@ export const EDIT_FOLDER_VIEW = Symbol('EDIT_FOLDER_VIEW');
 export const MOVE_FOLDER_BOOKMARK_VIEW = Symbol('MOVE_FOLDER_BOOKMARK_VIEW');
 export const CHOOSE_FOLDER_PARENT_VIEW = Symbol('CHOOSE_FOLDER_PARENT_VIEW');
 export const CHOOSE_BOOKMARK_PARENT_VIEW = Symbol('CHOOSE_BOOKMARK_PARENT_VIEW');
+export const SETTINGS_VIEW = Symbol('SETTINGS_VIEW');
+export const SYNC_STATUS_VIEW = Symbol('SYNC_STATUS_VIEW');

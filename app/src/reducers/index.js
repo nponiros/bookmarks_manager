@@ -23,6 +23,8 @@ import {
   CHOOSE_BOOKMARK_PARENT_VIEW,
   CHOOSE_FOLDER_PARENT_VIEW,
   MOVE_FOLDER_BOOKMARK_VIEW,
+  SETTINGS_VIEW,
+  SYNC_STATUS_VIEW,
   UPDATE_ITEM,
   OPEN_FOLDER,
   FOLDER_BACK,
@@ -36,6 +38,14 @@ import {
   OPEN_MOVE_FOLDER_BOOKMARK,
   CLOSE_MOVE_FOLDER_BOOKMARK,
   CHOOSE_PARENT_FOLDER,
+  OPEN_LEFT_NAV,
+  CLOSE_LEFT_NAV,
+  OPEN_SETTINGS,
+  CLOSE_SETTINGS,
+  ADD_SYNC_URL,
+  REMOVE_SYNC_URL,
+  OPEN_SYNC_STATUS,
+  CLOSE_SYNC_STATUS,
 } from '../constants';
 
 function normalize(serverItems) {
@@ -89,9 +99,12 @@ export default function (state, { type, payload /* error = false*/ }) {
     case ADD_BOOKMARK: {
       const bookmark = state.entities[payload];
       if (bookmark.parentID !== state.currentFolderID) {
-        return update(state, { items: { $set: state.items.filter(id => id !== payload) } });
+        return update(state, {
+          items: { $set: state.items.filter(id => id !== payload) },
+          itemToUpdateID: { $set: '' },
+        });
       }
-      return state;
+      return update(state, { itemToUpdateID: { $set: '' } });
     }
     case OPEN_EDIT_BOOKMARK: return update(state, {
       itemToUpdateID: { $set: payload },
@@ -103,9 +116,12 @@ export default function (state, { type, payload /* error = false*/ }) {
     case UPDATE_BOOKMARK: {
       const bookmark = state.entities[payload];
       if (bookmark.parentID !== state.currentFolderID) {
-        return update(state, { items: { $set: state.items.filter(id => id !== payload) } });
+        return update(state, {
+          items: { $set: state.items.filter(id => id !== payload) },
+          itemToUpdateID: { $set: '' },
+        });
       }
-      return state;
+      return update(state, { itemToUpdateID: { $set: '' } });
     }
     case OPEN_ADD_FOLDER: return update(state, {
       itemToUpdateID: { $set: payload.id },
@@ -114,28 +130,34 @@ export default function (state, { type, payload /* error = false*/ }) {
       items: { $push: [payload.id] },
     });
     case CLOSE_ADD_FOLDER: return update(state, {
-      itemToUpdateID: { $set: undefined }, view: { $set: LIST_VIEW },
+      itemToUpdateID: { $set: '' }, view: { $set: LIST_VIEW },
     });
     case ADD_FOLDER: {
       const folder = state.entities[payload];
       if (folder.parentID !== state.currentFolderID) {
-        return update(state, { items: { $set: state.items.filter(id => id !== payload) } });
+        return update(state, {
+          items: { $set: state.items.filter(id => id !== payload) },
+          itemToUpdateID: { $set: '' },
+        });
       }
-      return state;
+      return update(state, { itemToUpdateID: { $set: '' } });
     }
     case OPEN_EDIT_FOLDER: return update(state, {
       itemToUpdateID: { $set: payload },
       view: { $set: EDIT_FOLDER_VIEW },
     });
     case CLOSE_EDIT_FOLDER: return update(state, {
-      itemToUpdateID: { $set: undefined }, view: { $set: LIST_VIEW },
+      itemToUpdateID: { $set: '' }, view: { $set: LIST_VIEW },
     });
     case UPDATE_FOLDER: {
       const folder = state.entities[payload];
       if (folder.parentID !== state.currentFolderID) {
-        return update(state, { items: { $set: state.items.filter(id => id !== payload) } });
+        return update(state, {
+          items: { $set: state.items.filter(id => id !== payload) },
+          itemToUpdateID: { $set: '' },
+        });
       }
-      return state;
+      return update(state, { itemToUpdateID: { $set: '' } });
     }
     case UPDATE_ITEM: return update(state, {
       entities: { [payload.id]: { [payload.key]: { $set: payload.value } } },
@@ -185,10 +207,30 @@ export default function (state, { type, payload /* error = false*/ }) {
           entities: { [state.itemToUpdateID]: { parentID: { $set: payload } } },
           items: { $set: state.items.filter(id => id !== state.itemToUpdateID) },
           view: { $set: state.previousView },
+          itemToUpdateID: { $set: '' },
         });
       }
       return state;
     }
+    case OPEN_LEFT_NAV: return update(state, { menuOpen: { $set: true } });
+    case CLOSE_LEFT_NAV: return update(state, { menuOpen: { $set: false } });
+    case OPEN_SETTINGS: return update(state, {
+      view: { $set: SETTINGS_VIEW },
+      settings: { $set: payload },
+    });
+    case CLOSE_SETTINGS: return update(state, { view: { $set: LIST_VIEW }});
+    case ADD_SYNC_URL: return update(state, { settings: { syncUrls: { $push: [payload]} } });
+    case REMOVE_SYNC_URL: return update(state, {
+      settings: {
+        syncUrls: {
+          $set: state.settings.syncUrls.filter((url) => url !== payload),
+        },
+      },
+    });
+    case OPEN_SYNC_STATUS: return update(state, {
+      view: { $set: SYNC_STATUS_VIEW },
+      syncStatus: { $set: payload } });
+    case CLOSE_SYNC_STATUS: return update(state, { view: { $set: LIST_VIEW } });
     default: return state;
   }
 }

@@ -13,6 +13,11 @@ const initialState = {
   folders: [], // Needed to show a tree of all folders
   previousView: LIST_VIEW,
   itemToUpdateID: '',
+  menuOpen: false,
+  settings: {
+    syncUrls: [],
+  },
+  syncStatus: [],
 };
 
 /* eslint-disable no-underscore-dangle */

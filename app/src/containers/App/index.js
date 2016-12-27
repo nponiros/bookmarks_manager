@@ -5,7 +5,17 @@ import App from '../../components/App';
 import handleAction from '../../actions';
 
 function mapStateToProps(state) {
-  const { view, items, entities, itemToUpdateID, currentFolderID, folders } = state;
+  const {
+    view,
+    items,
+    entities,
+    itemToUpdateID,
+    currentFolderID,
+    folders,
+    menuOpen,
+    settings,
+    syncStatus,
+  } = state;
   return {
     view,
     items,
@@ -13,6 +23,9 @@ function mapStateToProps(state) {
     itemToUpdate: entities[itemToUpdateID],
     currentFolderID,
     folders,
+    menuOpen,
+    settings,
+    syncStatus,
   };
 }
 

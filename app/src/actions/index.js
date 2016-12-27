@@ -25,7 +25,9 @@ import {
   closeMoveFolderBookmark,
   chooseParentFolder,
 } from './change_parent';
-
+import { openLeftNav, closeLeftNav } from './left_nav';
+import { openSettings, closeSettings, addSyncUrl, removeSyncUrl } from './settings';
+import { openSyncStatus, closeSyncStatus } from './sync_status';
 import {
   OPEN_ADD_BOOKMARK,
   CLOSE_ADD_BOOKMARK,
@@ -53,6 +55,14 @@ import {
   OPEN_MOVE_FOLDER_BOOKMARK,
   CLOSE_MOVE_FOLDER_BOOKMARK,
   CHOOSE_PARENT_FOLDER,
+  OPEN_LEFT_NAV,
+  CLOSE_LEFT_NAV,
+  OPEN_SETTINGS,
+  CLOSE_SETTINGS,
+  ADD_SYNC_URL,
+  REMOVE_SYNC_URL,
+  OPEN_SYNC_STATUS,
+  CLOSE_SYNC_STATUS,
 } from '../constants';
 
 export default function handleAction(action, ...args) {
@@ -110,6 +120,22 @@ export default function handleAction(action, ...args) {
         return dispatch(closeMoveFolderBookmark(...args));
       case CHOOSE_PARENT_FOLDER:
         return dispatch(chooseParentFolder(...args));
+      case OPEN_LEFT_NAV:
+        return dispatch(openLeftNav(...args));
+      case CLOSE_LEFT_NAV:
+        return dispatch(closeLeftNav(...args));
+      case OPEN_SETTINGS:
+        return dispatch(openSettings(...args));
+      case CLOSE_SETTINGS:
+        return dispatch(closeSettings(...args));
+      case ADD_SYNC_URL:
+        return dispatch(addSyncUrl(...args));
+      case REMOVE_SYNC_URL:
+        return dispatch(removeSyncUrl(...args));
+      case OPEN_SYNC_STATUS:
+        return dispatch(openSyncStatus(...args));
+      case CLOSE_SYNC_STATUS:
+        return dispatch(closeSyncStatus(...args));
       default: throw Error(`Action ${String(action)} not supported!`);
     }
   };
