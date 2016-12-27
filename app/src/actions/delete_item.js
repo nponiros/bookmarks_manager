@@ -21,16 +21,19 @@ export function deleteBookmark(id) {
 export function deleteFolder(id) {
   return (dispatch) => {
     syncClient
-      .folders
-      .delete(id)
-      .then(() => {
-        dispatch({
-          type: DELETE_FOLDER,
-          payload: id,
+        .transaction('rw', syncClient.folders, syncClient.bookmarks, () => {
+          syncClient.folders.where('parentID').equals(id).delete();
+          syncClient.bookmarks.where('parentID').equals(id).delete();
+          syncClient.folders.delete(id);
+        })
+        .then(() => {
+          dispatch({
+            type: DELETE_FOLDER,
+            payload: id,
+          });
+        })
+        .catch((e) => {
+          console.log(e);
         });
-      })
-      .catch((e) => {
-        console.log(e);
-      });
   };
 }
