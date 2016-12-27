@@ -9,13 +9,13 @@ import { CLOSE_SYNC_STATUS } from '../../constants';
 // TODO: add reconnect
 const SyncStatus = ({ handleAction, items }) => <div>
   <AppBar
-      title="Sync Status"
-      onLeftIconButtonTouchTap={() => handleAction(CLOSE_SYNC_STATUS)}
-      iconElementLeft={<IconButton><ArrowBack /></IconButton>}
+    title="Sync Status"
+    onLeftIconButtonTouchTap={() => handleAction(CLOSE_SYNC_STATUS)}
+    iconElementLeft={<IconButton><ArrowBack /></IconButton>}
   />
   <List>
     {
-      items.map((url) => <ListItem key={url.url} primaryText={url.url} secondaryText={url.status} />)
+      items.map(url => <ListItem key={url.url} primaryText={url.url} secondaryText={url.status} />)
     }
   </List>
 </div>;

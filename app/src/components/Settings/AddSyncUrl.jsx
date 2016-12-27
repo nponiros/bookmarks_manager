@@ -1,4 +1,4 @@
-import React, {PropTypes, Component} from 'react';
+import React, { PropTypes, Component } from 'react';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 
@@ -9,7 +9,7 @@ class AddSyncUrl extends Component {
     super();
     this.state = {
       url: '',
-      port: ''
+      port: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -23,7 +23,7 @@ class AddSyncUrl extends Component {
   }
 
   handleAdd() {
-    const url = `${this.state.url}${this.state.port ? `:${this.state.port}`: ''}`;
+    const url = `${this.state.url}${this.state.port ? `:${this.state.port}` : ''}`;
     this.props.handleAction(ADD_SYNC_URL, url);
   }
 
@@ -32,19 +32,19 @@ class AddSyncUrl extends Component {
       <TextField
         name="url"
         floatingLabelText="URL"
-        onChange={(e) => this.handleChange('url', e.target.value)}
+        onChange={e => this.handleChange('url', e.target.value)}
       />
       <br />
       <TextField
         name="port"
         floatingLabelText="Port"
         type="number"
-        onChange={(e) => this.handleChange('port', e.target.value)}
+        onChange={e => this.handleChange('port', e.target.value)}
       />
       <br />
       <FlatButton
         label="Add"
-        primary={true}
+        primary
         onTouchTap={() => this.handleAdd()}
       />
     </div>);

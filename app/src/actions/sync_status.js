@@ -14,7 +14,7 @@ export function openSyncStatus() {
         .catch((e) => {
           console.log(e);
         });
-  }
+  };
 }
 
 export function closeSyncStatus() {

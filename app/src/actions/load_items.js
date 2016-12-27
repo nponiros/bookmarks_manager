@@ -5,7 +5,7 @@ import {
 } from '../constants';
 import handleAction from './';
 
-/*const topFolders = [
+/* const topFolders = [
   {
     title: 'Folder 1',
     type: 'Folder',
@@ -102,17 +102,24 @@ const bookmarks = {
   ],
 };*/
 
-// TODO convert writeDate to date object
 export function loadItems(parentID = 'noparent') {
   return (dispatch) => {
     const foldersPromise = syncClient
       .folders
-      .where({parentID})
+      .where({ parentID })
       .toArray();
+    const bms = [];
     const bookmarksPromise = syncClient
       .bookmarks
-      .where({parentID})
-      .toArray();
+      .where({ parentID })
+      .each((item) => {
+        if (item.writeDate) {
+          bms.push(Object.assign({}, item, { writeDate: new Date(item.writeDate) }));
+        } else {
+          bms.push(item);
+        }
+      })
+      .then(() => bms);
     Promise
       .all([foldersPromise, bookmarksPromise])
       .then(([folders, bookmarks]) => {

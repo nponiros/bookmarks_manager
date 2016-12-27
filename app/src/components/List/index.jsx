@@ -38,7 +38,10 @@ function getListItems(items, entities, handleAction, currentFolderID) {
 
 function getAppBar(currentFolderID, folder, handleAction) {
   if (currentFolderID === ID_FOR_NO_PARENT) {
-    return <AppBar onLeftIconButtonTouchTap={() => handleAction(OPEN_LEFT_NAV)} title="Bookmarks Manager" />;
+    return (<AppBar
+      title="Bookmarks Manager"
+      onLeftIconButtonTouchTap={() => handleAction(OPEN_LEFT_NAV)}
+    />);
   }
   return (<AppBar
     title={folder.title}
@@ -52,20 +55,18 @@ const MyList = ({ items, entities, handleAction, currentFolderID, menuOpen }) =>
   <List>
     { getListItems(items, entities, handleAction, currentFolderID) }
   </List>
-  <div >
-    <SpeedDial fabContentOpen={<ContentAdd />} style={{float: 'right', top: '90vh'}} fabContentClose={<NavigationClose />}>
-      <SpeedDialItem
-        label="new folder"
-        fabContent={<FileFolder />}
-        onTouchTap={() => handleAction(OPEN_ADD_FOLDER, currentFolderID)}
-      />
-      <SpeedDialItem
-        label="new bookmark"
-        fabContent={<StarBorder />}
-        onTouchTap={() => handleAction(OPEN_ADD_BOOKMARK, currentFolderID)}
-      />
-    </SpeedDial>
-  </div>
+  <SpeedDial fabContentOpen={<ContentAdd />} fabContentClose={<NavigationClose />}>
+    <SpeedDialItem
+      label="new folder"
+      fabContent={<FileFolder />}
+      onTouchTap={() => handleAction(OPEN_ADD_FOLDER, currentFolderID)}
+    />
+    <SpeedDialItem
+      label="new bookmark"
+      fabContent={<StarBorder />}
+      onTouchTap={() => handleAction(OPEN_ADD_BOOKMARK, currentFolderID)}
+    />
+  </SpeedDial>
   <LeftNav open={menuOpen} handleAction={handleAction} />
 </div>;
 

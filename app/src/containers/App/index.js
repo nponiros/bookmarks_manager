@@ -7,7 +7,7 @@ import { FOLDER } from '../../constants';
 
 function sortItems(items, entities) {
   const sortedItems = [...items];
-  sortedItems.sort(function(firstID, secondID) {
+  sortedItems.sort((firstID, secondID) => {
     const firstEntity = entities[firstID];
     const secondEntity = entities[secondID];
 

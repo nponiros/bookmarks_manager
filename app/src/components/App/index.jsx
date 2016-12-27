@@ -166,6 +166,10 @@ App.propTypes = {
   settings: PropTypes.shape({
     syncUrls: PropTypes.arrayOf(PropTypes.string),
   }),
+  syncStatus: PropTypes.arrayOf(PropTypes.shape({
+    url: PropTypes.string,
+    status: PropTypes.string,
+  })),
 };
 
 export default App;

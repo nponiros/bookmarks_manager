@@ -218,12 +218,12 @@ export default function (state, { type, payload /* error = false*/ }) {
       view: { $set: SETTINGS_VIEW },
       settings: { $set: payload },
     });
-    case CLOSE_SETTINGS: return update(state, { view: { $set: LIST_VIEW }});
-    case ADD_SYNC_URL: return update(state, { settings: { syncUrls: { $push: [payload]} } });
+    case CLOSE_SETTINGS: return update(state, { view: { $set: LIST_VIEW } });
+    case ADD_SYNC_URL: return update(state, { settings: { syncUrls: { $push: [payload] } } });
     case REMOVE_SYNC_URL: return update(state, {
       settings: {
         syncUrls: {
-          $set: state.settings.syncUrls.filter((url) => url !== payload),
+          $set: state.settings.syncUrls.filter(url => url !== payload),
         },
       },
     });

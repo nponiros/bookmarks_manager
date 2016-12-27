@@ -45,13 +45,13 @@ export function removeSyncUrl(url) {
         .catch((e) => {
           console.log(e);
         });
-  }
+  };
 }
 
 export function closeSettings() {
   return (dispatch) => {
     dispatch({
-      type: CLOSE_SETTINGS
+      type: CLOSE_SETTINGS,
     });
   };
 }

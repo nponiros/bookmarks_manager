@@ -21,10 +21,10 @@ const Settings = ({ syncUrls, handleAction }) => <div>
     <ListItem>
       <AddSyncUrl handleAction={handleAction} />
     </ListItem>
-    <Divider/>
+    <Divider />
     <Subheader>Sync Servers</Subheader>
     {
-      syncUrls.map((url) => <ListItem
+      syncUrls.map(url => <ListItem
         key={url}
         rightIcon={<Clear />}
         onTouchTap={() => handleAction(REMOVE_SYNC_URL, url)}
@@ -37,6 +37,7 @@ const Settings = ({ syncUrls, handleAction }) => <div>
 
 Settings.propTypes = {
   syncUrls: PropTypes.arrayOf(PropTypes.string).isRequired,
+  handleAction: PropTypes.func.isRequired,
 };
 
 export default Settings;

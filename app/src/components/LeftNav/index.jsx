@@ -23,7 +23,7 @@ const LeftNav = ({ open, handleAction }) => <Drawer open={open}>
   >
     Sync Status
   </MenuItem>
-  {/*<MenuItem>Advanced Search</MenuItem>
+  {/* <MenuItem>Advanced Search</MenuItem>
   <MenuItem>About</MenuItem>*/}
 </Drawer>;
 
