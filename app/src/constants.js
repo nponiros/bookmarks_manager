@@ -40,6 +40,11 @@ export const ADD_SYNC_URL = Symbol('ADD_SYNC_URL');
 export const REMOVE_SYNC_URL = Symbol('REMOVE_SYNC_URL');
 export const OPEN_SYNC_STATUS = Symbol('OPEN_SYNC_STATUS');
 export const CLOSE_SYNC_STATUS = Symbol('CLOSE_SYNC_STATUS');
+export const OPEN_TAGS_SELECT = Symbol('OPEN_TAGS_SELECT');
+export const CLOSE_TAGS_SELECT = Symbol('CLOSE_TAGS_SELECT');
+export const SELECT_TAG = Symbol('SELECT_TAG');
+export const UNSELECT_TAG = Symbol('UNSELECT_TAG');
+export const ADD_TAG = Symbol('ADD_TAG');
 
 // Views
 export const LIST_VIEW = Symbol('LIST_VIEW');
@@ -52,3 +57,4 @@ export const CHOOSE_FOLDER_PARENT_VIEW = Symbol('CHOOSE_FOLDER_PARENT_VIEW');
 export const CHOOSE_BOOKMARK_PARENT_VIEW = Symbol('CHOOSE_BOOKMARK_PARENT_VIEW');
 export const SETTINGS_VIEW = Symbol('SETTINGS_VIEW');
 export const SYNC_STATUS_VIEW = Symbol('SYNC_STATUS_VIEW');
+export const TAGS_SELECT_VIEW = Symbol('TAGS_SELECT_VIEW');

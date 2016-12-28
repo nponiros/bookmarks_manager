@@ -4,7 +4,7 @@ import DatePicker from 'material-ui/DatePicker';
 import Toggle from 'material-ui/Toggle';
 import FlatButton from 'material-ui/FlatButton';
 
-import { UPDATE_ITEM, LOAD_FOLDERS, OPEN_CHOOSE_BOOKMARK_PARENT } from '../../constants';
+import { UPDATE_ITEM, LOAD_FOLDERS, OPEN_CHOOSE_BOOKMARK_PARENT, OPEN_TAGS_SELECT } from '../../constants';
 
 const BookmarkForm = ({
   handleAction,
@@ -31,6 +31,15 @@ const BookmarkForm = ({
       label={parentFolderTitle}
       onTouchTap={() => handleAction(LOAD_FOLDERS, OPEN_CHOOSE_BOOKMARK_PARENT, id)}
     />
+  </div>
+  <div>
+    <span>Tags</span>
+    <br />
+    <FlatButton
+      label="Select tags"
+      onTouchTap={() => handleAction(OPEN_TAGS_SELECT, id)}
+    />
+    {/* TODO: show selected tags as chips with x */}
   </div>
   <Toggle
     label="Read"

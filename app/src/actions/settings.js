@@ -26,7 +26,7 @@ export function addSyncUrl(url) {
             type: ADD_SYNC_URL,
             payload: url,
           });
-        })
+        }) // TODO depending on the error, the URL might have been added (connect error adds url)
         .catch((e) => {
           console.log(e);
         });

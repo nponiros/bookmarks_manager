@@ -29,6 +29,13 @@ import { openLeftNav, closeLeftNav } from './left_nav';
 import { openSettings, closeSettings, addSyncUrl, removeSyncUrl } from './settings';
 import { openSyncStatus, closeSyncStatus } from './sync_status';
 import {
+  openTagsSelect,
+  closeTagsSelect,
+  selectTag,
+  unselectTag,
+  addTag,
+} from './tags';
+import {
   OPEN_ADD_BOOKMARK,
   CLOSE_ADD_BOOKMARK,
   ADD_BOOKMARK,
@@ -63,6 +70,11 @@ import {
   REMOVE_SYNC_URL,
   OPEN_SYNC_STATUS,
   CLOSE_SYNC_STATUS,
+  OPEN_TAGS_SELECT,
+  CLOSE_TAGS_SELECT,
+  SELECT_TAG,
+  UNSELECT_TAG,
+  ADD_TAG,
 } from '../constants';
 
 export default function handleAction(action, ...args) {
@@ -136,6 +148,16 @@ export default function handleAction(action, ...args) {
         return dispatch(openSyncStatus(...args));
       case CLOSE_SYNC_STATUS:
         return dispatch(closeSyncStatus(...args));
+      case OPEN_TAGS_SELECT:
+        return dispatch(openTagsSelect(...args));
+      case CLOSE_TAGS_SELECT:
+        return dispatch(closeTagsSelect(...args));
+      case SELECT_TAG:
+        return dispatch(selectTag(...args));
+      case UNSELECT_TAG:
+        return dispatch(unselectTag(...args));
+      case ADD_TAG:
+        return dispatch(addTag(...args));
       default: throw Error(`Action ${String(action)} not supported!`);
     }
   };
