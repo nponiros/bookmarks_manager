@@ -8,13 +8,14 @@ import AppContainer from './containers/App';
 import store from './store';
 
 import handleAction from './actions';
-import { LOAD_ITEMS } from './constants';
+import { LOAD_ITEMS, LOAD_TAGS } from './constants';
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 
 store.dispatch(handleAction(LOAD_ITEMS));
+store.dispatch(handleAction(LOAD_TAGS));
 
 ReactDOM.render(
   <Provider store={store}>

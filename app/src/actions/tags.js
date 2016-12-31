@@ -4,7 +4,24 @@ import {
   CLOSE_TAGS_SELECT,
   SELECT_TAG,
   UNSELECT_TAG,
+  ADD_TAG,
 } from '../constants';
+
+export function loadTags() {
+  return (dispatch) => {
+    syncClient.tags
+        .toArray()
+        .then((tags) => {
+          dispatch({
+            type: '',
+            payload: tags,
+          })
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+  }
+}
 
 // TODO: can probably use itemToUpdateID
 export function openTagsSelect(bookmarkID) {
@@ -66,8 +83,19 @@ export function closeTagsSelect(bookmarkID) {
   };
 }
 
-export function addTag() {
+export function addTag(title) {
   return (dispatch) => {
-
+    const tag = { id: syncClient.getID(), title };
+    syncClient.tags
+        .add(tag)
+        .then(() => {
+          dispatch({
+            type: ADD_TAG,
+            payload: tag,
+          });
+        })
+        .catch((e) => {
+          console.log(e);
+        });
   };
 }

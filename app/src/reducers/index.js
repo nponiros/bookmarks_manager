@@ -25,6 +25,7 @@ import {
   MOVE_FOLDER_BOOKMARK_VIEW,
   SETTINGS_VIEW,
   SYNC_STATUS_VIEW,
+  TAGS_SELECT_VIEW,
   UPDATE_ITEM,
   OPEN_FOLDER,
   FOLDER_BACK,
@@ -46,6 +47,10 @@ import {
   REMOVE_SYNC_URL,
   OPEN_SYNC_STATUS,
   CLOSE_SYNC_STATUS,
+  LOAD_TAGS,
+  OPEN_TAGS_SELECT,
+  CLOSE_TAGS_SELECT,
+  ADD_TAG,
 } from '../constants';
 
 function normalize(serverItems) {
@@ -231,6 +236,19 @@ export default function (state, { type, payload /* error = false*/ }) {
       view: { $set: SYNC_STATUS_VIEW },
       syncStatus: { $set: payload } });
     case CLOSE_SYNC_STATUS: return update(state, { view: { $set: LIST_VIEW } });
+    case LOAD_TAGS: return update(state, {
+      tags: { $set: payload },
+      tagIDtoName: payload.tags.reduce((map, tag) => Object.assign(map, { [tag.id]: tag.title }), {}),
+    });
+    case OPEN_TAGS_SELECT: return update(state, {
+      view: { $set: TAGS_SELECT_VIEW },
+      previousView: { $set: state.view }
+    });
+    case CLOSE_TAGS_SELECT: return update(state, { view: { $set: state.previousView } });
+    case ADD_TAG: return update(state, {
+      tags: { $push: [payload] },
+      tagIDtoName: { $merge: { [payload.id]: payload.title } }
+    });
     default: return state;
   }
 }

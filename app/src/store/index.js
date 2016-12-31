@@ -18,6 +18,8 @@ const initialState = {
     syncUrls: [],
   },
   syncStatus: [],
+  tags: [],
+  tagIDtoName: {},
 };
 
 /* eslint-disable no-underscore-dangle */

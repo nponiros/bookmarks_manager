@@ -11,6 +11,7 @@ import {
   MOVE_FOLDER_BOOKMARK_VIEW,
   CHOOSE_BOOKMARK_PARENT_VIEW,
   CHOOSE_FOLDER_PARENT_VIEW,
+  TAGS_SELECT_VIEW,
   CLOSE_CHOOSE_BOOKMARK_PARENT,
   CLOSE_CHOOSE_FOLDER_PARENT,
   CLOSE_MOVE_FOLDER_BOOKMARK,
@@ -24,6 +25,7 @@ import ManipulateFolder from '../ManipulateFolder';
 import FoldersTree from '../FoldersTree';
 import Settings from '../Settings';
 import SyncStatus from '../SyncStatus';
+import Tags from '../Tags';
 
 const App = ({
   view,
@@ -36,6 +38,10 @@ const App = ({
   menuOpen,
   settings,
   syncStatus,
+  selectTags: {
+    tags,
+    bookmarkTagIDs,
+  },
 }) => {
   switch (view) {
     case LIST_VIEW: return (<List
@@ -93,6 +99,11 @@ const App = ({
     />);
     case SYNC_STATUS_VIEW: return (<SyncStatus
       items={syncStatus}
+      handleAction={handleAction}
+    />);
+    case TAGS_SELECT_VIEW: return (<Tags
+      tags={tags}
+      bookmarkTagIDs={bookmarkTagIDs}
       handleAction={handleAction}
     />);
     default: return null;

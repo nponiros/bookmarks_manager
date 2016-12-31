@@ -45,6 +45,7 @@ export const CLOSE_TAGS_SELECT = Symbol('CLOSE_TAGS_SELECT');
 export const SELECT_TAG = Symbol('SELECT_TAG');
 export const UNSELECT_TAG = Symbol('UNSELECT_TAG');
 export const ADD_TAG = Symbol('ADD_TAG');
+export const LOAD_TAGS = Symbol('LOAD_TAGS');
 
 // Views
 export const LIST_VIEW = Symbol('LIST_VIEW');

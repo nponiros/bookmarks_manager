@@ -28,6 +28,7 @@ function getNewBookmark(currentFolderID) {
     author: '',
     wasRead: false,
     type: BOOKMARK,
+    tags: [],
   };
 }
 

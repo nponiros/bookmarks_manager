@@ -34,6 +34,7 @@ import {
   selectTag,
   unselectTag,
   addTag,
+  loadTags,
 } from './tags';
 import {
   OPEN_ADD_BOOKMARK,
@@ -75,6 +76,7 @@ import {
   SELECT_TAG,
   UNSELECT_TAG,
   ADD_TAG,
+  LOAD_TAGS,
 } from '../constants';
 
 export default function handleAction(action, ...args) {
@@ -158,6 +160,8 @@ export default function handleAction(action, ...args) {
         return dispatch(unselectTag(...args));
       case ADD_TAG:
         return dispatch(addTag(...args));
+      case LOAD_TAGS:
+        return dispatch(loadTags(...args));
       default: throw Error(`Action ${String(action)} not supported!`);
     }
   };

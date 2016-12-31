@@ -41,17 +41,26 @@ function mapStateToProps(state) {
     menuOpen,
     settings,
     syncStatus,
+    tags,
+    tagIDtoName,
   } = state;
+  const itemToUpdate = entities[itemToUpdateID];
+
   return {
     view,
     items: sortItems(items, entities),
     entities,
-    itemToUpdate: entities[itemToUpdateID],
+    itemToUpdate,
     currentFolderID,
     folders,
     menuOpen,
     settings,
     syncStatus,
+    tagIDtoName,
+    selectTags: Object.assign({}, {
+      tags,
+      bookmarkTagIDs: itemToUpdate ? itemToUpdate.tags : [],
+    }),
   };
 }
 
