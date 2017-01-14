@@ -1,8 +1,8 @@
-import { createStore, applyMiddleware, compose } from 'redux';
+import {createStore, applyMiddleware, compose} from 'redux';
 import thunk from 'redux-thunk';
 
 import rootReducer from '../reducers';
-import { LIST_VIEW, ID_FOR_NO_PARENT } from '../constants';
+import {LIST_VIEW, ID_FOR_NO_PARENT} from '../constants';
 
 const initialState = {
   view: LIST_VIEW,
@@ -19,7 +19,7 @@ const initialState = {
   },
   syncStatus: [],
   tags: [],
-  tagIDtoName: {},
+  tagIDToName: {},
 };
 
 /* eslint-disable no-underscore-dangle */
@@ -27,19 +27,22 @@ const enableDevTool = process.env.NODE_ENV !== 'production' && window.__REDUX_DE
 /* eslint-enable */
 
 const store = createStore(
-  rootReducer,
-  initialState,
-  compose(
-    applyMiddleware(thunk),
-    enableDevTool ? enableDevTool({
-      serializeAction: (key, value) => {
-        if (typeof value === 'symbol') {
-          return String(value);
-        }
-        return value;
-      },
-    }) : f => f,
-  ),
+    rootReducer,
+    initialState,
+    compose(
+        applyMiddleware(thunk),
+        enableDevTool ? enableDevTool({
+          serialize: {
+            replacer: (key, value) => {
+              console.log(key, value)
+              if (typeof value === 'symbol') {
+                return String(value);
+              }
+              return value;
+            },
+          }
+        }) : f => f,
+    ),
 );
 
 export default store;
