@@ -50,12 +50,22 @@ function getAppBar(currentFolderID, folder, handleAction) {
   />);
 }
 
+const speeddialStyle = {
+  position: 'fixed',
+  bottom: '20px',
+  right: '20px',
+};
+
 const MyList = ({ items, entities, handleAction, currentFolderID, menuOpen }) => <div>
   { getAppBar(currentFolderID, entities[currentFolderID], handleAction) }
   <List>
     { getListItems(items, entities, handleAction, currentFolderID) }
   </List>
-  <SpeedDial fabContentOpen={<ContentAdd />} fabContentClose={<NavigationClose />}>
+  <SpeedDial
+    fabContentOpen={<ContentAdd />}
+    fabContentClose={<NavigationClose />}
+    style={speeddialStyle}
+  >
     <SpeedDialItem
       label="new folder"
       fabContent={<FileFolder />}
