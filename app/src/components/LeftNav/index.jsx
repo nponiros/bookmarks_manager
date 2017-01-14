@@ -1,13 +1,21 @@
 import React, { PropTypes } from 'react';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
+import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
+import Settings from 'material-ui/svg-icons/action/settings';
+import Backup from 'material-ui/svg-icons/action/backup';
 
 import { CLOSE_LEFT_NAV, OPEN_SETTINGS, OPEN_SYNC_STATUS } from '../../constants';
 
-// TODO add icons
 const LeftNav = ({ open, handleAction }) => <Drawer open={open}>
-  <MenuItem onTouchTap={() => handleAction(CLOSE_LEFT_NAV)}>Close</MenuItem>
   <MenuItem
+    leftIcon={<ArrowBack />}
+    onTouchTap={() => handleAction(CLOSE_LEFT_NAV)}
+  >
+    Close
+  </MenuItem>
+  <MenuItem
+    leftIcon={<Settings />}
     onTouchTap={() => {
       handleAction(OPEN_SETTINGS);
       handleAction(CLOSE_LEFT_NAV);
@@ -16,6 +24,7 @@ const LeftNav = ({ open, handleAction }) => <Drawer open={open}>
     Settings
   </MenuItem>
   <MenuItem
+    leftIcon={<Backup />}
     onTouchTap={() => {
       handleAction(OPEN_SYNC_STATUS);
       handleAction(CLOSE_LEFT_NAV);
