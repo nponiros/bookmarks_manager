@@ -3,8 +3,24 @@ import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 import Toggle from 'material-ui/Toggle';
 import FlatButton from 'material-ui/FlatButton';
+import Chip from 'material-ui/Chip';
 
-import { UPDATE_ITEM, LOAD_FOLDERS, OPEN_CHOOSE_BOOKMARK_PARENT, OPEN_TAGS_SELECT } from '../../constants';
+import {
+  UPDATE_ITEM,
+  LOAD_FOLDERS,
+  OPEN_CHOOSE_BOOKMARK_PARENT,
+  OPEN_TAGS_SELECT,
+  UNSELECT_TAG
+} from '../../constants';
+
+function getTags(tagIDs, tagIDToName, handleAction) {
+  return tagIDs.map((id) =>  <Chip
+    key={id}
+    onRequestDelete={() => handleAction(UNSELECT_TAG, id)}
+  >
+    {tagIDToName[id]}
+  </Chip>);
+}
 
 const BookmarkForm = ({
   handleAction,
@@ -15,6 +31,8 @@ const BookmarkForm = ({
   author,
   writeDate,
   parentFolderTitle,
+  tagIDToName,
+  tags,
 }) => <div>
   <TextField
     floatingLabelText="Title"
@@ -39,7 +57,7 @@ const BookmarkForm = ({
       label="Select tags"
       onTouchTap={() => handleAction(OPEN_TAGS_SELECT, id)}
     />
-    {/* TODO: show selected tags as chips with x */}
+    { getTags(tags, tagIDToName, handleAction) }
   </div>
   <Toggle
     label="Read"
@@ -77,6 +95,7 @@ BookmarkForm.propTypes = {
   author: PropTypes.string,
   writeDate: PropTypes.instanceOf(Date),
   handleAction: PropTypes.func.isRequired,
+  tagIDToName: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 export default BookmarkForm;

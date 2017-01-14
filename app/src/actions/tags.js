@@ -5,6 +5,7 @@ import {
   SELECT_TAG,
   UNSELECT_TAG,
   ADD_TAG,
+  LOAD_TAGS,
 } from '../constants';
 
 export function loadTags() {
@@ -13,7 +14,7 @@ export function loadTags() {
         .toArray()
         .then((tags) => {
           dispatch({
-            type: '',
+            type: LOAD_TAGS,
             payload: tags,
           })
         })
@@ -23,9 +24,9 @@ export function loadTags() {
   }
 }
 
-// TODO: can probably use itemToUpdateID
-export function openTagsSelect(bookmarkID) {
-  return (dispatch) => {
+export function openTagsSelect() {
+  return (dispatch, getState) => {
+    const bookmarkID = getState().itemToUpdateID;
     syncClient.tags
         .toArray()
         .then((tags) => {
@@ -43,8 +44,9 @@ export function openTagsSelect(bookmarkID) {
   };
 }
 
-export function selectTag(bookmarkID, tagID) {
-  return (dispatch) => {
+export function selectTag(tagID) {
+  return (dispatch, getState) => {
+    const bookmarkID = getState().itemToUpdateID;
     dispatch({
       type: SELECT_TAG,
       payload: {
@@ -55,8 +57,9 @@ export function selectTag(bookmarkID, tagID) {
   };
 }
 
-export function unselectTag(bookmarkID, tagID) {
-  return (dispatch) => {
+export function unselectTag(tagID, id) {
+  return (dispatch, getState) => {
+    const bookmarkID = id || getState().itemToUpdateID;
     dispatch({
       type: UNSELECT_TAG,
       payload: {
@@ -67,11 +70,12 @@ export function unselectTag(bookmarkID, tagID) {
   };
 }
 
-export function closeTagsSelect(bookmarkID) {
+export function closeTagsSelect() {
   return (dispatch, getState) => {
+    const bookmarkID = getState().itemToUpdateID;
     const bookmarkToSave = getState().entities[bookmarkID];
     syncClient.bookmarks
-        .update(bookmarkToSave)
+        .put(bookmarkToSave)
         .then(() => {
           dispatch({
             type: CLOSE_TAGS_SELECT,

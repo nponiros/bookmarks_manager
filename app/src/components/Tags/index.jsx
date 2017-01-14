@@ -4,19 +4,24 @@ import IconButton from 'material-ui/IconButton';
 import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 import Chip from 'material-ui/Chip';
 
-import { CLOSE_TAGS_SELECT } from '../../constants';
+import { CLOSE_TAGS_SELECT, SELECT_TAG, UNSELECT_TAG } from '../../constants';
 import AddTag from './AddTag';
 
-function getChip(tag, bookmarkTagIDs) {
+function isSelected(tagID, selectedTagIDs) {
+  return selectedTagIDs.indexOf(tagID) !== -1;
+}
+
+function getChip(tag, bookmarkTagIDs, handleAction) {
   return (<Chip
     key={tag.id}
-    onTouchTap={() => {}}
+    onTouchTap={() => {handleAction(isSelected(tag.id, bookmarkTagIDs) ? UNSELECT_TAG : SELECT_TAG, tag.id)}}
+    style={{ backgroundColor: isSelected(tag.id, bookmarkTagIDs) ? 'blue' : 'gray' }}
   >
     {tag.title}
   </Chip>);
 }
 
-const Tags = ({ tags, bookmarkTagIDs, bookmarkToUpdateID, handleAction }) => <div>
+const Tags = ({ tags, handleAction, bookmarkTagIDs }) => <div>
   <AppBar
     title="Select tags"
     onLeftIconButtonTouchTap={() => handleAction(CLOSE_TAGS_SELECT)}

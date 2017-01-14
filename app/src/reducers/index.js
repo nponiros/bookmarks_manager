@@ -51,6 +51,8 @@ import {
   OPEN_TAGS_SELECT,
   CLOSE_TAGS_SELECT,
   ADD_TAG,
+  SELECT_TAG,
+  UNSELECT_TAG,
 } from '../constants';
 
 function normalize(serverItems) {
@@ -238,16 +240,35 @@ export default function (state, { type, payload /* error = false*/ }) {
     case CLOSE_SYNC_STATUS: return update(state, { view: { $set: LIST_VIEW } });
     case LOAD_TAGS: return update(state, {
       tags: { $set: payload },
-      tagIDtoName: payload.tags.reduce((map, tag) => Object.assign(map, { [tag.id]: tag.title }), {}),
+      tagIDToName: { $set: payload.reduce((map, tag) => Object.assign(map, { [tag.id]: tag.title }), {}) },
     });
     case OPEN_TAGS_SELECT: return update(state, {
       view: { $set: TAGS_SELECT_VIEW },
       previousView: { $set: state.view }
     });
     case CLOSE_TAGS_SELECT: return update(state, { view: { $set: state.previousView } });
+    case SELECT_TAG: {
+      return update(state, {
+        entities: {
+          [payload.bookmarkID]: {
+            tags: { $push: [payload.tagID] },
+          },
+        },
+      });
+    }
+    case UNSELECT_TAG: {
+      const bookmarkToUpdate = state.entities[payload.bookmarkID];
+      return update(state, {
+        entities: {
+          [payload.bookmarkID]: {
+            tags: { $set: bookmarkToUpdate.tags.filter((tagID) => tagID !== payload.tagID) },
+          },
+        },
+      });
+    }
     case ADD_TAG: return update(state, {
       tags: { $push: [payload] },
-      tagIDtoName: { $merge: { [payload.id]: payload.title } }
+      tagIDToName: { $merge: { [payload.id]: payload.title } }
     });
     default: return state;
   }

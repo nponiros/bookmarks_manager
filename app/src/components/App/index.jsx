@@ -42,6 +42,7 @@ const App = ({
     tags,
     bookmarkTagIDs,
   },
+  tagIDToName,
 }) => {
   switch (view) {
     case LIST_VIEW: return (<List
@@ -56,12 +57,14 @@ const App = ({
       handleAction={handleAction}
       view={view}
       parentFolderTitle={entities[itemToUpdate.parentID] ? entities[itemToUpdate.parentID].title : 'None'}
+      tagIDToName={tagIDToName}
     />);
     case EDIT_BOOKMARK_VIEW: return (<ManipulateBookmark
       {...itemToUpdate}
       handleAction={handleAction}
       view={view}
       parentFolderTitle={entities[itemToUpdate.parentID] ? entities[itemToUpdate.parentID].title : 'None'}
+      tagIDToName={tagIDToName}
     />);
     case ADD_FOLDER_VIEW: return (<ManipulateFolder
       {...itemToUpdate}
@@ -181,6 +184,7 @@ App.propTypes = {
     url: PropTypes.string,
     status: PropTypes.string,
   })),
+  tagIDToName: PropTypes.objectOf(PropTypes.string),
 };
 
 export default App;

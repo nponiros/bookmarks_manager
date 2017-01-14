@@ -42,7 +42,7 @@ function mapStateToProps(state) {
     settings,
     syncStatus,
     tags,
-    tagIDtoName,
+    tagIDToName,
   } = state;
   const itemToUpdate = entities[itemToUpdateID];
 
@@ -56,7 +56,7 @@ function mapStateToProps(state) {
     menuOpen,
     settings,
     syncStatus,
-    tagIDtoName,
+    tagIDToName,
     selectTags: Object.assign({}, {
       tags,
       bookmarkTagIDs: itemToUpdate ? itemToUpdate.tags : [],
