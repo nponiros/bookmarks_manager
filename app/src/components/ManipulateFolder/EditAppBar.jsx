@@ -1,23 +1,15 @@
 import React, { PropTypes } from 'react';
-import AppBar from 'material-ui/AppBar';
-import FlatButton from 'material-ui/FlatButton';
-import Delete from 'material-ui/svg-icons/action/delete';
-import Done from 'material-ui/svg-icons/action/done';
 
+import ManipulateAppBar from '../ManipulateAppBar';
 import { CLOSE_EDIT_FOLDER, DELETE_FOLDER, UPDATE_FOLDER } from '../../constants';
 
-const EditAppBar = ({ handleAction, id }) => <AppBar
+const EditAppBar = ({ handleAction, id }) => <ManipulateAppBar
+  id={id}
+  handleAction={handleAction}
+  closeAction={CLOSE_EDIT_FOLDER}
+  deleteAction={DELETE_FOLDER}
+  manipulateAction={UPDATE_FOLDER}
   title="Edit Folder"
-  iconElementLeft={<FlatButton label="Save" icon={<Done />} />}
-  onLeftIconButtonTouchTap={() => {
-    handleAction(UPDATE_FOLDER, id);
-    handleAction(CLOSE_EDIT_FOLDER);
-  }}
-  iconElementRight={<FlatButton label="Delete" labelPosition="before" icon={<Delete />} />}
-  onRightIconButtonTouchTap={() => {
-    handleAction(DELETE_FOLDER, id);
-    handleAction(CLOSE_EDIT_FOLDER);
-  }}
 />;
 
 EditAppBar.propTypes = {

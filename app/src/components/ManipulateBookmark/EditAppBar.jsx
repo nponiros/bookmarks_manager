@@ -1,23 +1,15 @@
 import React, { PropTypes } from 'react';
-import AppBar from 'material-ui/AppBar';
-import FlatButton from 'material-ui/FlatButton';
-import Delete from 'material-ui/svg-icons/action/delete';
-import Done from 'material-ui/svg-icons/action/done';
 
-import { CLOSE_EDIT_BOOKMARK, DELETE_BOOKMARK, UPDATE_BOOKMARK } from '../../constants';
+import ManipulateAppBar from '../ManipulateAppBar';
+import { CLOSE_EDIT_BOOKMARK, UPDATE_BOOKMARK, DELETE_BOOKMARK } from '../../constants';
 
-const EditAppBar = ({ handleAction, id }) => <AppBar
+const EditAppBar = ({ handleAction, id }) => <ManipulateAppBar
+  id={id}
+  handleAction={handleAction}
+  closeAction={CLOSE_EDIT_BOOKMARK}
+  deleteAction={DELETE_BOOKMARK}
+  manipulateAction={UPDATE_BOOKMARK}
   title="Edit Bookmark"
-  iconElementLeft={<FlatButton label="Save" icon={<Done />} />}
-  onLeftIconButtonTouchTap={() => {
-    handleAction(UPDATE_BOOKMARK, id);
-    handleAction(CLOSE_EDIT_BOOKMARK);
-  }}
-  iconElementRight={<FlatButton label="Delete" labelPosition="before" icon={<Delete />} />}
-  onRightIconButtonTouchTap={() => {
-    handleAction(DELETE_BOOKMARK, id);
-    handleAction(CLOSE_EDIT_BOOKMARK);
-  }}
 />;
 
 EditAppBar.propTypes = {
