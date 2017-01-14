@@ -28,15 +28,15 @@ class AddTag extends Component {
   render() {
     return (<div>
       <TextField
-          name="url"
-          floatingLabelText="Tag name"
-          onChange={e => this.handleChange(e.target.value)}
+        name="url"
+        floatingLabelText="Tag name"
+        onChange={e => this.handleChange(e.target.value)}
       />
       <br />
       <FlatButton
-          label="Add"
-          primary
-          onTouchTap={() => this.handleAdd()}
+        label="Add"
+        primary
+        onTouchTap={() => this.handleAdd()}
       />
     </div>);
   }

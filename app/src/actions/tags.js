@@ -6,6 +6,7 @@ import {
   UNSELECT_TAG,
   ADD_TAG,
   LOAD_TAGS,
+  TAG,
 } from '../constants';
 
 export function loadTags() {
@@ -16,12 +17,12 @@ export function loadTags() {
           dispatch({
             type: LOAD_TAGS,
             payload: tags,
-          })
+          });
         })
         .catch((e) => {
           console.log(e);
         });
-  }
+  };
 }
 
 export function openTagsSelect() {
@@ -89,7 +90,7 @@ export function closeTagsSelect() {
 
 export function addTag(title) {
   return (dispatch) => {
-    const tag = { id: syncClient.getID(), title };
+    const tag = { id: syncClient.getID(), title, type: TAG };
     syncClient.tags
         .add(tag)
         .then(() => {

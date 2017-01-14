@@ -17,6 +17,7 @@ import {
   CLOSE_MOVE_FOLDER_BOOKMARK,
   FOLDER,
   BOOKMARK,
+  TAG,
 } from '../../constants';
 
 import List from '../List';
@@ -185,6 +186,14 @@ App.propTypes = {
     status: PropTypes.string,
   })),
   tagIDToName: PropTypes.objectOf(PropTypes.string),
+  selectTags: PropTypes.shape({
+    tags: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.string,
+      title: PropTypes.string,
+      type: PropTypes.oneOf([TAG]),
+    })),
+    bookmarkTagIDs: PropTypes.arrayOf(PropTypes.string),
+  }),
 };
 
 export default App;

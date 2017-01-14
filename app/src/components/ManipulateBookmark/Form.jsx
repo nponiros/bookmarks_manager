@@ -10,11 +10,11 @@ import {
   LOAD_FOLDERS,
   OPEN_CHOOSE_BOOKMARK_PARENT,
   OPEN_TAGS_SELECT,
-  UNSELECT_TAG
+  UNSELECT_TAG,
 } from '../../constants';
 
 function getTags(tagIDs, tagIDToName, handleAction) {
-  return tagIDs.map((id) =>  <Chip
+  return tagIDs.map(id => <Chip
     key={id}
     onRequestDelete={() => handleAction(UNSELECT_TAG, id)}
   >
@@ -26,6 +26,7 @@ const BookmarkForm = ({
   handleAction,
   title,
   id,
+  url,
   description,
   wasRead,
   author,
@@ -40,7 +41,12 @@ const BookmarkForm = ({
     onChange={e => handleAction(UPDATE_ITEM, id, 'title', e.target.value)}
   />
   <br />
-  <TextField type="url" floatingLabelText="URL" />
+  <TextField
+    type="url"
+    floatingLabelText="URL"
+    value={url}
+    onChange={e => handleAction(UPDATE_ITEM, id, 'url', e.target.value)}
+  />
   <br />
   <div>
     <span>Parent folder</span>
@@ -88,6 +94,7 @@ const BookmarkForm = ({
 
 BookmarkForm.propTypes = {
   id: PropTypes.string.isRequired,
+  url: PropTypes.string,
   parentFolderTitle: PropTypes.string.isRequired,
   title: PropTypes.string,
   wasRead: PropTypes.bool,
@@ -96,6 +103,7 @@ BookmarkForm.propTypes = {
   writeDate: PropTypes.instanceOf(Date),
   handleAction: PropTypes.func.isRequired,
   tagIDToName: PropTypes.objectOf(PropTypes.string).isRequired,
+  tags: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default BookmarkForm;

@@ -14,7 +14,13 @@ function isSelected(tagID, selectedTagIDs) {
 function getChip(tag, bookmarkTagIDs, handleAction) {
   return (<Chip
     key={tag.id}
-    onTouchTap={() => {handleAction(isSelected(tag.id, bookmarkTagIDs) ? UNSELECT_TAG : SELECT_TAG, tag.id)}}
+    onTouchTap={() => {
+      handleAction(
+        isSelected(tag.id, bookmarkTagIDs)
+          ? UNSELECT_TAG
+          : SELECT_TAG,
+        tag.id);
+    }}
     style={{ backgroundColor: isSelected(tag.id, bookmarkTagIDs) ? 'blue' : 'gray' }}
   >
     {tag.title}
@@ -30,13 +36,18 @@ const Tags = ({ tags, handleAction, bookmarkTagIDs }) => <div>
   <AddTag handleAction={handleAction} />
   <div>
     {
-      tags.map((tag) => getChip(tag, bookmarkTagIDs, handleAction))
+      tags.map(tag => getChip(tag, bookmarkTagIDs, handleAction))
     }
   </div>
 </div>;
 
 Tags.propTypes = {
-
+  tags: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string,
+  })),
+  handleAction: PropTypes.func.isRequired,
+  bookmarkTagIDs: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default Tags;

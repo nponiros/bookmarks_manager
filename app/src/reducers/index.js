@@ -240,11 +240,13 @@ export default function (state, { type, payload /* error = false*/ }) {
     case CLOSE_SYNC_STATUS: return update(state, { view: { $set: LIST_VIEW } });
     case LOAD_TAGS: return update(state, {
       tags: { $set: payload },
-      tagIDToName: { $set: payload.reduce((map, tag) => Object.assign(map, { [tag.id]: tag.title }), {}) },
+      tagIDToName: {
+        $set: payload.reduce((map, tag) => Object.assign(map, { [tag.id]: tag.title }), {}),
+      },
     });
     case OPEN_TAGS_SELECT: return update(state, {
       view: { $set: TAGS_SELECT_VIEW },
-      previousView: { $set: state.view }
+      previousView: { $set: state.view },
     });
     case CLOSE_TAGS_SELECT: return update(state, { view: { $set: state.previousView } });
     case SELECT_TAG: {
@@ -261,14 +263,14 @@ export default function (state, { type, payload /* error = false*/ }) {
       return update(state, {
         entities: {
           [payload.bookmarkID]: {
-            tags: { $set: bookmarkToUpdate.tags.filter((tagID) => tagID !== payload.tagID) },
+            tags: { $set: bookmarkToUpdate.tags.filter(tagID => tagID !== payload.tagID) },
           },
         },
       });
     }
     case ADD_TAG: return update(state, {
       tags: { $push: [payload] },
-      tagIDToName: { $merge: { [payload.id]: payload.title } }
+      tagIDToName: { $merge: { [payload.id]: payload.title } },
     });
     default: return state;
   }

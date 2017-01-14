@@ -54,6 +54,7 @@ const speeddialStyle = {
   position: 'fixed',
   bottom: '20px',
   right: '20px',
+  fontFamily: 'Roboto, "sans-serifs"',
 };
 
 const MyList = ({ items, entities, handleAction, currentFolderID, menuOpen }) => <div>
