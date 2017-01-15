@@ -84,7 +84,6 @@ function createFoldersTree(folders) {
 export default function (state, { type, payload /* error = false*/ }) {
   switch (type) {
     case LOAD_ITEMS: {
-      throw new Error('Reducer')
       const { items, entities } = normalize(payload.items);
       return update(state, {
         items: { $set: items },
