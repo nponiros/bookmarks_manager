@@ -59,3 +59,8 @@ export const CHOOSE_BOOKMARK_PARENT_VIEW = Symbol('CHOOSE_BOOKMARK_PARENT_VIEW')
 export const SETTINGS_VIEW = Symbol('SETTINGS_VIEW');
 export const SYNC_STATUS_VIEW = Symbol('SYNC_STATUS_VIEW');
 export const TAGS_SELECT_VIEW = Symbol('TAGS_SELECT_VIEW');
+
+// This is called any time we get an error to show a dialog
+// It is a temporary solution
+export const OPEN_ERROR_DIALOG = Symbol('OPEN_ERROR_DIALOG');
+export const CLOSE_ERROR_DIALOG = Symbol('CLOSE_ERROR_DIALOG');

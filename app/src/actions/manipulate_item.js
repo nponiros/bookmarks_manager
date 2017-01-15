@@ -14,6 +14,7 @@ import {
   UPDATE_FOLDER,
   FOLDER,
   BOOKMARK,
+  OPEN_ERROR_DIALOG,
 } from '../constants';
 
 function getNewBookmark(currentFolderID) {
@@ -71,7 +72,10 @@ export function addBookmark(id) {
         });
       })
       .catch((e) => {
-        console.log(e);
+        dispatch({
+          type: OPEN_ERROR_DIALOG,
+          payload: e,
+        });
       });
   };
 }
@@ -105,7 +109,10 @@ export function updateBookmark(id) {
         });
       })
       .catch((e) => {
-        console.log(e);
+        dispatch({
+          type: OPEN_ERROR_DIALOG,
+          payload: e,
+        });
       });
   };
 }
@@ -139,7 +146,10 @@ export function addFolder(id) {
         });
       })
       .catch((e) => {
-        console.log(e);
+        dispatch({
+          type: OPEN_ERROR_DIALOG,
+          payload: e,
+        });
       });
   };
 }
@@ -173,7 +183,10 @@ export function updateFolder(id) {
         });
       })
       .catch((e) => {
-        console.log(e);
+        dispatch({
+          type: OPEN_ERROR_DIALOG,
+          payload: e,
+        });
       });
   };
 }

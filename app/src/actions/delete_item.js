@@ -1,5 +1,5 @@
 import syncClient from '../db/sync_client';
-import { DELETE_BOOKMARK, DELETE_FOLDER } from '../constants';
+import { DELETE_BOOKMARK, DELETE_FOLDER, OPEN_ERROR_DIALOG } from '../constants';
 
 export function deleteBookmark(id) {
   return (dispatch) => {
@@ -13,7 +13,10 @@ export function deleteBookmark(id) {
         });
       })
       .catch((e) => {
-        console.log(e);
+        dispatch({
+          type: OPEN_ERROR_DIALOG,
+          payload: e,
+        });
       });
   };
 }
@@ -33,7 +36,10 @@ export function deleteFolder(id) {
           });
         })
         .catch((e) => {
-          console.log(e);
+          dispatch({
+            type: OPEN_ERROR_DIALOG,
+            payload: e,
+          });
         });
   };
 }

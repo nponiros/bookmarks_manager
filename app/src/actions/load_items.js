@@ -2,6 +2,7 @@ import syncClient from '../db/sync_client';
 import {
   LOAD_ITEMS,
   LOAD_FOLDERS,
+  OPEN_ERROR_DIALOG,
 } from '../constants';
 import handleAction from './';
 
@@ -35,7 +36,10 @@ export function loadItems(parentID = 'noparent') {
         });
       })
       .catch((e) => {
-        console.log(e);
+        dispatch({
+          type: OPEN_ERROR_DIALOG,
+          payload: e,
+        });
       });
   };
 }
@@ -53,7 +57,10 @@ export function loadFolders(actionToOpenView, itemToUpdateID = '') {
         dispatch(handleAction(actionToOpenView, itemToUpdateID));
       })
       .catch((e) => {
-        console.log(e);
+        dispatch({
+          type: OPEN_ERROR_DIALOG,
+          payload: e,
+        });
       });
   };
 }

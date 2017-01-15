@@ -77,6 +77,7 @@ import {
   UNSELECT_TAG,
   ADD_TAG,
   LOAD_TAGS,
+  CLOSE_ERROR_DIALOG,
 } from '../constants';
 
 export default function handleAction(action, ...args) {
@@ -162,6 +163,10 @@ export default function handleAction(action, ...args) {
         return dispatch(addTag(...args));
       case LOAD_TAGS:
         return dispatch(loadTags(...args));
+      case CLOSE_ERROR_DIALOG:
+        return dispatch({
+          type: CLOSE_ERROR_DIALOG,
+        });
       default: throw Error(`Action ${String(action)} not supported!`);
     }
   };

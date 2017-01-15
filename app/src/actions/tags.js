@@ -7,6 +7,7 @@ import {
   ADD_TAG,
   LOAD_TAGS,
   TAG,
+  OPEN_ERROR_DIALOG,
 } from '../constants';
 
 export function loadTags() {
@@ -20,7 +21,10 @@ export function loadTags() {
           });
         })
         .catch((e) => {
-          console.log(e);
+          dispatch({
+            type: OPEN_ERROR_DIALOG,
+            payload: e,
+          });
         });
   };
 }
@@ -40,7 +44,10 @@ export function openTagsSelect() {
           });
         })
         .catch((e) => {
-          console.log(e);
+          dispatch({
+            type: OPEN_ERROR_DIALOG,
+            payload: e,
+          });
         });
   };
 }
@@ -83,7 +90,10 @@ export function closeTagsSelect() {
           });
         })
         .catch((e) => {
-          console.log(e);
+          dispatch({
+            type: OPEN_ERROR_DIALOG,
+            payload: e,
+          });
         });
   };
 }
@@ -100,7 +110,10 @@ export function addTag(title) {
           });
         })
         .catch((e) => {
-          console.log(e);
+          dispatch({
+            type: OPEN_ERROR_DIALOG,
+            payload: e,
+          });
         });
   };
 }

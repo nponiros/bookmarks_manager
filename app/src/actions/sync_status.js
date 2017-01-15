@@ -1,6 +1,6 @@
 import syncClient from '../db/sync_client';
 
-import { OPEN_SYNC_STATUS, CLOSE_SYNC_STATUS } from '../constants';
+import { OPEN_SYNC_STATUS, CLOSE_SYNC_STATUS, OPEN_ERROR_DIALOG } from '../constants';
 
 export function openSyncStatus() {
   return (dispatch) => {
@@ -12,7 +12,10 @@ export function openSyncStatus() {
           });
         })
         .catch((e) => {
-          console.log(e);
+          dispatch({
+            type: OPEN_ERROR_DIALOG,
+            payload: e,
+          });
         });
   };
 }

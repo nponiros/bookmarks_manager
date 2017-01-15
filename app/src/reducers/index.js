@@ -53,6 +53,8 @@ import {
   ADD_TAG,
   SELECT_TAG,
   UNSELECT_TAG,
+  OPEN_ERROR_DIALOG,
+  CLOSE_ERROR_DIALOG,
 } from '../constants';
 
 function normalize(serverItems) {
@@ -82,6 +84,7 @@ function createFoldersTree(folders) {
 export default function (state, { type, payload /* error = false*/ }) {
   switch (type) {
     case LOAD_ITEMS: {
+      throw new Error('Reducer')
       const { items, entities } = normalize(payload.items);
       return update(state, {
         items: { $set: items },
@@ -272,6 +275,14 @@ export default function (state, { type, payload /* error = false*/ }) {
       tags: { $push: [payload] },
       tagIDToName: { $merge: { [payload.id]: payload.title } },
     });
+    case OPEN_ERROR_DIALOG: {
+      console.log(payload.stack);
+      return update(state, {
+        showErrorDialog: { $set: true },
+        errorMessage: { $set: { __html: `${payload.stack.replace(/\n/g, '<br/>')}` } },
+      });
+    }
+    case CLOSE_ERROR_DIALOG: return update(state, { showErrorDialog: { $set: false } });
     default: return state;
   }
 }

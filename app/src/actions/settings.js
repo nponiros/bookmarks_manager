@@ -1,5 +1,5 @@
 import syncClient from '../db/sync_client';
-import { OPEN_SETTINGS, CLOSE_SETTINGS, ADD_SYNC_URL, REMOVE_SYNC_URL } from '../constants';
+import { OPEN_SETTINGS, CLOSE_SETTINGS, ADD_SYNC_URL, REMOVE_SYNC_URL, OPEN_ERROR_DIALOG } from '../constants';
 
 export function openSettings() {
   return (dispatch) => {
@@ -13,7 +13,10 @@ export function openSettings() {
           });
         })
         .catch((e) => {
-          console.log(e);
+          dispatch({
+            type: OPEN_ERROR_DIALOG,
+            payload: e,
+          });
         });
   };
 }
@@ -26,9 +29,12 @@ export function addSyncUrl(url) {
             type: ADD_SYNC_URL,
             payload: url,
           });
-        }) // TODO depending on the error, the URL might have been added (connect error adds url)
+        })
         .catch((e) => {
-          console.log(e);
+          dispatch({
+            type: OPEN_ERROR_DIALOG,
+            payload: e,
+          });
         });
   };
 }
@@ -43,7 +49,10 @@ export function removeSyncUrl(url) {
           });
         })
         .catch((e) => {
-          console.log(e);
+          dispatch({
+            type: OPEN_ERROR_DIALOG,
+            payload: e,
+          });
         });
   };
 }

@@ -1,23 +1,26 @@
 import React, { PropTypes } from 'react';
+import FlatButton from 'material-ui/FlatButton';
+import Dialog from 'material-ui/Dialog';
 
 import {
-  ADD_BOOKMARK_VIEW,
-  EDIT_BOOKMARK_VIEW,
-  ADD_FOLDER_VIEW,
-  EDIT_FOLDER_VIEW,
-  LIST_VIEW,
-  SETTINGS_VIEW,
-  SYNC_STATUS_VIEW,
-  MOVE_FOLDER_BOOKMARK_VIEW,
-  CHOOSE_BOOKMARK_PARENT_VIEW,
-  CHOOSE_FOLDER_PARENT_VIEW,
-  TAGS_SELECT_VIEW,
-  CLOSE_CHOOSE_BOOKMARK_PARENT,
-  CLOSE_CHOOSE_FOLDER_PARENT,
-  CLOSE_MOVE_FOLDER_BOOKMARK,
-  FOLDER,
-  BOOKMARK,
-  TAG,
+    ADD_BOOKMARK_VIEW,
+    EDIT_BOOKMARK_VIEW,
+    ADD_FOLDER_VIEW,
+    EDIT_FOLDER_VIEW,
+    LIST_VIEW,
+    SETTINGS_VIEW,
+    SYNC_STATUS_VIEW,
+    MOVE_FOLDER_BOOKMARK_VIEW,
+    CHOOSE_BOOKMARK_PARENT_VIEW,
+    CHOOSE_FOLDER_PARENT_VIEW,
+    TAGS_SELECT_VIEW,
+    CLOSE_CHOOSE_BOOKMARK_PARENT,
+    CLOSE_CHOOSE_FOLDER_PARENT,
+    CLOSE_MOVE_FOLDER_BOOKMARK,
+    FOLDER,
+    BOOKMARK,
+    TAG,
+    CLOSE_ERROR_DIALOG,
 } from '../../constants';
 
 import List from '../List';
@@ -29,89 +32,124 @@ import SyncStatus from '../SyncStatus';
 import Tags from '../Tags';
 
 const App = ({
-  view,
-  items,
-  entities,
-  handleAction,
-  itemToUpdate,
-  currentFolderID,
-  folders,
-  menuOpen,
-  settings,
-  syncStatus,
-  selectTags: {
-    tags,
-    bookmarkTagIDs,
-  },
-  tagIDToName,
+    view,
+    items,
+    entities,
+    handleAction,
+    itemToUpdate,
+    currentFolderID,
+    folders,
+    menuOpen,
+    settings,
+    syncStatus,
+    selectTags: {
+        tags,
+        bookmarkTagIDs,
+    },
+    tagIDToName,
+    showErrorDialog,
+    errorMessage,
 }) => {
-  switch (view) {
-    case LIST_VIEW: return (<List
-      items={items}
-      entities={entities}
-      handleAction={handleAction}
-      currentFolderID={currentFolderID}
-      menuOpen={menuOpen}
-    />);
-    case ADD_BOOKMARK_VIEW: return (<ManipulateBookmark
-      {...itemToUpdate}
-      handleAction={handleAction}
-      view={view}
-      parentFolderTitle={entities[itemToUpdate.parentID] ? entities[itemToUpdate.parentID].title : 'None'}
-      tagIDToName={tagIDToName}
-    />);
-    case EDIT_BOOKMARK_VIEW: return (<ManipulateBookmark
-      {...itemToUpdate}
-      handleAction={handleAction}
-      view={view}
-      parentFolderTitle={entities[itemToUpdate.parentID] ? entities[itemToUpdate.parentID].title : 'None'}
-      tagIDToName={tagIDToName}
-    />);
-    case ADD_FOLDER_VIEW: return (<ManipulateFolder
-      {...itemToUpdate}
-      handleAction={handleAction}
-      view={view}
-      parentFolderTitle={entities[itemToUpdate.parentID] ? entities[itemToUpdate.parentID].title : 'None'}
-    />);
-    case EDIT_FOLDER_VIEW: return (<ManipulateFolder
-      {...itemToUpdate}
-      handleAction={handleAction}
-      view={view}
-      parentFolderTitle={entities[itemToUpdate.parentID] ? entities[itemToUpdate.parentID].title : 'None'}
-    />);
-    case CHOOSE_BOOKMARK_PARENT_VIEW: return (<FoldersTree
-      folders={folders}
-      handleAction={handleAction}
-      currentFolderID={currentFolderID}
-      closeAction={CLOSE_CHOOSE_BOOKMARK_PARENT}
-    />);
-    case CHOOSE_FOLDER_PARENT_VIEW: return (<FoldersTree
-      folders={folders}
-      handleAction={handleAction}
-      currentFolderID={currentFolderID}
-      closeAction={CLOSE_CHOOSE_FOLDER_PARENT}
-    />);
-    case MOVE_FOLDER_BOOKMARK_VIEW: return (<FoldersTree
-      folders={folders}
-      handleAction={handleAction}
-      currentFolderID={currentFolderID}
-      closeAction={CLOSE_MOVE_FOLDER_BOOKMARK}
-    />);
-    case SETTINGS_VIEW: return (<Settings
-      {...settings}
-      handleAction={handleAction}
-    />);
-    case SYNC_STATUS_VIEW: return (<SyncStatus
-      items={syncStatus}
-      handleAction={handleAction}
-    />);
-    case TAGS_SELECT_VIEW: return (<Tags
-      tags={tags}
-      bookmarkTagIDs={bookmarkTagIDs}
-      handleAction={handleAction}
-    />);
-    default: return null;
-  }
+  const actions = [
+    <FlatButton
+      label="Close"
+      primary
+      onTouchTap={() => handleAction(CLOSE_ERROR_DIALOG)}
+    />,
+  ];
+
+  return (<div>
+    <Dialog
+      title="Error"
+      actions={actions}
+      modal={false}
+      open={showErrorDialog}
+      autoScrollBodyContent
+    >
+      <div dangerouslySetInnerHTML={errorMessage} />
+    </Dialog>
+    {(function getView() {
+      switch (view) {
+        case LIST_VIEW:
+          return (<List
+            items={items}
+            entities={entities}
+            handleAction={handleAction}
+            currentFolderID={currentFolderID}
+            menuOpen={menuOpen}
+          />);
+        case ADD_BOOKMARK_VIEW:
+          return (<ManipulateBookmark
+            {...itemToUpdate}
+            handleAction={handleAction}
+            view={view}
+            parentFolderTitle={entities[itemToUpdate.parentID] ? entities[itemToUpdate.parentID].title : 'None'}
+            tagIDToName={tagIDToName}
+          />);
+        case EDIT_BOOKMARK_VIEW:
+          return (<ManipulateBookmark
+            {...itemToUpdate}
+            handleAction={handleAction}
+            view={view}
+            parentFolderTitle={entities[itemToUpdate.parentID] ? entities[itemToUpdate.parentID].title : 'None'}
+            tagIDToName={tagIDToName}
+          />);
+        case ADD_FOLDER_VIEW:
+          return (<ManipulateFolder
+            {...itemToUpdate}
+            handleAction={handleAction}
+            view={view}
+            parentFolderTitle={entities[itemToUpdate.parentID] ? entities[itemToUpdate.parentID].title : 'None'}
+          />);
+        case EDIT_FOLDER_VIEW:
+          return (<ManipulateFolder
+            {...itemToUpdate}
+            handleAction={handleAction}
+            view={view}
+            parentFolderTitle={entities[itemToUpdate.parentID] ? entities[itemToUpdate.parentID].title : 'None'}
+          />);
+        case CHOOSE_BOOKMARK_PARENT_VIEW:
+          return (<FoldersTree
+            folders={folders}
+            handleAction={handleAction}
+            currentFolderID={currentFolderID}
+            closeAction={CLOSE_CHOOSE_BOOKMARK_PARENT}
+          />);
+        case CHOOSE_FOLDER_PARENT_VIEW:
+          return (<FoldersTree
+            folders={folders}
+            handleAction={handleAction}
+            currentFolderID={currentFolderID}
+            closeAction={CLOSE_CHOOSE_FOLDER_PARENT}
+          />);
+        case MOVE_FOLDER_BOOKMARK_VIEW:
+          return (<FoldersTree
+            folders={folders}
+            handleAction={handleAction}
+            currentFolderID={currentFolderID}
+            closeAction={CLOSE_MOVE_FOLDER_BOOKMARK}
+          />);
+        case SETTINGS_VIEW:
+          return (<Settings
+            {...settings}
+            handleAction={handleAction}
+          />);
+        case SYNC_STATUS_VIEW:
+          return (<SyncStatus
+            items={syncStatus}
+            handleAction={handleAction}
+          />);
+        case TAGS_SELECT_VIEW:
+          return (<Tags
+            tags={tags}
+            bookmarkTagIDs={bookmarkTagIDs}
+            handleAction={handleAction}
+          />);
+        default:
+          return null;
+      }
+    }())}
+  </div>);
 };
 
 function lazyFunction(f) {
@@ -193,6 +231,10 @@ App.propTypes = {
       type: PropTypes.oneOf([TAG]),
     })),
     bookmarkTagIDs: PropTypes.arrayOf(PropTypes.string),
+  }),
+  showErrorDialog: PropTypes.bool,
+  errorMessage: PropTypes.shape({
+    __html: PropTypes.string,
   }),
 };
 

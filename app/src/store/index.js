@@ -20,6 +20,8 @@ const initialState = {
   syncStatus: [],
   tags: [],
   tagIDToName: {},
+  showErrorDialog: false,
+  errorMessage: { __html: '' },
 };
 
 /* eslint-disable no-underscore-dangle */

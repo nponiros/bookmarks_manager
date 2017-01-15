@@ -8,6 +8,7 @@ import {
   CLOSE_MOVE_FOLDER_BOOKMARK,
   CHOOSE_PARENT_FOLDER,
   FOLDER,
+  OPEN_ERROR_DIALOG,
 } from '../constants';
 
 export function openChooseBookmarkParent() {
@@ -63,8 +64,7 @@ export function chooseParentFolder(parentFolderID) {
   return (dispatch, getState) => {
     const { itemToUpdateID, entities } = getState();
     const item = entities[itemToUpdateID];
-    syncClient
-        [item.type === FOLDER ? 'folders' : 'bookmarks']
+    syncClient[item.type === FOLDER ? 'folders' : 'bookmarks']
         .put(Object.assign({}, item, { parentID: parentFolderID }))
         .then(() => {
           dispatch({
@@ -73,7 +73,10 @@ export function chooseParentFolder(parentFolderID) {
           });
         })
         .catch((e) => {
-          console.log(e);
+          dispatch({
+            type: OPEN_ERROR_DIALOG,
+            payload: e,
+          });
         });
   };
 }

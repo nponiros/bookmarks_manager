@@ -43,6 +43,8 @@ function mapStateToProps(state) {
     syncStatus,
     tags,
     tagIDToName,
+    showErrorDialog,
+    errorMessage,
   } = state;
   const itemToUpdate = entities[itemToUpdateID];
 
@@ -61,6 +63,8 @@ function mapStateToProps(state) {
       tags,
       bookmarkTagIDs: itemToUpdate ? itemToUpdate.tags : [],
     }),
+    showErrorDialog,
+    errorMessage,
   };
 }
 
