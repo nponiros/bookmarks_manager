@@ -17,6 +17,9 @@ module.exports = function ({ isProd }) {
   ];
 
   if (isProd) {
+    // Needed for the babel-loader
+    process.env.NODE_ENV = 'production';
+
     plugins.push(...[
       new webpack.LoaderOptionsPlugin({
         minimize: true,
@@ -57,7 +60,7 @@ module.exports = function ({ isProd }) {
     context: sourcePath,
     entry: {
       js: './src/index.jsx',
-      vendor: ['react', 'react-dom', 'react-redux', 'redux', 'redux-thunk']
+      vendor: ['react', 'react-dom', 'react-redux', 'redux', 'redux-thunk', 'sync-client']
     },
     output: {
       path: staticsPath,
