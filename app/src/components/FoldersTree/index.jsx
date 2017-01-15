@@ -12,6 +12,7 @@ import {
   CLOSE_CHOOSE_BOOKMARK_PARENT,
   CLOSE_CHOOSE_FOLDER_PARENT,
   CLOSE_MOVE_FOLDER_BOOKMARK,
+  ID_FOR_NO_PARENT,
 } from '../../constants';
 
 const style = { backgroundColor: 'rgba(0, 0, 0, 0.2)' };
@@ -35,6 +36,11 @@ const FoldersTree = ({ folders, handleAction, currentFolderID, closeAction }) =>
     iconElementLeft={<IconButton><ArrowBack /></IconButton>}
   />
   <List>
+    <ListItem
+      primaryText="None"
+      style={currentFolderID === ID_FOR_NO_PARENT ? style : {}}
+      onTouchTap={() => handleAction(CHOOSE_PARENT_FOLDER, ID_FOR_NO_PARENT)}
+    />
     {
       getItems(folders, handleAction, currentFolderID)
     }
