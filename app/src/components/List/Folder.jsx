@@ -5,12 +5,21 @@ import FileFolder from 'material-ui/svg-icons/file/folder';
 import rightIconMenu from './RightIconMenu';
 import { OPEN_FOLDER, FOLDER } from '../../constants';
 
+const listElementStyle = {
+  backgroundColor: 'white',
+  marginTop: '10px',
+  border: '1px solid #e0e0e0',
+  borderRadius: '2px',
+  boxShadow: '2px 2px 5px #e0e0e0',
+};
+
 const Folder = ({
   id,
   title,
   handleAction,
   currentFolderID,
 }) => <ListItem
+  style={listElementStyle}
   primaryText={title}
   leftIcon={<FileFolder />}
   rightIconButton={rightIconMenu(handleAction, FOLDER, id)}

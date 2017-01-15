@@ -6,6 +6,14 @@ import Star from 'material-ui/svg-icons/toggle/star';
 import rightIconMenu from './RightIconMenu';
 import { BOOKMARK } from '../../constants';
 
+const listElementStyle = {
+  backgroundColor: 'white',
+  marginTop: '10px',
+  border: '1px solid #e0e0e0',
+  borderRadius: '2px',
+  boxShadow: '2px 2px 5px #e0e0e0',
+};
+
 const Bookmark = ({
   id,
   title,
@@ -13,6 +21,7 @@ const Bookmark = ({
   wasRead,
   handleAction,
 }) => <ListItem
+  style={listElementStyle}
   primaryText={title}
   href={url}
   leftIcon={wasRead ? <Star /> : <StarBorder />}
