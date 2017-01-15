@@ -60,7 +60,7 @@ module.exports = function ({ isProd }) {
     context: sourcePath,
     entry: {
       js: './src/index.jsx',
-      vendor: ['react', 'react-dom', 'react-redux', 'redux', 'redux-thunk', 'sync-client']
+      vendor: ['react', 'react-dom', 'react-redux', 'redux', 'redux-thunk', 'sync-client', 'material-ui']
     },
     output: {
       path: staticsPath,
