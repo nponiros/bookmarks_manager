@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-import ManipulateAppBar from '../ManipulateAppBar';
+import ManipulateAppBar from '../controls/ManipulateAppBar';
 import { CLOSE_EDIT_FOLDER, DELETE_FOLDER, UPDATE_FOLDER } from '../../constants';
 
 const EditAppBar = ({ handleAction, id }) => <ManipulateAppBar

@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
 
+import ButtonWithLabel from '../controls/ButtonWithLabel';
 import { UPDATE_ITEM, LOAD_FOLDERS, OPEN_CHOOSE_FOLDER_PARENT } from '../../constants';
 
 const FolderForm = ({ handleAction, title, id, parentFolderTitle }) => <div>
@@ -9,16 +9,14 @@ const FolderForm = ({ handleAction, title, id, parentFolderTitle }) => <div>
     floatingLabelText="Folder name"
     value={title}
     onChange={e => handleAction(UPDATE_ITEM, id, 'title', e.target.value)}
+    fullWidth={true}
   />
   <br />
-  <div>
-    <span>Parent folder</span>
-    <br />
-    <FlatButton
-      label={parentFolderTitle}
-      onTouchTap={() => handleAction(LOAD_FOLDERS, OPEN_CHOOSE_FOLDER_PARENT, id)}
-    />
-  </div>
+  <ButtonWithLabel
+    title="Parent folder"
+    btnLabel={parentFolderTitle}
+    action={() => handleAction(LOAD_FOLDERS, OPEN_CHOOSE_FOLDER_PARENT, id)}
+  />
 </div>;
 
 FolderForm.propTypes = {

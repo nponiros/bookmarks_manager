@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-import ManipulateAppBar from '../ManipulateAppBar';
+import ManipulateAppBar from '../controls/ManipulateAppBar';
 import { CLOSE_EDIT_BOOKMARK, UPDATE_BOOKMARK, DELETE_BOOKMARK } from '../../constants';
 
 const EditAppBar = ({ handleAction, id }) => <ManipulateAppBar

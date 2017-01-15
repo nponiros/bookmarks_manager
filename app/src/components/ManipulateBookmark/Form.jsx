@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react';
 import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 import Toggle from 'material-ui/Toggle';
-import FlatButton from 'material-ui/FlatButton';
 import Chip from 'material-ui/Chip';
 
 import {
@@ -12,6 +11,7 @@ import {
   OPEN_TAGS_SELECT,
   UNSELECT_TAG,
 } from '../../constants';
+import ButtonWithLabel from '../controls/ButtonWithLabel';
 
 function getTags(tagIDs, tagIDToName, handleAction) {
   return tagIDs.map(id => <Chip
@@ -21,6 +21,11 @@ function getTags(tagIDs, tagIDToName, handleAction) {
     {tagIDToName[id]}
   </Chip>);
 }
+
+const labelStyle = {
+  lineHeight: '22px',
+  color: 'rgba(0, 0, 0, 0.298039)',
+};
 
 const BookmarkForm = ({
   handleAction,
@@ -39,6 +44,7 @@ const BookmarkForm = ({
     floatingLabelText="Title"
     value={title}
     onChange={e => handleAction(UPDATE_ITEM, id, 'title', e.target.value)}
+    fullWidth={true}
   />
   <br />
   <TextField
@@ -46,29 +52,42 @@ const BookmarkForm = ({
     floatingLabelText="URL"
     value={url}
     onChange={e => handleAction(UPDATE_ITEM, id, 'url', e.target.value)}
+    fullWidth={true}
+  />
+  <br />
+  <ButtonWithLabel
+    title="Parent folder"
+    btnLabel={parentFolderTitle}
+    action={() => handleAction(LOAD_FOLDERS, OPEN_CHOOSE_BOOKMARK_PARENT, id)}
+  />
+  <ButtonWithLabel
+    title="Tags"
+    btnLabel="Select tags"
+    action={() => handleAction(OPEN_TAGS_SELECT, id)}
   />
   <br />
   <div>
-    <span>Parent folder</span>
-    <br />
-    <FlatButton
-      label={parentFolderTitle}
-      onTouchTap={() => handleAction(LOAD_FOLDERS, OPEN_CHOOSE_BOOKMARK_PARENT, id)}
-    />
-  </div>
-  <div>
-    <span>Tags</span>
-    <br />
-    <FlatButton
-      label="Select tags"
-      onTouchTap={() => handleAction(OPEN_TAGS_SELECT, id)}
-    />
     { getTags(tags, tagIDToName, handleAction) }
   </div>
+  <br />
   <Toggle
-    label="Read"
+    label="Read?"
     defaultToggled={wasRead}
     onToggle={() => handleAction(UPDATE_ITEM, id, 'wasRead', !wasRead)}
+    labelPosition="right"
+  />
+  <TextField
+    floatingLabelText="Author"
+    value={author}
+    onChange={e => handleAction(UPDATE_ITEM, id, 'author', e.target.value)}
+    fullWidth={true}
+  />
+  <br />
+  <DatePicker
+    hintText="Write date"
+    value={writeDate}
+    onChange={(e, date) => handleAction(UPDATE_ITEM, id, 'writeDate', date)}
+    fullWidth={true}
   />
   <br />
   <TextField
@@ -77,18 +96,7 @@ const BookmarkForm = ({
     rows={2}
     value={description}
     onChange={e => handleAction(UPDATE_ITEM, id, 'description', e.target.value)}
-  />
-  <br />
-  <TextField
-    floatingLabelText="Author"
-    value={author}
-    onChange={e => handleAction(UPDATE_ITEM, id, 'author', e.target.value)}
-  />
-  <br />
-  <DatePicker
-    hintText="Write date"
-    value={writeDate}
-    onChange={(e, date) => handleAction(UPDATE_ITEM, id, 'writeDate', date)}
+    fullWidth={true}
   />
 </div>;
 
