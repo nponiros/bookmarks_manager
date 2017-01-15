@@ -22,11 +22,6 @@ function getTags(tagIDs, tagIDToName, handleAction) {
   </Chip>);
 }
 
-const labelStyle = {
-  lineHeight: '22px',
-  color: 'rgba(0, 0, 0, 0.298039)',
-};
-
 const BookmarkForm = ({
   handleAction,
   title,
@@ -44,7 +39,7 @@ const BookmarkForm = ({
     floatingLabelText="Title"
     value={title}
     onChange={e => handleAction(UPDATE_ITEM, id, 'title', e.target.value)}
-    fullWidth={true}
+    fullWidth
   />
   <br />
   <TextField
@@ -52,7 +47,7 @@ const BookmarkForm = ({
     floatingLabelText="URL"
     value={url}
     onChange={e => handleAction(UPDATE_ITEM, id, 'url', e.target.value)}
-    fullWidth={true}
+    fullWidth
   />
   <br />
   <ButtonWithLabel
@@ -80,14 +75,14 @@ const BookmarkForm = ({
     floatingLabelText="Author"
     value={author}
     onChange={e => handleAction(UPDATE_ITEM, id, 'author', e.target.value)}
-    fullWidth={true}
+    fullWidth
   />
   <br />
   <DatePicker
     hintText="Write date"
     value={writeDate}
     onChange={(e, date) => handleAction(UPDATE_ITEM, id, 'writeDate', date)}
-    fullWidth={true}
+    fullWidth
   />
   <br />
   <TextField
@@ -96,7 +91,7 @@ const BookmarkForm = ({
     rows={2}
     value={description}
     onChange={e => handleAction(UPDATE_ITEM, id, 'description', e.target.value)}
-    fullWidth={true}
+    fullWidth
   />
 </div>;
 

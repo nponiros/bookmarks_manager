@@ -9,7 +9,7 @@ const FolderForm = ({ handleAction, title, id, parentFolderTitle }) => <div>
     floatingLabelText="Folder name"
     value={title}
     onChange={e => handleAction(UPDATE_ITEM, id, 'title', e.target.value)}
-    fullWidth={true}
+    fullWidth
   />
   <br />
   <ButtonWithLabel
