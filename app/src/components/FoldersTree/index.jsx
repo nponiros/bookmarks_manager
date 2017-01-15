@@ -20,7 +20,7 @@ function getItems(folders = [], handleAction, currentFolderID) {
   return folders.map(folder => <ListItem
     key={folder.id}
     primaryText={folder.title}
-    leftIcon={folder.items.length > 0 ? <FileFolderOpen /> : <FileFolder />}
+    leftIcon={folder.items && folder.items.length > 0 ? <FileFolderOpen /> : <FileFolder />}
     initiallyOpen
     nestedItems={getItems(folder.items, handleAction, currentFolderID)}
     style={currentFolderID === folder.id ? style : {}}

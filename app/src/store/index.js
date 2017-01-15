@@ -34,7 +34,6 @@ const store = createStore(
         enableDevTool ? enableDevTool({
           serialize: {
             replacer: (key, value) => {
-              console.log(key, value);
               if (typeof value === 'symbol') {
                 return String(value);
               }

@@ -63,9 +63,8 @@ export function chooseParentFolder(parentFolderID) {
   return (dispatch, getState) => {
     const { itemToUpdateID, entities } = getState();
     const item = entities[itemToUpdateID];
-    if (item.type === FOLDER) {
-      syncClient
-        .folders
+    syncClient
+        [item.type === FOLDER ? 'folders' : 'bookmarks']
         .put(Object.assign({}, item, { parentID: parentFolderID }))
         .then(() => {
           dispatch({
@@ -76,19 +75,5 @@ export function chooseParentFolder(parentFolderID) {
         .catch((e) => {
           console.log(e);
         });
-    } else {
-      syncClient
-        .bookmarks
-        .put(Object.assign({}, item, { parentID: parentFolderID }))
-        .then(() => {
-          dispatch({
-            type: CHOOSE_PARENT_FOLDER,
-            payload: parentFolderID,
-          });
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    }
   };
 }

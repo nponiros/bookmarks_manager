@@ -13,9 +13,10 @@ const Bookmark = ({
   wasRead,
   handleAction,
 }) => <ListItem
-  primaryText={<a href={url}>{title}</a>}
+  primaryText={title}
+  href={url}
   leftIcon={wasRead ? <Star /> : <StarBorder />}
-  rightIconButton={rightIconMenu(handleAction, BOOKMARK, id)}
+  rightIconButton={rightIconMenu(handleAction, BOOKMARK, id, url)}
 />;
 
 Bookmark.propTypes = {

@@ -6,6 +6,8 @@ import MenuItem from 'material-ui/MenuItem';
 import Create from 'material-ui/svg-icons/content/create';
 import Clear from 'material-ui/svg-icons/content/clear';
 import ContentCut from 'material-ui/svg-icons/content/content-cut';
+import ArrowForward from 'material-ui/svg-icons/navigation/arrow-forward';
+import SubdirectoryArrowRight from 'material-ui/svg-icons/navigation/subdirectory-arrow-right';
 
 import {
   FOLDER,
@@ -15,6 +17,7 @@ import {
   OPEN_EDIT_FOLDER,
   LOAD_FOLDERS,
   OPEN_MOVE_FOLDER_BOOKMARK,
+  OPEN_FOLDER,
 } from '../../constants';
 
 const iconButtonElement = (
@@ -30,7 +33,15 @@ const rightMenuIcon = (
   handleAction,
   type,
   id,
+  url,
 ) => (<IconMenu iconButtonElement={iconButtonElement}>
+  <MenuItem
+    href={url}
+    onTouchTap={() => { if (type === FOLDER) { handleAction(OPEN_FOLDER, id); } }}
+    rightIcon={type === FOLDER ? <SubdirectoryArrowRight /> : <ArrowForward />}
+  >
+    Open
+  </MenuItem>
   <MenuItem
     onTouchTap={() => handleAction(type === FOLDER ? OPEN_EDIT_FOLDER : OPEN_EDIT_BOOKMARK, id)}
     rightIcon={<Create />}
