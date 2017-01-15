@@ -41,6 +41,7 @@ module.exports = function ({ isProd }) {
         output: {
           comments: false
         },
+        sourceMap: true,
       }),
       new webpack.DefinePlugin({
         'process.env': {NODE_ENV: JSON.stringify('production')}
@@ -64,7 +65,7 @@ module.exports = function ({ isProd }) {
     },
     output: {
       path: staticsPath,
-      filename: '[name].bundle.js'
+      filename: '[name].bundle.js',
     },
     module: {
       rules: [
