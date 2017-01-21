@@ -28,11 +28,12 @@ class AddSyncUrl extends Component {
   }
 
   render() {
-    return (<div>
+    return (<div style={{ paddingBottom: '20px' }}>
       <TextField
         name="url"
         floatingLabelText="URL"
         onChange={e => this.handleChange('url', e.target.value)}
+        fullWidth
       />
       <br />
       <TextField
@@ -40,6 +41,7 @@ class AddSyncUrl extends Component {
         floatingLabelText="Port"
         type="number"
         onChange={e => this.handleChange('port', e.target.value)}
+        fullWidth
       />
       <br />
       <FlatButton
