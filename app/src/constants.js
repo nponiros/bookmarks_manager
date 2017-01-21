@@ -1,3 +1,17 @@
+import {
+    blue500,
+    blue700,
+    darkBlack,
+    grey100,
+    grey300,
+    grey400,
+    grey500,
+    fullBlack,
+    tealA700,
+    white,
+} from 'material-ui/styles/colors';
+import { fade } from 'material-ui/utils/colorManipulator';
+
 export const ID_FOR_NO_PARENT = 'noparent';
 
 // Item types
@@ -64,3 +78,21 @@ export const TAGS_SELECT_VIEW = Symbol('TAGS_SELECT_VIEW');
 // It is a temporary solution
 export const OPEN_ERROR_DIALOG = Symbol('OPEN_ERROR_DIALOG');
 export const CLOSE_ERROR_DIALOG = Symbol('CLOSE_ERROR_DIALOG');
+
+export const colorPalette = {
+  primary1Color: blue500,
+  primary2Color: blue700,
+  primary3Color: grey400,
+  accent1Color: tealA700,
+  accent2Color: grey100,
+  accent3Color: grey500,
+  textColor: darkBlack,
+  alternateTextColor: white,
+  canvasColor: white,
+  borderColor: grey300,
+  disabledColor: fade(darkBlack, 0.3),
+  pickerHeaderColor: blue500,
+  clockCircleColor: fade(darkBlack, 0.07),
+  shadowColor: fullBlack,
+};
+

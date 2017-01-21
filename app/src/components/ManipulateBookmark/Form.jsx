@@ -13,8 +13,16 @@ import {
 } from '../../constants';
 import ButtonWithLabel from '../controls/ButtonWithLabel';
 
+const chipWrapperStyle = {
+  display: 'flex',
+  flexWrap: 'wrap',
+};
+
+const chipStyle = { margin: '4px' };
+
 function getTags(tagIDs, tagIDToName, handleAction) {
   return tagIDs.map(id => <Chip
+    style={chipStyle}
     key={id}
     onRequestDelete={() => handleAction(UNSELECT_TAG, id)}
   >
@@ -61,7 +69,7 @@ const BookmarkForm = ({
     action={() => handleAction(OPEN_TAGS_SELECT, id)}
   />
   <br />
-  <div>
+  <div style={chipWrapperStyle}>
     { getTags(tags, tagIDToName, handleAction) }
   </div>
   <br />

@@ -4,12 +4,20 @@ import IconButton from 'material-ui/IconButton';
 import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 import Chip from 'material-ui/Chip';
 
-import { CLOSE_TAGS_SELECT, SELECT_TAG, UNSELECT_TAG } from '../../constants';
+import { CLOSE_TAGS_SELECT, SELECT_TAG, UNSELECT_TAG, colorPalette } from '../../constants';
 import AddTag from './AddTag';
 
 function isSelected(tagID, selectedTagIDs) {
   return selectedTagIDs.indexOf(tagID) !== -1;
 }
+
+const chipStyleSelected = { margin: '4px', backgroundColor: colorPalette.primary1Color };
+const chipStyleNotSelected = { margin: '4px', backgroundColor: colorPalette.accent3Color };
+
+const chipWrapperStyle = {
+  display: 'flex',
+  flexWrap: 'wrap',
+};
 
 function getChip(tag, bookmarkTagIDs, handleAction) {
   return (<Chip
@@ -21,7 +29,7 @@ function getChip(tag, bookmarkTagIDs, handleAction) {
           : SELECT_TAG,
         tag.id);
     }}
-    style={{ backgroundColor: isSelected(tag.id, bookmarkTagIDs) ? 'blue' : 'gray' }}
+    style={isSelected(tag.id, bookmarkTagIDs) ? chipStyleSelected : chipStyleNotSelected}
   >
     {tag.title}
   </Chip>);
@@ -34,7 +42,7 @@ const Tags = ({ tags, handleAction, bookmarkTagIDs }) => <div>
     iconElementLeft={<IconButton><ArrowBack /></IconButton>}
   />
   <AddTag handleAction={handleAction} />
-  <div>
+  <div style={chipWrapperStyle}>
     {
       tags.map(tag => getChip(tag, bookmarkTagIDs, handleAction))
     }
