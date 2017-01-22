@@ -1,6 +1,15 @@
 import update from 'immutability-helper';
 
 import {
+  // Views
+  ADD_BOOKMARK_VIEW,
+  EDIT_BOOKMARK_VIEW,
+  ADD_FOLDER_VIEW,
+  EDIT_FOLDER_VIEW,
+  LIST_VIEW,
+  SETTINGS_VIEW,
+  SYNC_STATUS_VIEW,
+
   LOAD_ITEMS,
   LOAD_FOLDERS,
   OPEN_ADD_BOOKMARK,
@@ -15,29 +24,11 @@ import {
   OPEN_EDIT_FOLDER,
   CLOSE_EDIT_FOLDER,
   UPDATE_FOLDER,
-  ADD_BOOKMARK_VIEW,
-  EDIT_BOOKMARK_VIEW,
-  ADD_FOLDER_VIEW,
-  EDIT_FOLDER_VIEW,
-  LIST_VIEW,
-  CHOOSE_BOOKMARK_PARENT_VIEW,
-  CHOOSE_FOLDER_PARENT_VIEW,
-  MOVE_FOLDER_BOOKMARK_VIEW,
-  SETTINGS_VIEW,
-  SYNC_STATUS_VIEW,
-  TAGS_SELECT_VIEW,
   UPDATE_ITEM,
   OPEN_FOLDER,
   FOLDER_BACK,
   DELETE_BOOKMARK,
   DELETE_FOLDER,
-  ID_FOR_NO_PARENT,
-  OPEN_CHOOSE_BOOKMARK_PARENT,
-  CLOSE_CHOOSE_BOOKMARK_PARENT,
-  OPEN_CHOOSE_FOLDER_PARENT,
-  CLOSE_CHOOSE_FOLDER_PARENT,
-  OPEN_MOVE_FOLDER_BOOKMARK,
-  CLOSE_MOVE_FOLDER_BOOKMARK,
   CHOOSE_PARENT_FOLDER,
   OPEN_LEFT_NAV,
   CLOSE_LEFT_NAV,
@@ -55,31 +46,42 @@ import {
   UNSELECT_TAG,
   OPEN_ERROR_DIALOG,
   CLOSE_ERROR_DIALOG,
+
+  OPEN_MOVE_ITEM,
+  CLOSE_MOVE_ITEM,
+  OPEN_CHOOSE_ITEM_PARENT,
+  CLOSE_CHOOSE_ITEM_PARENT,
 } from '../constants';
-
-function normalize(serverItems) {
-  return serverItems.reduce((newItems, item) => ({
-    items: [...newItems.items, item.id],
-    entities: Object.assign({}, newItems.entities, { [item.id]: item }),
-  }), { items: [], entities: {} });
-}
-
-function createFoldersTree(folders) {
-  const foldersMap = folders.reduce(
-    (map, folder) => Object.assign(map, { [folder.id]: folder }), {},
-  );
-
-  return Object.keys(foldersMap).reduce((tree, key) => {
-    if (foldersMap[key].parentID === ID_FOR_NO_PARENT) {
-      tree.push(foldersMap[key]);
-    } else if (foldersMap[foldersMap[key].parentID].items) {
-      foldersMap[foldersMap[key].parentID].items.push(foldersMap[key]);
-    } else {
-      foldersMap[foldersMap[key].parentID].items = [foldersMap[key]];
-    }
-    return tree;
-  }, []);
-}
+import {
+  normalize,
+  createFoldersTree,
+  deleteItem,
+  toggleLeftNav,
+  updateItem,
+  openFolder,
+  folderBack,
+} from './helpers';
+import {
+  openChooseItemParent,
+  closeChooseItemParent,
+  openMoveItem,
+  closeMoveItem,
+  chooseParentFolder,
+} from './change_parent';
+import {
+  manipulateItem,
+  closeManipulateItem,
+  openAddItem,
+  openEditItem,
+} from './manipulate_item';
+import {
+  loadTags,
+  openTagsSelect,
+  closeTagsSelect,
+  selectTag,
+  unselectTag,
+  addTag,
+} from './tags';
 
 export default function (state, { type, payload /* error = false*/ }) {
   switch (type) {
@@ -96,133 +98,41 @@ export default function (state, { type, payload /* error = false*/ }) {
         folders: { $set: createFoldersTree(payload) },
       });
     }
-    case OPEN_ADD_BOOKMARK: return update(state, {
-      itemToUpdateID: { $set: payload.id },
-      entities: { $merge: { [payload.id]: payload } },
-      view: { $set: ADD_BOOKMARK_VIEW },
-      items: { $push: [payload.id] },
-    });
-    case CLOSE_ADD_BOOKMARK: return update(state, {
-      itemToUpdateID: { $set: undefined }, view: { $set: LIST_VIEW },
-    });
-    case ADD_BOOKMARK: {
-      const bookmark = state.entities[payload];
-      if (bookmark.parentID !== state.currentFolderID) {
-        return update(state, {
-          items: { $set: state.items.filter(id => id !== payload) },
-          itemToUpdateID: { $set: '' },
-        });
-      }
-      return update(state, { itemToUpdateID: { $set: '' } });
-    }
-    case OPEN_EDIT_BOOKMARK: return update(state, {
-      itemToUpdateID: { $set: payload },
-      view: { $set: EDIT_BOOKMARK_VIEW },
-    });
-    case CLOSE_EDIT_BOOKMARK: return update(state, {
-      itemToUpdateID: { $set: undefined }, view: { $set: LIST_VIEW },
-    });
-    case UPDATE_BOOKMARK: {
-      const bookmark = state.entities[payload];
-      if (bookmark.parentID !== state.currentFolderID) {
-        return update(state, {
-          items: { $set: state.items.filter(id => id !== payload) },
-          itemToUpdateID: { $set: '' },
-        });
-      }
-      return update(state, { itemToUpdateID: { $set: '' } });
-    }
-    case OPEN_ADD_FOLDER: return update(state, {
-      itemToUpdateID: { $set: payload.id },
-      entities: { $merge: { [payload.id]: payload } },
-      view: { $set: ADD_FOLDER_VIEW },
-      items: { $push: [payload.id] },
-    });
-    case CLOSE_ADD_FOLDER: return update(state, {
-      itemToUpdateID: { $set: '' }, view: { $set: LIST_VIEW },
-    });
-    case ADD_FOLDER: {
-      const folder = state.entities[payload];
-      if (folder.parentID !== state.currentFolderID) {
-        return update(state, {
-          items: { $set: state.items.filter(id => id !== payload) },
-          itemToUpdateID: { $set: '' },
-        });
-      }
-      return update(state, { itemToUpdateID: { $set: '' } });
-    }
-    case OPEN_EDIT_FOLDER: return update(state, {
-      itemToUpdateID: { $set: payload },
-      view: { $set: EDIT_FOLDER_VIEW },
-    });
-    case CLOSE_EDIT_FOLDER: return update(state, {
-      itemToUpdateID: { $set: '' }, view: { $set: LIST_VIEW },
-    });
-    case UPDATE_FOLDER: {
-      const folder = state.entities[payload];
-      if (folder.parentID !== state.currentFolderID) {
-        return update(state, {
-          items: { $set: state.items.filter(id => id !== payload) },
-          itemToUpdateID: { $set: '' },
-        });
-      }
-      return update(state, { itemToUpdateID: { $set: '' } });
-    }
-    case UPDATE_ITEM: return update(state, {
-      entities: { [payload.id]: { [payload.key]: { $set: payload.value } } },
-    });
+
+    // Manipulate item
+    case OPEN_ADD_BOOKMARK: return openAddItem(state, payload, ADD_BOOKMARK_VIEW);
+    case CLOSE_ADD_BOOKMARK: return closeManipulateItem(state);
+    case ADD_BOOKMARK: return manipulateItem(state, payload);
+    case OPEN_EDIT_BOOKMARK: return openEditItem(state, payload, EDIT_BOOKMARK_VIEW);
+    case CLOSE_EDIT_BOOKMARK: return closeManipulateItem(state);
+    case UPDATE_BOOKMARK: return manipulateItem(state, payload);
+    case OPEN_ADD_FOLDER: return openAddItem(state, payload, ADD_FOLDER_VIEW);
+    case CLOSE_ADD_FOLDER: return closeManipulateItem(state);
+    case ADD_FOLDER: return manipulateItem(state, payload);
+    case OPEN_EDIT_FOLDER: return openEditItem(state, payload, EDIT_FOLDER_VIEW);
+    case CLOSE_EDIT_FOLDER: return closeManipulateItem(state);
+    case UPDATE_FOLDER: return manipulateItem(state, payload);
+
+    case UPDATE_ITEM: return updateItem(state, payload);
+    case DELETE_BOOKMARK: return deleteItem(state, payload);
+    case DELETE_FOLDER: return deleteItem(state, payload);
+
+    // Folder navigation
     // payload is the id of the current folder before a new one is opened
-    case OPEN_FOLDER: return update(state, { previousFolderIDs: { $push: [payload] } });
-    case FOLDER_BACK: return update(state, {
-      previousFolderIDs: { $splice: [[state.previousFolderIDs.length - 1, 1]] },
-    });
-    case DELETE_BOOKMARK: {
-      if (state.items.includes(payload)) {
-        return update(state, { items: { $set: state.items.filter(id => id !== payload) } });
-      }
-      return state;
-    }
-    case DELETE_FOLDER: {
-      if (state.items.includes(payload)) {
-        return update(state, { items: { $set: state.items.filter(id => id !== payload) } });
-      }
-      return state;
-    }
-    case OPEN_CHOOSE_BOOKMARK_PARENT: return update(
-      state,
-      { view: { $set: CHOOSE_BOOKMARK_PARENT_VIEW }, previousView: { $set: state.view } },
-    );
-    case CLOSE_CHOOSE_BOOKMARK_PARENT: return update(state, { view: { $set: state.previousView } });
-    case OPEN_CHOOSE_FOLDER_PARENT: return update(
-      state,
-      { view: { $set: CHOOSE_FOLDER_PARENT_VIEW }, previousView: { $set: state.view } },
-    );
-    case CLOSE_CHOOSE_FOLDER_PARENT: return update(state, { view: { $set: state.previousView } });
-    case OPEN_MOVE_FOLDER_BOOKMARK: return update(
-      state,
-      {
-        view: { $set: MOVE_FOLDER_BOOKMARK_VIEW },
-        previousView: { $set: state.view },
-        itemToUpdateID: { $set: payload },
-      },
-    );
-    case CLOSE_MOVE_FOLDER_BOOKMARK: return update(state, {
-      view: { $set: LIST_VIEW },
-      itemToUpdateID: { $set: '' },
-    });
-    case CHOOSE_PARENT_FOLDER: {
-      if (payload !== state.currentFolderID) {
-        return update(state, {
-          entities: { [state.itemToUpdateID]: { parentID: { $set: payload } } },
-          items: { $set: state.items.filter(id => id !== state.itemToUpdateID) },
-          view: { $set: state.previousView },
-          itemToUpdateID: { $set: '' },
-        });
-      }
-      return state;
-    }
-    case OPEN_LEFT_NAV: return update(state, { menuOpen: { $set: true } });
-    case CLOSE_LEFT_NAV: return update(state, { menuOpen: { $set: false } });
+    case OPEN_FOLDER: return openFolder(state);
+    case FOLDER_BACK: return folderBack(state);
+
+    // Change parent
+    case OPEN_CHOOSE_ITEM_PARENT: return openChooseItemParent(state);
+    case CLOSE_CHOOSE_ITEM_PARENT: return closeChooseItemParent(state);
+    case OPEN_MOVE_ITEM: return openMoveItem(state, payload);
+    case CLOSE_MOVE_ITEM: return closeMoveItem(state);
+    case CHOOSE_PARENT_FOLDER: return chooseParentFolder(state);
+
+    case OPEN_LEFT_NAV: return toggleLeftNav(state, true);
+    case CLOSE_LEFT_NAV: return toggleLeftNav(state, false);
+
+    // Settings
     case OPEN_SETTINGS: return update(state, {
       view: { $set: SETTINGS_VIEW },
       settings: { $set: payload },
@@ -236,44 +146,21 @@ export default function (state, { type, payload /* error = false*/ }) {
         },
       },
     });
+
+    // Sync status
     case OPEN_SYNC_STATUS: return update(state, {
       view: { $set: SYNC_STATUS_VIEW },
       syncStatus: { $set: payload } });
     case CLOSE_SYNC_STATUS: return update(state, { view: { $set: LIST_VIEW } });
-    case LOAD_TAGS: return update(state, {
-      tags: { $set: payload },
-      tagIDToName: {
-        $set: payload.reduce((map, tag) => Object.assign(map, { [tag.id]: tag.title }), {}),
-      },
-    });
-    case OPEN_TAGS_SELECT: return update(state, {
-      view: { $set: TAGS_SELECT_VIEW },
-      previousView: { $set: state.view },
-    });
-    case CLOSE_TAGS_SELECT: return update(state, { view: { $set: state.previousView } });
-    case SELECT_TAG: {
-      return update(state, {
-        entities: {
-          [payload.bookmarkID]: {
-            tags: { $push: [payload.tagID] },
-          },
-        },
-      });
-    }
-    case UNSELECT_TAG: {
-      const bookmarkToUpdate = state.entities[payload.bookmarkID];
-      return update(state, {
-        entities: {
-          [payload.bookmarkID]: {
-            tags: { $set: bookmarkToUpdate.tags.filter(tagID => tagID !== payload.tagID) },
-          },
-        },
-      });
-    }
-    case ADD_TAG: return update(state, {
-      tags: { $push: [payload] },
-      tagIDToName: { $merge: { [payload.id]: payload.title } },
-    });
+
+    // Tags
+    case LOAD_TAGS: return loadTags(state, payload);
+    case OPEN_TAGS_SELECT: return openTagsSelect(state);
+    case CLOSE_TAGS_SELECT: return closeTagsSelect(state);
+    case SELECT_TAG: return selectTag(state, payload);
+    case UNSELECT_TAG: return unselectTag(state, payload);
+    case ADD_TAG: return addTag(state, payload);
+
     case OPEN_ERROR_DIALOG: {
       console.log(payload.stack);
       return update(state, {

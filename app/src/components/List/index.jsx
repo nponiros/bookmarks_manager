@@ -81,6 +81,10 @@ const MyList = ({ items, entities, handleAction, currentFolderID, menuOpen }) =>
   <LeftNav open={menuOpen} handleAction={handleAction} />
 </div>;
 
+MyList.defaultProps = {
+  menuOpen: false,
+};
+
 MyList.propTypes = {
   items: PropTypes.arrayOf(PropTypes.string).isRequired,
   entities: PropTypes.objectOf(PropTypes.oneOfType([

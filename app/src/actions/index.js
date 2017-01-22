@@ -17,12 +17,10 @@ import updateItem from './update_item';
 import { openFolder, folderBack } from './open_folder';
 import { deleteBookmark, deleteFolder } from './delete_item';
 import {
-  openChooseBookmarkParent,
-  closeChooseBookmarkParent,
-  openChooseFolderParent,
-  closeChooseFolderParent,
-  openMoveFolderBookmark,
-  closeMoveFolderBookmark,
+  openChooseItemParent,
+  closeChooseItemParent,
+  openMoveItem,
+  closeMoveItem,
   chooseParentFolder,
 } from './change_parent';
 import { openLeftNav, closeLeftNav } from './left_nav';
@@ -56,12 +54,10 @@ import {
   FOLDER_BACK,
   DELETE_BOOKMARK,
   DELETE_FOLDER,
-  OPEN_CHOOSE_BOOKMARK_PARENT,
-  CLOSE_CHOOSE_BOOKMARK_PARENT,
-  OPEN_CHOOSE_FOLDER_PARENT,
-  CLOSE_CHOOSE_FOLDER_PARENT,
-  OPEN_MOVE_FOLDER_BOOKMARK,
-  CLOSE_MOVE_FOLDER_BOOKMARK,
+  OPEN_CHOOSE_ITEM_PARENT,
+  CLOSE_CHOOSE_ITEM_PARENT,
+  OPEN_MOVE_ITEM,
+  CLOSE_MOVE_ITEM,
   CHOOSE_PARENT_FOLDER,
   OPEN_LEFT_NAV,
   CLOSE_LEFT_NAV,
@@ -121,18 +117,14 @@ export default function handleAction(action, ...args) {
         return dispatch(deleteBookmark(...args));
       case DELETE_FOLDER:
         return dispatch(deleteFolder(...args));
-      case OPEN_CHOOSE_BOOKMARK_PARENT:
-        return dispatch(openChooseBookmarkParent(...args));
-      case CLOSE_CHOOSE_BOOKMARK_PARENT:
-        return dispatch(closeChooseBookmarkParent(...args));
-      case OPEN_CHOOSE_FOLDER_PARENT:
-        return dispatch(openChooseFolderParent(...args));
-      case CLOSE_CHOOSE_FOLDER_PARENT:
-        return dispatch(closeChooseFolderParent(...args));
-      case OPEN_MOVE_FOLDER_BOOKMARK:
-        return dispatch(openMoveFolderBookmark(...args));
-      case CLOSE_MOVE_FOLDER_BOOKMARK:
-        return dispatch(closeMoveFolderBookmark(...args));
+      case OPEN_CHOOSE_ITEM_PARENT:
+        return dispatch(openChooseItemParent(...args));
+      case CLOSE_CHOOSE_ITEM_PARENT:
+        return dispatch(closeChooseItemParent(...args));
+      case OPEN_MOVE_ITEM:
+        return dispatch(openMoveItem(...args));
+      case CLOSE_MOVE_ITEM:
+        return dispatch(closeMoveItem(...args));
       case CHOOSE_PARENT_FOLDER:
         return dispatch(chooseParentFolder(...args));
       case OPEN_LEFT_NAV:

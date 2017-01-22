@@ -36,6 +36,10 @@ const LeftNav = ({ open, handleAction }) => <Drawer open={open}>
   <MenuItem>About</MenuItem>*/}
 </Drawer>;
 
+LeftNav.defaultProps = {
+  open: false,
+};
+
 LeftNav.propTypes = {
   open: PropTypes.bool,
   handleAction: PropTypes.func.isRequired,

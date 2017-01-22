@@ -28,6 +28,11 @@ const Bookmark = ({
   rightIconButton={rightIconMenu(handleAction, BOOKMARK, id, url)}
 />;
 
+Bookmark.defaultProps = {
+  wasRead: false,
+  url: '',
+};
+
 Bookmark.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,

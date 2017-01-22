@@ -39,13 +39,14 @@ export const DELETE_FOLDER = Symbol('DELETE_FOLDER');
 export const DELETE_BOOKMARK = Symbol('DELETE_BOOKMARK');
 export const OPEN_FOLDER = Symbol('OPEN_FOLDER');
 export const FOLDER_BACK = Symbol('FOLDER_BACK');
-export const OPEN_MOVE_FOLDER_BOOKMARK = Symbol('OPEN_MOVE_FOLDER_BOOKMARK');
-export const CLOSE_MOVE_FOLDER_BOOKMARK = Symbol('CLOSE_MOVE_FOLDER_BOOKMARK');
-export const OPEN_CHOOSE_FOLDER_PARENT = Symbol('OPEN_FOLDER_PARENT');
-export const CLOSE_CHOOSE_FOLDER_PARENT = Symbol('CLOSE_FOLDER_PARENT');
-export const OPEN_CHOOSE_BOOKMARK_PARENT = Symbol('OPEN_CHOOSE_BOOKMARK_PARENT');
-export const CLOSE_CHOOSE_BOOKMARK_PARENT = Symbol('CLOSE_CHOOSE_BOOKMARK_PARENT');
+
+// Choosing parent folder
+export const OPEN_MOVE_ITEM = Symbol('OPEN_MOVE_ITEM');
+export const CLOSE_MOVE_ITEM = Symbol('CLOSE_MOVE_ITEM');
+export const OPEN_CHOOSE_ITEM_PARENT = Symbol('OPEN_CHOOSE_ITEM_PARENT');
+export const CLOSE_CHOOSE_ITEM_PARENT = Symbol('CLOSE_CHOOSE_ITEM_PARENT');
 export const CHOOSE_PARENT_FOLDER = Symbol('CHOOSE_PARENT_FOLDER');
+
 export const OPEN_LEFT_NAV = Symbol('OPEN_LEFT_NAV');
 export const CLOSE_LEFT_NAV = Symbol('CLOSE_LEFT_NAV');
 export const OPEN_SETTINGS = Symbol('OPEN_SETTINGS');
@@ -67,9 +68,10 @@ export const ADD_BOOKMARK_VIEW = Symbol('ADD_BOOKMARK_VIEW');
 export const EDIT_BOOKMARK_VIEW = Symbol('EDIT_BOOKMARK_VIEW');
 export const ADD_FOLDER_VIEW = Symbol('ADD_FOLDER_VIEW');
 export const EDIT_FOLDER_VIEW = Symbol('EDIT_FOLDER_VIEW');
-export const MOVE_FOLDER_BOOKMARK_VIEW = Symbol('MOVE_FOLDER_BOOKMARK_VIEW');
-export const CHOOSE_FOLDER_PARENT_VIEW = Symbol('CHOOSE_FOLDER_PARENT_VIEW');
-export const CHOOSE_BOOKMARK_PARENT_VIEW = Symbol('CHOOSE_BOOKMARK_PARENT_VIEW');
+// Choose parent folder
+export const CHOOSE_ITEM_PARENT_VIEW = Symbol('CHOOSE_ITEM_PARENT_VIEW');
+// Move item
+export const MOVE_ITEM_VIEW = Symbol('MOVE_ITEM_VIEW');
 export const SETTINGS_VIEW = Symbol('SETTINGS_VIEW');
 export const SYNC_STATUS_VIEW = Symbol('SYNC_STATUS_VIEW');
 export const TAGS_SELECT_VIEW = Symbol('TAGS_SELECT_VIEW');

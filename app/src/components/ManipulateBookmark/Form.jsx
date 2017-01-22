@@ -7,7 +7,7 @@ import Chip from 'material-ui/Chip';
 import {
   UPDATE_ITEM,
   LOAD_FOLDERS,
-  OPEN_CHOOSE_BOOKMARK_PARENT,
+  OPEN_CHOOSE_ITEM_PARENT,
   OPEN_TAGS_SELECT,
   UNSELECT_TAG,
 } from '../../constants';
@@ -31,17 +31,17 @@ function getTags(tagIDs, tagIDToName, handleAction) {
 }
 
 const BookmarkForm = ({
-  handleAction,
-  title,
-  id,
-  url,
-  description,
-  wasRead,
   author,
-  writeDate,
+  description,
+  id,
+  handleAction,
   parentFolderTitle,
   tagIDToName,
   tags,
+  title,
+  url,
+  wasRead,
+  writeDate,
 }) => <div>
   <TextField
     floatingLabelText="Title"
@@ -61,7 +61,7 @@ const BookmarkForm = ({
   <ButtonWithLabel
     title="Parent folder"
     btnLabel={parentFolderTitle}
-    action={() => handleAction(LOAD_FOLDERS, OPEN_CHOOSE_BOOKMARK_PARENT, id)}
+    action={() => handleAction(LOAD_FOLDERS, OPEN_CHOOSE_ITEM_PARENT, id)}
   />
   <ButtonWithLabel
     title="Tags"
@@ -103,18 +103,28 @@ const BookmarkForm = ({
   />
 </div>;
 
+BookmarkForm.defaultProps = {
+  author: '',
+  description: '',
+  tags: [],
+  title: '',
+  url: '',
+  wasRead: false,
+  writeDate: undefined,
+};
+
 BookmarkForm.propTypes = {
-  id: PropTypes.string.isRequired,
-  url: PropTypes.string,
-  parentFolderTitle: PropTypes.string.isRequired,
-  title: PropTypes.string,
-  wasRead: PropTypes.bool,
-  description: PropTypes.string,
   author: PropTypes.string,
-  writeDate: PropTypes.instanceOf(Date),
+  description: PropTypes.string,
+  id: PropTypes.string.isRequired,
   handleAction: PropTypes.func.isRequired,
+  parentFolderTitle: PropTypes.string.isRequired,
   tagIDToName: PropTypes.objectOf(PropTypes.string).isRequired,
   tags: PropTypes.arrayOf(PropTypes.string),
+  title: PropTypes.string,
+  url: PropTypes.string,
+  wasRead: PropTypes.bool,
+  writeDate: PropTypes.instanceOf(Date),
 };
 
 export default BookmarkForm;

@@ -1,23 +1,35 @@
 import React, { PropTypes } from 'react';
 
-import { ADD_FOLDER_VIEW, EDIT_FOLDER_VIEW } from '../../constants';
 import FolderForm from './Form';
 import AddAppBar from './AddAppBar';
 import EditAppBar from './EditAppBar';
+import { ADD_FOLDER_VIEW, EDIT_FOLDER_VIEW } from '../../constants';
 
-const Folder = props => <div>
+const Folder = ({
+  handleAction,
+  itemToUpdate,
+  parentFolderTitle,
+  view,
+}) => <div>
   {
-    props.view === ADD_FOLDER_VIEW ?
-      <AddAppBar handleAction={props.handleAction} id={props.id} /> :
-      <EditAppBar handleAction={props.handleAction} id={props.id} />
+    view === ADD_FOLDER_VIEW
+      ? <AddAppBar handleAction={handleAction} id={itemToUpdate.id} />
+      : <EditAppBar handleAction={handleAction} id={itemToUpdate.id} />
   }
-  <FolderForm {...props} />
+  <FolderForm
+    {...itemToUpdate}
+    handleAction={handleAction}
+    parentFolderTitle={parentFolderTitle}
+  />
 </div>;
 
 Folder.propTypes = {
-  id: PropTypes.string.isRequired,
   handleAction: PropTypes.func.isRequired,
-  view: PropTypes.oneOf([ADD_FOLDER_VIEW, EDIT_FOLDER_VIEW]),
+  itemToUpdate: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+  }).isRequired,
+  parentFolderTitle: PropTypes.string.isRequired,
+  view: PropTypes.oneOf([ADD_FOLDER_VIEW, EDIT_FOLDER_VIEW]).isRequired,
 };
 
 export default Folder;

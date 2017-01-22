@@ -1,61 +1,43 @@
 import syncClient from '../db/sync_client';
 import {
-  OPEN_CHOOSE_BOOKMARK_PARENT,
-  CLOSE_CHOOSE_BOOKMARK_PARENT,
-  OPEN_CHOOSE_FOLDER_PARENT,
-  CLOSE_CHOOSE_FOLDER_PARENT,
-  OPEN_MOVE_FOLDER_BOOKMARK,
-  CLOSE_MOVE_FOLDER_BOOKMARK,
+  OPEN_CHOOSE_ITEM_PARENT,
+  CLOSE_CHOOSE_ITEM_PARENT,
+  OPEN_MOVE_ITEM,
+  CLOSE_MOVE_ITEM,
   CHOOSE_PARENT_FOLDER,
   FOLDER,
   OPEN_ERROR_DIALOG,
 } from '../constants';
 
-export function openChooseBookmarkParent() {
+export function openChooseItemParent() {
   return (dispatch) => {
     dispatch({
-      type: OPEN_CHOOSE_BOOKMARK_PARENT,
+      type: OPEN_CHOOSE_ITEM_PARENT,
     });
   };
 }
 
-export function closeChooseBookmarkParent() {
+export function closeChooseItemParent() {
   return (dispatch) => {
     dispatch({
-      type: CLOSE_CHOOSE_BOOKMARK_PARENT,
+      type: CLOSE_CHOOSE_ITEM_PARENT,
     });
   };
 }
 
-export function openChooseFolderParent() {
+export function openMoveItem(itemToUpdateID) {
   return (dispatch) => {
     dispatch({
-      type: OPEN_CHOOSE_FOLDER_PARENT,
-    });
-  };
-}
-
-export function closeChooseFolderParent() {
-  return (dispatch) => {
-    dispatch({
-      type: CLOSE_CHOOSE_FOLDER_PARENT,
-    });
-  };
-}
-
-export function openMoveFolderBookmark(itemToUpdateID) {
-  return (dispatch) => {
-    dispatch({
-      type: OPEN_MOVE_FOLDER_BOOKMARK,
+      type: OPEN_MOVE_ITEM,
       payload: itemToUpdateID,
     });
   };
 }
 
-export function closeMoveFolderBookmark() {
+export function closeMoveItem() {
   return (dispatch) => {
     dispatch({
-      type: CLOSE_MOVE_FOLDER_BOOKMARK,
+      type: CLOSE_MOVE_ITEM,
     });
   };
 }

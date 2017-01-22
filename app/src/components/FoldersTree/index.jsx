@@ -9,11 +9,11 @@ import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 import {
   FOLDER,
   CHOOSE_PARENT_FOLDER,
-  CLOSE_CHOOSE_BOOKMARK_PARENT,
-  CLOSE_CHOOSE_FOLDER_PARENT,
-  CLOSE_MOVE_FOLDER_BOOKMARK,
+  CLOSE_CHOOSE_ITEM_PARENT,
+  CLOSE_MOVE_ITEM,
   ID_FOR_NO_PARENT,
 } from '../../constants';
+import lazyFunction from '../../lazy_function';
 
 const style = { backgroundColor: 'rgba(0, 0, 0, 0.2)' };
 
@@ -47,12 +47,6 @@ const FoldersTree = ({ folders, handleAction, currentFolderID, closeAction }) =>
   </List>
 </div>;
 
-function lazyFunction(f) {
-  return function applyType(...args) {
-    return f().apply(this, args);
-  };
-}
-
 const treeType = PropTypes.shape({
   id: PropTypes.string.isRequired,
   type: PropTypes.oneOf([FOLDER]).isRequired,
@@ -63,14 +57,10 @@ const treeType = PropTypes.shape({
 });
 
 FoldersTree.propTypes = {
+  closeAction: PropTypes.oneOf([CLOSE_CHOOSE_ITEM_PARENT, CLOSE_MOVE_ITEM]).isRequired,
+  currentFolderID: PropTypes.string.isRequired,
   folders: PropTypes.arrayOf(treeType).isRequired,
   handleAction: PropTypes.func.isRequired,
-  currentFolderID: PropTypes.string.isRequired,
-  closeAction: PropTypes.oneOf([
-    CLOSE_CHOOSE_BOOKMARK_PARENT,
-    CLOSE_CHOOSE_FOLDER_PARENT,
-    CLOSE_MOVE_FOLDER_BOOKMARK,
-  ]).isRequired,
 };
 
 export default FoldersTree;
