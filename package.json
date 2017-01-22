@@ -1,7 +1,7 @@
 {
   "name": "bookmarks_manager",
   "version": "0.2.0",
-  "description": "Offline (via appcache and indexeddb) bookmarks manager for the browser",
+  "description": "Offline (using Dexie and IndexedDB) bookmarks manager for the browser",
   "author": "Nikolas Poniros <nikolas@poniros.de>",
   "license": "MIT",
   "repository": {
@@ -53,6 +53,7 @@
   "keywords": [
     "bookmarks",
     "offline",
-    "indexeddb"
+    "indexeddb",
+    "dexie"
   ]
 }
