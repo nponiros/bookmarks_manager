@@ -79,22 +79,10 @@ export function unselectTag(tagID, id) {
 }
 
 export function closeTagsSelect() {
-  return (dispatch, getState) => {
-    const bookmarkID = getState().itemToUpdateID;
-    const bookmarkToSave = getState().entities[bookmarkID];
-    syncClient.bookmarks
-        .put(bookmarkToSave)
-        .then(() => {
-          dispatch({
-            type: CLOSE_TAGS_SELECT,
-          });
-        })
-        .catch((e) => {
-          dispatch({
-            type: OPEN_ERROR_DIALOG,
-            payload: e,
-          });
-        });
+  return (dispatch) => {
+    dispatch({
+      type: CLOSE_TAGS_SELECT,
+    });
   };
 }
 
