@@ -37,25 +37,37 @@ const rightMenuIcon = (
 ) => (<IconMenu iconButtonElement={iconButtonElement}>
   <MenuItem
     href={url}
-    onTouchTap={() => { if (type === FOLDER) { handleAction(OPEN_FOLDER, id); } }}
+    onTouchTap={(e) => {
+      e.preventDefault();
+      if (type === FOLDER) { handleAction(OPEN_FOLDER, id); }
+    }}
     rightIcon={type === FOLDER ? <SubdirectoryArrowRight /> : <ArrowForward />}
   >
     Open
   </MenuItem>
   <MenuItem
-    onTouchTap={() => handleAction(type === FOLDER ? OPEN_EDIT_FOLDER : OPEN_EDIT_BOOKMARK, id)}
+    onTouchTap={(e) => {
+      e.preventDefault();
+      handleAction(type === FOLDER ? OPEN_EDIT_FOLDER : OPEN_EDIT_BOOKMARK, id)
+    }}
     rightIcon={<Create />}
   >
     Edit
   </MenuItem>
   <MenuItem
-    onTouchTap={() => handleAction(type === FOLDER ? DELETE_FOLDER : DELETE_BOOKMARK, id)}
+    onTouchTap={(e) => {
+      e.preventDefault();
+      handleAction(type === FOLDER ? DELETE_FOLDER : DELETE_BOOKMARK, id)
+    }}
     rightIcon={<Clear />}
   >
     Delete
   </MenuItem>
   <MenuItem
-    onTouchTap={() => handleAction(LOAD_FOLDERS, OPEN_MOVE_ITEM, id)}
+    onTouchTap={(e) => {
+      e.preventDefault();
+      handleAction(LOAD_FOLDERS, OPEN_MOVE_ITEM, id)
+    }}
     rightIcon={<ContentCut />}
   >
     Move

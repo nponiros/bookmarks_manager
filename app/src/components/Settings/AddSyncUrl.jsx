@@ -47,7 +47,10 @@ class AddSyncUrl extends Component {
       <FlatButton
         label="Add"
         primary
-        onTouchTap={() => this.handleAdd()}
+        onTouchTap={(e) => {
+          e.preventDefault();
+          this.handleAdd()
+        }}
       />
     </div>);
   }

@@ -10,13 +10,17 @@ import { CLOSE_LEFT_NAV, OPEN_SETTINGS, OPEN_SYNC_STATUS } from '../../constants
 const LeftNav = ({ open, handleAction }) => <Drawer open={open}>
   <MenuItem
     leftIcon={<ArrowBack />}
-    onTouchTap={() => handleAction(CLOSE_LEFT_NAV)}
+    onTouchTap={(e) => {
+      e.preventDefault();
+      handleAction(CLOSE_LEFT_NAV);
+    }}
   >
     Close
   </MenuItem>
   <MenuItem
     leftIcon={<Settings />}
-    onTouchTap={() => {
+    onTouchTap={(e) => {
+      e.preventDefault();
       handleAction(OPEN_SETTINGS);
       handleAction(CLOSE_LEFT_NAV);
     }}
@@ -25,7 +29,8 @@ const LeftNav = ({ open, handleAction }) => <Drawer open={open}>
   </MenuItem>
   <MenuItem
     leftIcon={<Backup />}
-    onTouchTap={() => {
+    onTouchTap={(e) => {
+      e.preventDefault();
       handleAction(OPEN_SYNC_STATUS);
       handleAction(CLOSE_LEFT_NAV);
     }}

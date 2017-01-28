@@ -22,7 +22,8 @@ const chipWrapperStyle = {
 function getChip(tag, bookmarkTagIDs, handleAction) {
   return (<Chip
     key={tag.id}
-    onTouchTap={() => {
+    onTouchTap={(e) => {
+      e.preventDefault();
       handleAction(
         isSelected(tag.id, bookmarkTagIDs)
           ? UNSELECT_TAG
@@ -38,7 +39,10 @@ function getChip(tag, bookmarkTagIDs, handleAction) {
 const Tags = ({ tags, handleAction, bookmarkTagIDs }) => <div>
   <AppBar
     title="Select tags"
-    onLeftIconButtonTouchTap={() => handleAction(CLOSE_TAGS_SELECT)}
+    onLeftIconButtonTouchTap={(e) => {
+      e.preventDefault();
+      handleAction(CLOSE_TAGS_SELECT)
+    }}
     iconElementLeft={<IconButton><ArrowBack /></IconButton>}
   />
   <AddTag handleAction={handleAction} />

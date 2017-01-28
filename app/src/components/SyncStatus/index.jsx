@@ -10,7 +10,10 @@ import { CLOSE_SYNC_STATUS } from '../../constants';
 const SyncStatus = ({ handleAction, items }) => <div>
   <AppBar
     title="Sync Status"
-    onLeftIconButtonTouchTap={() => handleAction(CLOSE_SYNC_STATUS)}
+    onLeftIconButtonTouchTap={(e) => {
+      e.preventDefault();
+      handleAction(CLOSE_SYNC_STATUS)
+    }}
     iconElementLeft={<IconButton><ArrowBack /></IconButton>}
   />
   <List>

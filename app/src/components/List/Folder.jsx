@@ -23,7 +23,10 @@ const Folder = ({
   primaryText={title}
   leftIcon={<FileFolder />}
   rightIconButton={rightIconMenu(handleAction, FOLDER, id)}
-  onTouchTap={() => handleAction(OPEN_FOLDER, id, currentFolderID)}
+  onTouchTap={(e) =>{
+    e.preventDefault();
+    handleAction(OPEN_FOLDER, id, currentFolderID)
+  }}
 />;
 
 Folder.propTypes = {

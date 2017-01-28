@@ -25,21 +25,30 @@ function getItems(folders = [], handleAction, currentFolderID) {
     initiallyOpen
     nestedItems={getItems(folder.items, handleAction, currentFolderID)}
     style={currentFolderID === folder.id ? style : {}}
-    onTouchTap={() => handleAction(CHOOSE_PARENT_FOLDER, folder.id)}
+    onTouchTap={(e) => {
+      e.preventDefault();
+      handleAction(CHOOSE_PARENT_FOLDER, folder.id);
+    }}
   />);
 }
 
 const FoldersTree = ({ folders, handleAction, currentFolderID, closeAction }) => <div>
   <AppBar
     title="Choose Folder"
-    onLeftIconButtonTouchTap={() => handleAction(closeAction)}
+    onLeftIconButtonTouchTap={(e) => {
+      e.preventDefault();
+      handleAction(closeAction);
+    }}
     iconElementLeft={<IconButton><ArrowBack /></IconButton>}
   />
   <List>
     <ListItem
       primaryText="None"
       style={currentFolderID === ID_FOR_NO_PARENT ? style : {}}
-      onTouchTap={() => handleAction(CHOOSE_PARENT_FOLDER, ID_FOR_NO_PARENT)}
+      onTouchTap={(e) => {
+        e.preventDefault();
+        handleAction(CHOOSE_PARENT_FOLDER, ID_FOR_NO_PARENT);
+      }}
     />
     {
       getItems(folders, handleAction, currentFolderID)

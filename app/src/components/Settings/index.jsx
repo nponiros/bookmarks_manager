@@ -12,7 +12,10 @@ import AddSyncUrl from './AddSyncUrl';
 const Settings = ({ syncUrls, handleAction }) => <div>
   <AppBar
     title="Settings"
-    onLeftIconButtonTouchTap={() => handleAction(CLOSE_SETTINGS)}
+    onLeftIconButtonTouchTap={(e) => {
+      e.preventDefault();
+      handleAction(CLOSE_SETTINGS)
+    }}
     iconElementLeft={<IconButton><ArrowBack /></IconButton>}
   />
   <div>
@@ -24,7 +27,10 @@ const Settings = ({ syncUrls, handleAction }) => <div>
         syncUrls.map(url => <ListItem
           key={url}
           rightIcon={<Clear />}
-          onTouchTap={() => handleAction(REMOVE_SYNC_URL, url)}
+          onTouchTap={(e) => {
+            e.preventDefault();
+            handleAction(REMOVE_SYNC_URL, url)
+          }}
         >
           {url}
         </ListItem>)

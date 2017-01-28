@@ -40,12 +40,18 @@ function getAppBar(currentFolderID, folder, handleAction) {
   if (currentFolderID === ID_FOR_NO_PARENT) {
     return (<AppBar
       title="Bookmarks Manager"
-      onLeftIconButtonTouchTap={() => handleAction(OPEN_LEFT_NAV)}
+      onLeftIconButtonTouchTap={(e) => {
+        e.preventDefault();
+        handleAction(OPEN_LEFT_NAV)
+      }}
     />);
   }
   return (<AppBar
     title={folder.title}
-    onLeftIconButtonTouchTap={() => handleAction(FOLDER_BACK)}
+    onLeftIconButtonTouchTap={(e) => {
+      e.preventDefault();
+      handleAction(FOLDER_BACK)
+    }}
     iconElementLeft={<IconButton><ArrowBack /></IconButton>}
   />);
 }
@@ -70,12 +76,18 @@ const MyList = ({ items, entities, handleAction, currentFolderID, menuOpen }) =>
     <SpeedDialItem
       label="new folder"
       fabContent={<FileFolder />}
-      onTouchTap={() => handleAction(OPEN_ADD_FOLDER, currentFolderID)}
+      onTouchTap={(e) => {
+        e.preventDefault();
+        handleAction(OPEN_ADD_FOLDER, currentFolderID)
+      }}
     />
     <SpeedDialItem
       label="new bookmark"
       fabContent={<StarBorder />}
-      onTouchTap={() => handleAction(OPEN_ADD_BOOKMARK, currentFolderID)}
+      onTouchTap={(e) => {
+        e.preventDefault();
+        handleAction(OPEN_ADD_BOOKMARK, currentFolderID)
+      }}
     />
   </SpeedDial>
   <LeftNav open={menuOpen} handleAction={handleAction} />

@@ -39,7 +39,10 @@ const App = ({
     <FlatButton
       label="Close"
       primary
-      onTouchTap={() => handleAction(CLOSE_ERROR_DIALOG)}
+      onTouchTap={(e) => {
+        e.preventDefault();
+        handleAction(CLOSE_ERROR_DIALOG);
+      }}
     />,
   ];
 

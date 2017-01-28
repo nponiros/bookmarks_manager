@@ -15,7 +15,10 @@ const ButtonWithLabel = ({ title, btnLabel, action }) => <div style={wrapperStyl
   <br />
   <FlatButton
     label={btnLabel}
-    onTouchTap={action}
+    onTouchTap={(e) => {
+      e.preventDefault();
+      action();
+    }}
   />
 </div>;
 

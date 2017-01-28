@@ -15,12 +15,14 @@ const ManipulateAppBar = ({
   title={title}
   iconElementLeft={<FlatButton label="Save" icon={<Done />} />}
   iconStyleLeft={{ marginTop: '13px' }}
-  onLeftIconButtonTouchTap={() => {
+  onLeftIconButtonTouchTap={(e) => {
+    e.preventDefault();
     handleAction(manipulateAction, id);
     handleAction(closeAction);
   }}
   iconElementRight={<FlatButton label="Delete" labelPosition="before" icon={<Delete />} />}
-  onRightIconButtonTouchTap={() => {
+  onRightIconButtonTouchTap={(e) => {
+    e.preventDefault();
     handleAction(deleteAction, id);
     handleAction(closeAction);
   }}
