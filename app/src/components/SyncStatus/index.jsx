@@ -3,10 +3,60 @@ import { List, ListItem } from 'material-ui/List';
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
+import Sync from 'material-ui/svg-icons/notification/sync';
+import SyncProblem from 'material-ui/svg-icons/notification/sync-problem';
+import SyncDisabled from 'material-ui/svg-icons/notification/sync-disabled';
 
-import { CLOSE_SYNC_STATUS } from '../../constants';
+import { CLOSE_SYNC_STATUS, RECONNECT_NODE, DISCONNECT_NODE } from '../../constants';
 
-// TODO: add reconnect
+const listElementStyle = {
+  backgroundColor: 'white',
+  marginTop: '10px',
+  border: '1px solid #e0e0e0',
+  borderRadius: '2px',
+  boxShadow: '2px 2px 5px #e0e0e0',
+};
+
+function getListItem(url, handleAction) {
+  if (url.status === 'ERROR') {
+    return (<ListItem
+      style={listElementStyle}
+      key={url.url}
+      primaryText={url.url}
+      secondaryText="Some error while trying to sync"
+      onTouchTap={(e) => {
+        e.preventDefault();
+        handleAction(RECONNECT_NODE, url.url);
+      }}
+      rightIcon={<SyncProblem />}
+    />);
+  } else if (url.status === 'OFFLINE') {
+    return (<ListItem
+      style={listElementStyle}
+      key={url.url}
+      primaryText={url.url}
+      secondaryText="Synchronization is disabled"
+      onTouchTap={(e) => {
+        e.preventDefault();
+        handleAction(RECONNECT_NODE, url.url);
+      }}
+      rightIcon={<SyncDisabled />}
+    />);
+  }
+
+  return (<ListItem
+    style={listElementStyle}
+    key={url.url}
+    primaryText={url.url}
+    secondaryText="Synchronization is enabled"
+    onTouchTap={(e) => {
+      e.preventDefault();
+      handleAction(DISCONNECT_NODE, url.url);
+    }}
+    rightIcon={<Sync />}
+  />);
+}
+
 const SyncStatus = ({ handleAction, items }) => <div>
   <AppBar
     title="Sync Status"
@@ -18,7 +68,7 @@ const SyncStatus = ({ handleAction, items }) => <div>
   />
   <List>
     {
-      items.map(url => <ListItem key={url.url} primaryText={url.url} secondaryText={url.status} />)
+      items.map(url => getListItem(url, handleAction))
     }
   </List>
 </div>;

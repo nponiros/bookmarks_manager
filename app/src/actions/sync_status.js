@@ -27,3 +27,15 @@ export function closeSyncStatus() {
     });
   };
 }
+
+export function reconnectNode(url) {
+  return () => {
+    syncClient.connect(url);
+  };
+}
+
+export function disconnectNode(url) {
+  return () => {
+    syncClient.disconnect(url);
+  };
+}

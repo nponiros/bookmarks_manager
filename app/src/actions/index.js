@@ -25,7 +25,12 @@ import {
 } from './change_parent';
 import { openLeftNav, closeLeftNav } from './left_nav';
 import { openSettings, closeSettings, addSyncUrl, removeSyncUrl } from './settings';
-import { openSyncStatus, closeSyncStatus } from './sync_status';
+import {
+  openSyncStatus,
+  closeSyncStatus,
+  reconnectNode,
+  disconnectNode,
+} from './sync_status';
 import {
   openTagsSelect,
   closeTagsSelect,
@@ -74,6 +79,8 @@ import {
   ADD_TAG,
   LOAD_TAGS,
   CLOSE_ERROR_DIALOG,
+  RECONNECT_NODE,
+  DISCONNECT_NODE,
 } from '../constants';
 
 export default function handleAction(action, ...args) {
@@ -159,6 +166,10 @@ export default function handleAction(action, ...args) {
         return dispatch({
           type: CLOSE_ERROR_DIALOG,
         });
+      case RECONNECT_NODE:
+        return dispatch(reconnectNode(...args));
+      case DISCONNECT_NODE:
+        return dispatch(disconnectNode(...args));
       default: throw Error(`Action ${String(action)} not supported!`);
     }
   };

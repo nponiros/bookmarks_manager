@@ -94,6 +94,8 @@ const App = ({
 App.defaultProps = {
   errorMessage: { __html: '' },
   showErrorDialog: false,
+  syncStatus: [],
+  settings: {},
 };
 
 App.propTypes = {

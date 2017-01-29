@@ -39,6 +39,8 @@ export const DELETE_FOLDER = Symbol('DELETE_FOLDER');
 export const DELETE_BOOKMARK = Symbol('DELETE_BOOKMARK');
 export const OPEN_FOLDER = Symbol('OPEN_FOLDER');
 export const FOLDER_BACK = Symbol('FOLDER_BACK');
+export const RECONNECT_NODE = Symbol('RECONNECT_NODE');
+export const DISCONNECT_NODE = Symbol('DISCONNECT_NODE');
 
 // Choosing parent folder
 export const OPEN_MOVE_ITEM = Symbol('OPEN_MOVE_ITEM');
