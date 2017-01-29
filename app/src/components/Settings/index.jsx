@@ -14,7 +14,7 @@ const Settings = ({ syncUrls, handleAction }) => <div>
     title="Settings"
     onLeftIconButtonTouchTap={(e) => {
       e.preventDefault();
-      handleAction(CLOSE_SETTINGS)
+      handleAction(CLOSE_SETTINGS);
     }}
     iconElementLeft={<IconButton><ArrowBack /></IconButton>}
   />
@@ -29,7 +29,7 @@ const Settings = ({ syncUrls, handleAction }) => <div>
           rightIcon={<Clear />}
           onTouchTap={(e) => {
             e.preventDefault();
-            handleAction(REMOVE_SYNC_URL, url)
+            handleAction(REMOVE_SYNC_URL, url);
           }}
         >
           {url}

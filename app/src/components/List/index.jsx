@@ -42,7 +42,7 @@ function getAppBar(currentFolderID, folder, handleAction) {
       title="Bookmarks Manager"
       onLeftIconButtonTouchTap={(e) => {
         e.preventDefault();
-        handleAction(OPEN_LEFT_NAV)
+        handleAction(OPEN_LEFT_NAV);
       }}
     />);
   }
@@ -50,7 +50,7 @@ function getAppBar(currentFolderID, folder, handleAction) {
     title={folder.title}
     onLeftIconButtonTouchTap={(e) => {
       e.preventDefault();
-      handleAction(FOLDER_BACK)
+      handleAction(FOLDER_BACK);
     }}
     iconElementLeft={<IconButton><ArrowBack /></IconButton>}
   />);
@@ -78,7 +78,7 @@ const MyList = ({ items, entities, handleAction, currentFolderID, menuOpen }) =>
       fabContent={<FileFolder />}
       onTouchTap={(e) => {
         e.preventDefault();
-        handleAction(OPEN_ADD_FOLDER, currentFolderID)
+        handleAction(OPEN_ADD_FOLDER, currentFolderID);
       }}
     />
     <SpeedDialItem
@@ -86,7 +86,7 @@ const MyList = ({ items, entities, handleAction, currentFolderID, menuOpen }) =>
       fabContent={<StarBorder />}
       onTouchTap={(e) => {
         e.preventDefault();
-        handleAction(OPEN_ADD_BOOKMARK, currentFolderID)
+        handleAction(OPEN_ADD_BOOKMARK, currentFolderID);
       }}
     />
   </SpeedDial>

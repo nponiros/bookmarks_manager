@@ -12,7 +12,7 @@ const SyncStatus = ({ handleAction, items }) => <div>
     title="Sync Status"
     onLeftIconButtonTouchTap={(e) => {
       e.preventDefault();
-      handleAction(CLOSE_SYNC_STATUS)
+      handleAction(CLOSE_SYNC_STATUS);
     }}
     iconElementLeft={<IconButton><ArrowBack /></IconButton>}
   />

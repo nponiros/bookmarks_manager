@@ -41,7 +41,7 @@ const Tags = ({ tags, handleAction, bookmarkTagIDs }) => <div>
     title="Select tags"
     onLeftIconButtonTouchTap={(e) => {
       e.preventDefault();
-      handleAction(CLOSE_TAGS_SELECT)
+      handleAction(CLOSE_TAGS_SELECT);
     }}
     iconElementLeft={<IconButton><ArrowBack /></IconButton>}
   />

@@ -48,7 +48,7 @@ const rightMenuIcon = (
   <MenuItem
     onTouchTap={(e) => {
       e.preventDefault();
-      handleAction(type === FOLDER ? OPEN_EDIT_FOLDER : OPEN_EDIT_BOOKMARK, id)
+      handleAction(type === FOLDER ? OPEN_EDIT_FOLDER : OPEN_EDIT_BOOKMARK, id);
     }}
     rightIcon={<Create />}
   >
@@ -57,7 +57,7 @@ const rightMenuIcon = (
   <MenuItem
     onTouchTap={(e) => {
       e.preventDefault();
-      handleAction(type === FOLDER ? DELETE_FOLDER : DELETE_BOOKMARK, id)
+      handleAction(type === FOLDER ? DELETE_FOLDER : DELETE_BOOKMARK, id);
     }}
     rightIcon={<Clear />}
   >
@@ -66,7 +66,7 @@ const rightMenuIcon = (
   <MenuItem
     onTouchTap={(e) => {
       e.preventDefault();
-      handleAction(LOAD_FOLDERS, OPEN_MOVE_ITEM, id)
+      handleAction(LOAD_FOLDERS, OPEN_MOVE_ITEM, id);
     }}
     rightIcon={<ContentCut />}
   >

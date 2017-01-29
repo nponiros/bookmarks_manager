@@ -49,7 +49,7 @@ class AddSyncUrl extends Component {
         primary
         onTouchTap={(e) => {
           e.preventDefault();
-          this.handleAdd()
+          this.handleAdd();
         }}
       />
     </div>);
