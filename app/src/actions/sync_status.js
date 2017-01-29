@@ -1,14 +1,40 @@
 import syncClient from '../db/sync_client';
 
-import { OPEN_SYNC_STATUS, CLOSE_SYNC_STATUS, OPEN_ERROR_DIALOG } from '../constants';
+import {
+  OPEN_SYNC_STATUS,
+  CLOSE_SYNC_STATUS,
+  OPEN_ERROR_DIALOG,
+  INIT_SYNC_STATUS_LISTENERS,
+  UPDATE_SYNC_STATUS,
+} from '../constants';
 
 export function openSyncStatus() {
   return (dispatch) => {
+    dispatch({
+      type: OPEN_SYNC_STATUS,
+    });
+  };
+}
+
+export function initSyncStatusListeners() {
+  return (dispatch) => {
     syncClient.getStatuses()
-        .then((urls) => {
+        .then((statuses) => {
           dispatch({
-            type: OPEN_SYNC_STATUS,
-            payload: urls,
+            type: INIT_SYNC_STATUS_LISTENERS,
+            payload: statuses,
+          });
+
+          statuses.forEach((status) => {
+            syncClient.statusChange(status.url, (newStatus) => {
+              dispatch({
+                type: UPDATE_SYNC_STATUS,
+                payload: {
+                  url: status.url,
+                  status: newStatus,
+                },
+              });
+            });
           });
         })
         .catch((e) => {

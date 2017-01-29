@@ -41,6 +41,8 @@ export const OPEN_FOLDER = Symbol('OPEN_FOLDER');
 export const FOLDER_BACK = Symbol('FOLDER_BACK');
 export const RECONNECT_NODE = Symbol('RECONNECT_NODE');
 export const DISCONNECT_NODE = Symbol('DISCONNECT_NODE');
+export const INIT_SYNC_STATUS_LISTENERS = Symbol('INIT_SYNC_STATUS_LISTENERS');
+export const UPDATE_SYNC_STATUS = Symbol('UPDATE_SYNC_STATUS');
 
 // Choosing parent folder
 export const OPEN_MOVE_ITEM = Symbol('OPEN_MOVE_ITEM');

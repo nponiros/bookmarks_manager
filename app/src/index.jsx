@@ -9,7 +9,7 @@ import AppContainer from './containers/App';
 import store from './store';
 
 import handleAction from './actions';
-import { LOAD_ITEMS, LOAD_TAGS, colorPalette } from './constants';
+import { LOAD_ITEMS, LOAD_TAGS, INIT_SYNC_STATUS_LISTENERS, colorPalette } from './constants';
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
@@ -17,6 +17,7 @@ injectTapEventPlugin();
 
 store.dispatch(handleAction(LOAD_ITEMS));
 store.dispatch(handleAction(LOAD_TAGS));
+store.dispatch(handleAction(INIT_SYNC_STATUS_LISTENERS));
 
 const muiTheme = {
   palette: colorPalette,

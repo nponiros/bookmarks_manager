@@ -1,5 +1,12 @@
 import syncClient from '../db/sync_client';
-import { OPEN_SETTINGS, CLOSE_SETTINGS, ADD_SYNC_URL, REMOVE_SYNC_URL, OPEN_ERROR_DIALOG } from '../constants';
+import {
+  OPEN_SETTINGS,
+  CLOSE_SETTINGS,
+  ADD_SYNC_URL,
+  REMOVE_SYNC_URL,
+  OPEN_ERROR_DIALOG,
+  UPDATE_SYNC_STATUS,
+} from '../constants';
 
 export function openSettings() {
   return (dispatch) => {
@@ -24,10 +31,25 @@ export function openSettings() {
 export function addSyncUrl(url) {
   return (dispatch) => {
     syncClient.connect(url)
-        .then(() => {
+        .then(() => syncClient.syncable.getStatus(url))
+        .then((currentStatus) => {
+          /* Setup status listener for next status */
+          syncClient.statusChange(url, (newStatus) => {
+            dispatch({
+              type: UPDATE_SYNC_STATUS,
+              payload: {
+                url,
+                status: newStatus,
+              },
+            });
+          });
+
           dispatch({
             type: ADD_SYNC_URL,
-            payload: url,
+            payload: {
+              url,
+              status: currentStatus,
+            },
           });
         })
         .catch((e) => {

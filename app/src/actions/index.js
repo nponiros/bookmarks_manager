@@ -30,6 +30,7 @@ import {
   closeSyncStatus,
   reconnectNode,
   disconnectNode,
+  initSyncStatusListeners,
 } from './sync_status';
 import {
   openTagsSelect,
@@ -81,6 +82,7 @@ import {
   CLOSE_ERROR_DIALOG,
   RECONNECT_NODE,
   DISCONNECT_NODE,
+  INIT_SYNC_STATUS_LISTENERS,
 } from '../constants';
 
 export default function handleAction(action, ...args) {
@@ -170,6 +172,8 @@ export default function handleAction(action, ...args) {
         return dispatch(reconnectNode(...args));
       case DISCONNECT_NODE:
         return dispatch(disconnectNode(...args));
+      case INIT_SYNC_STATUS_LISTENERS:
+        return dispatch(initSyncStatusListeners(...args));
       default: throw Error(`Action ${String(action)} not supported!`);
     }
   };

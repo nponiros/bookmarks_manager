@@ -46,6 +46,8 @@ import {
   UNSELECT_TAG,
   OPEN_ERROR_DIALOG,
   CLOSE_ERROR_DIALOG,
+  INIT_SYNC_STATUS_LISTENERS,
+  UPDATE_SYNC_STATUS,
 
   OPEN_MOVE_ITEM,
   CLOSE_MOVE_ITEM,
@@ -138,19 +140,34 @@ export default function (state, { type, payload /* error = false*/ }) {
       settings: { $set: payload },
     });
     case CLOSE_SETTINGS: return update(state, { view: { $set: LIST_VIEW } });
-    case ADD_SYNC_URL: return update(state, { settings: { syncUrls: { $push: [payload] } } });
+    case ADD_SYNC_URL: return update(state, {
+      settings: { syncUrls: { $push: [payload.url] } },
+      syncStatus: { $push: [payload] },
+    });
     case REMOVE_SYNC_URL: return update(state, {
       settings: {
         syncUrls: {
           $set: state.settings.syncUrls.filter(url => url !== payload),
         },
       },
+      syncStatus: { $set: state.syncStatus.filter(status => status.url !== payload) },
     });
 
     // Sync status
     case OPEN_SYNC_STATUS: return update(state, {
       view: { $set: SYNC_STATUS_VIEW },
-      syncStatus: { $set: payload } });
+    });
+    case INIT_SYNC_STATUS_LISTENERS: return update(state, {
+      syncStatus: { $set: payload },
+    });
+    case UPDATE_SYNC_STATUS: return update(state, {
+      syncStatus: { $set: state.syncStatus.map((status) => {
+        if (status.url === payload.url) {
+          return payload;
+        }
+        return status;
+      }) },
+    });
     case CLOSE_SYNC_STATUS: return update(state, { view: { $set: LIST_VIEW } });
 
     // Tags
