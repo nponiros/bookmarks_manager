@@ -7,6 +7,7 @@ import Sync from 'material-ui/svg-icons/notification/sync';
 import SyncProblem from 'material-ui/svg-icons/notification/sync-problem';
 import SyncDisabled from 'material-ui/svg-icons/notification/sync-disabled';
 
+import { SyncClient } from '../../db/sync_client';
 import { CLOSE_SYNC_STATUS, RECONNECT_NODE, DISCONNECT_NODE } from '../../constants';
 
 const listElementStyle = {
@@ -18,7 +19,7 @@ const listElementStyle = {
 };
 
 function getListItem(url, handleAction) {
-  if (url.status === 'ERROR') {
+  if (url.status === SyncClient.Syncable.StatusTexts[SyncClient.Syncable.Statuses.ERROR]) {
     return (<ListItem
       style={listElementStyle}
       key={url.url}
@@ -30,7 +31,7 @@ function getListItem(url, handleAction) {
       }}
       rightIcon={<SyncProblem />}
     />);
-  } else if (url.status === 'OFFLINE') {
+  } else if (url.status === SyncClient.Syncable.StatusTexts[SyncClient.Syncable.Statuses.OFFLINE]) {
     return (<ListItem
       style={listElementStyle}
       key={url.url}

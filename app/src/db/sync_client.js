@@ -1,4 +1,4 @@
-import SyncClientCode from 'sync-client';
+import SyncClient from 'sync-client';
 
 const versions = [{
   version: 1,
@@ -15,4 +15,5 @@ const versions = [{
   },
 }];
 
-export default new SyncClientCode('BookmarksManager', versions);
+export default new SyncClient('BookmarksManager', versions);
+export { SyncClient };
