@@ -33,7 +33,9 @@ export function chooseParentFolder(state, newParentFolderID) {
       entities: { [state.itemToUpdateID]: { parentID: { $set: newParentFolderID } } },
       items: { $set: state.items.filter(id => id !== state.itemToUpdateID) },
       view: { $set: state.previousView },
-      itemToUpdateID: { $set: '' },
+      // If we are moving an item reset itemToUpdateID
+      // If we are selecting a parent (bookmark/folder edit etc.) don't reset
+      itemToUpdateID: { $set: state.view === MOVE_ITEM_VIEW ? '' : state.itemToUpdateID },
     });
   }
   return state;

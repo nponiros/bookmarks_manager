@@ -127,7 +127,7 @@ export default function (state, { type, payload /* error = false*/ }) {
     case CLOSE_CHOOSE_ITEM_PARENT: return closeChooseItemParent(state);
     case OPEN_MOVE_ITEM: return openMoveItem(state, payload);
     case CLOSE_MOVE_ITEM: return closeMoveItem(state);
-    case CHOOSE_PARENT_FOLDER: return chooseParentFolder(state);
+    case CHOOSE_PARENT_FOLDER: return chooseParentFolder(state, payload);
 
     case OPEN_LEFT_NAV: return toggleLeftNav(state, true);
     case CLOSE_LEFT_NAV: return toggleLeftNav(state, false);
