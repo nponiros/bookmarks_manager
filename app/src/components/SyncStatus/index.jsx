@@ -19,7 +19,7 @@ const listElementStyle = {
 };
 
 function getListItem(url, handleAction) {
-  if (url.status === SyncClient.Syncable.StatusTexts[SyncClient.Syncable.Statuses.ERROR]) {
+  if (url.status === SyncClient.statuses.ERROR]) {
     return (<ListItem
       style={listElementStyle}
       key={url.url}
@@ -31,7 +31,7 @@ function getListItem(url, handleAction) {
       }}
       rightIcon={<SyncProblem />}
     />);
-  } else if (url.status === SyncClient.Syncable.StatusTexts[SyncClient.Syncable.Statuses.OFFLINE]) {
+  } else if (url.status === SyncClient.statuses.OFFLINE]) {
     return (<ListItem
       style={listElementStyle}
       key={url.url}
