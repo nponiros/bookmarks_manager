@@ -15,8 +15,8 @@ Offline (via [Dexie](http://dexie.org) and IndexedDB) bookmarks manager for the 
 ## Usage
 
 * Clone the repository
-* Install dependencies with npm install
-* Run npm start and navigate to [localhost:3000](http://localhost:3000) to start using the app
+* Install dependencies with `npm install`
+* Run `npm start` and navigate to [localhost:3000](http://localhost:3000) to start using the app
   * Optional: Use a different webserver. For this you need to set /dist as the root
 * Optional: run [SyncServer](https://github.com/nponiros/sync_server)
   * Use the settings menu to add a server url and port (optional) to be used for synchronization
