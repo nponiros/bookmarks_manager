@@ -121,7 +121,7 @@ export default function (state, { type, payload /* error = false*/ }) {
 
     // Folder navigation
     // payload is the id of the current folder before a new one is opened
-    case OPEN_FOLDER: return openFolder(state);
+    case OPEN_FOLDER: return openFolder(state, payload);
     case FOLDER_BACK: return folderBack(state);
 
     // Change parent
