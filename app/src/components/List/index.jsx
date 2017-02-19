@@ -59,7 +59,7 @@ function getAppBar(currentFolderID, folder, handleAction) {
 const speeddialStyle = {
   position: 'fixed',
   bottom: '20px',
-  right: '20px',
+  left: '50%',
   fontFamily: 'Roboto, "sans-serifs"',
 };
 
