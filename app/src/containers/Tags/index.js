@@ -10,9 +10,8 @@ function sortTags(tags) {
       return -1;
     } else if (tag1.title > tag2.title) {
       return 1;
-    } else {
-      return 0;
     }
+    return 0;
   });
   return sortedTags;
 }
